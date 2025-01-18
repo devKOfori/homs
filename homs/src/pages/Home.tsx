@@ -18,7 +18,7 @@ const Home = () => {
         <Stack>
             {/* <ReportIssue /> */}
         <HomeAction action={"Report An Issue"} icon={<FaPhone />} link={'/report-issue'}/>
-        <HomeAction action={"Request Service"} icon={<BsClipboardFill />} />
+        <HomeAction action={"Request Service"} icon={<BsClipboardFill />} link={'/request-service'} />
         </Stack>
         {/* </Container> */}
         {/* </Flex> */}

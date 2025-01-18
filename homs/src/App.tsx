@@ -4,6 +4,7 @@ import { Provider } from './components/ui/provider'
 import './App.css'
 import Home from './pages/Home'
 import ReportIssue from './components/ReportIssue'
+import RequestService from './pages/RequestService'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path='/report-issue' element={<ReportIssue />} />
+          <Route path='/request-service' element={<RequestService />} />
         </Routes>
       </Router>
     </Provider>

@@ -17,7 +17,7 @@ const AmenityList = ({amenities, error}: Props) => {
         (
             <Flex gap='10px' alignItems={"center"}>
                 {
-                    amenities.map((amenity)=>(<Box><Text>{amenity.name}</Text></Box>))
+                    amenities.map((amenity)=>(<Box key={amenity.id}><Text>{amenity.name}</Text></Box>))
                 }
             </Flex>
         )
