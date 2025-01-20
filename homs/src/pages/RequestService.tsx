@@ -2,6 +2,7 @@ import { Box, Container, Flex, HStack, Text } from '@chakra-ui/react'
 import { BiRestaurant } from 'react-icons/bi'
 import HotelService from '../components/HotelService'
 import { FaRunning } from 'react-icons/fa'
+import { GiWeightLiftingUp, GiWeightLiftingDown } from 'react-icons/gi'
 import { FaSwimmer } from 'react-icons/fa'
 import { TbPhysotherapist } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
@@ -17,7 +18,7 @@ const RequestService = () => {
             <HotelService service='Restaurant' icon={<BiRestaurant />} link='/' />
             </Link>
             <Link to='/'>
-            <HotelService service='Gym' icon={<FaRunning />} link='/' />
+            <HotelService service='Gym' icon={<GiWeightLiftingUp />} link='/' />
             </Link>
             <Link to='/'>
             <HotelService service='Pool' icon={<FaSwimmer />} link='/' />
@@ -26,6 +27,7 @@ const RequestService = () => {
             <HotelService service='Spa' icon={<TbPhysotherapist />} link='/' />    
             </Link>
         </Flex>
+        
         </Container>
     </Flex>
     </>
