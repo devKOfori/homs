@@ -1,0 +1,1 @@
+export const housekeepingMenu = ['Room Categories', 'Room Types', 'Rooms', 'Assign Duty', 'Manage Shift', 'My Duties']
