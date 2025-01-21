@@ -34,15 +34,10 @@ const Login = () => {
         const request = authService.login(data);
         request.then(response=>{
             const {refresh, access, department, roles} = response.data
-            localStorage.removeItem('refresh')
             localStorage.setItem('refresh', JSON.stringify(refresh))
-            localStorage.removeItem('accessToken')
             localStorage.setItem('accessToken', JSON.stringify(access))
-            localStorage.removeItem('department')
             localStorage.setItem('department', department)
-            localStorage.removeItem('roles')
             localStorage.setItem('roles', JSON.stringify(roles))
-            // console.log(`login user department: ${department}`)
             updateAuth()
             navigate('/dashboard')
         })
