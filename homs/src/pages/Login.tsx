@@ -33,9 +33,10 @@ const Login = () => {
     const onSubmit = (data: Inputs)=>{
         const request = authService.login(data);
         request.then(response=>{
-            const {refresh, access, department, roles} = response.data
+            const {refresh, access, username, department, roles} = response.data
             localStorage.setItem('refresh', JSON.stringify(refresh))
             localStorage.setItem('accessToken', JSON.stringify(access))
+            localStorage.setItem('username', username)
             localStorage.setItem('department', department)
             localStorage.setItem('roles', JSON.stringify(roles))
             updateAuth()

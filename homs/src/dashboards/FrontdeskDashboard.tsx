@@ -1,9 +1,13 @@
 import React from 'react'
+import DashboardLayout from '../layouts/DashboardLayout'
+import { Text } from '@chakra-ui/react'
 
 const FrontdeskDashboard = () => {
   return (
     <div>
-      <h1>Frontdesk Dashboard</h1>
+      <DashboardLayout>
+        <Text>Frontdesk Dashboard</Text>
+      </DashboardLayout>
     </div>
   )
 }

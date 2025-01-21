@@ -1,12 +1,13 @@
 import React from 'react'
-import Sidebar from '../components/Sidebar'
+import DashboardLayout from '../layouts/DashboardLayout'
+import { Text } from '@chakra-ui/react'
+
 
 const HousekeepingDashboard = () => {
   return (
-    <div>
-      <h1>Housekeeping Dashboard</h1>
-      <Sidebar />
-    </div>
+    <DashboardLayout>
+      <Text>Housekeeping Dashboard</Text>
+    </DashboardLayout>
   )
 }
 
