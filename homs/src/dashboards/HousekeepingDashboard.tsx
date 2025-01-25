@@ -1,12 +1,13 @@
 import React from 'react'
 import DashboardLayout from '../layouts/DashboardLayout'
-import { Text } from '@chakra-ui/react'
+import { Container, Text } from '@chakra-ui/react'
+import { Outlet } from 'react-router-dom'
 
 
 const HousekeepingDashboard = () => {
   return (
     <DashboardLayout>
-      <Text>Housekeeping Dashboard</Text>
+        <Outlet />
     </DashboardLayout>
   )
 }

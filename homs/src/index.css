@@ -1,3 +1,12 @@
+:root {
+  --header-bg: #417690;
+  --breadcrumb-bg: #264b5d;
+  --accent: #f5dd5d;
+  --link-fg: #417893;
+  --hairline-color: #e8e8e8;
+  --header-color: #ffc;
+  --darkened-bg: #f8f8f8;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,6 +14,7 @@
 }
 
 body {
-  background-color: #DDDCDD;
+  background-color: white;
   color: black;
 }
+

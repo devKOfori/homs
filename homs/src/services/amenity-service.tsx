@@ -1,6 +1,12 @@
 import apiClient from "../api-client"
 import { CanceledError } from "axios";
 class AmenityService {
+    getAmenities() {
+        const controller = new AbortController();
+        const request = apiClient.get('/amenities/', {signal: controller.signal})
+        return {request, cancel: ()=>controller.abort()}
+    }
+
     getRoomAmenities(roomNumber: string, clientName: string) {
         const controller = new AbortController();
         const request = apiClient.get(

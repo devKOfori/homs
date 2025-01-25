@@ -9,6 +9,13 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import RoleProtectedRoute from './components/RoleProtectedRoute'
 import { AuthProvider } from './contexts/AuthProvider'
+import RoomCategories from './pages/RoomCategories'
+import RoomTypes from './pages/RoomTypes'
+import Rooms from './pages/Rooms'
+import AssignShift from './pages/AssignShift'
+import ManageShift from './pages/ManageShift'
+import MyShifts from './pages/MyShifts'
+import { RoomSetupProvider } from './contexts/RoomSetupProvider'
 
 function App() {
   // const userDepartment = localStorage.getItem('department')
@@ -17,6 +24,7 @@ function App() {
   return (
     <Provider>
       <AuthProvider>
+      <RoomSetupProvider>
       <Router>
         <Routes>
           <Route index element={<Home />} />
@@ -28,8 +36,39 @@ function App() {
             <Dashboard  />
             </RoleProtectedRoute>
           } />
+          <Route path='/dashboard/room-categories' element={
+            <RoleProtectedRoute>
+              <RoomCategories />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/room-types' element={
+            <RoleProtectedRoute>
+              <RoomTypes />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/my-shifts' element={
+            <RoleProtectedRoute>
+              <MyShifts />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/rooms' element={
+            <RoleProtectedRoute>
+              <Rooms />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/assign-shift' element={
+            <RoleProtectedRoute>
+              <AssignShift />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/manage-shift' element={
+            <RoleProtectedRoute>
+              <ManageShift />
+            </RoleProtectedRoute>
+            } />
         </Routes>
       </Router>
+      </RoomSetupProvider>
       </AuthProvider>
     </Provider>
   )

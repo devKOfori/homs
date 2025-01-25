@@ -1,0 +1,15 @@
+.navbar {
+    background-color: var(--header-bg);
+    height: 100%;
+    align-items: center;
+  }
+
+.logo {
+    color: var(--accent);
+    font-size: 1.5rem;
+  }
+
+.user-tools {
+    font-size: 0.6875rem;
+    font-weight: 300;
+}
