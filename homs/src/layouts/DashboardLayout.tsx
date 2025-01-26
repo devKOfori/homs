@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 const DashboardLayout: React.FC = ({ children }: React.ReactNode) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+    const [selectedMenu, setSelectedMenu] = useState('')
 
     const templateAreas = {
         base: `"nav" "main"`,
@@ -21,7 +22,7 @@ const DashboardLayout: React.FC = ({ children }: React.ReactNode) => {
                 <Navbar />
             </GridItem>
             <GridItem area='aside' display={asideDisplay} border='1px solid yellow' minH='calc(100vh - 60px)' overflow='hidden'>
-                <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+                <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
             </GridItem>
             <GridItem area='main' border='1px solid green' minH='calc(100vh - 60px)'>
                 <Box p='20px 40px'>  

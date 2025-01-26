@@ -16,6 +16,8 @@ import AssignShift from './pages/AssignShift'
 import ManageShift from './pages/ManageShift'
 import MyShifts from './pages/MyShifts'
 import { RoomSetupProvider } from './contexts/RoomSetupProvider'
+import Floors from './pages/Floors'
+import Views from './pages/Views'
 
 function App() {
   // const userDepartment = localStorage.getItem('department')
@@ -54,6 +56,16 @@ function App() {
           <Route path='/dashboard/rooms' element={
             <RoleProtectedRoute>
               <Rooms />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/floors' element={
+            <RoleProtectedRoute>
+              <Floors />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/hotel-views' element={
+            <RoleProtectedRoute>
+              <Views />
             </RoleProtectedRoute>
             } />
           <Route path='/dashboard/assign-shift' element={

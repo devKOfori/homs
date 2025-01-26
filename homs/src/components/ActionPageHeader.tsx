@@ -15,6 +15,8 @@ import {
   } from "./ui/dialog"
 import CustomDialogHeader from './CustomDialogHeader';
 import CreateRecordDialog from './CreateRecordDialog';
+import './ActionPageHeader.css';
+
 
 interface Props {
     heading: string;
@@ -40,10 +42,12 @@ const ActionPageHeader = (
     }
     const dialogTrigger = (
         <Button px='10px' 
-                bg='#473647'
+                bg='#747474'
                 color='white'
-                rounded='5px'
-                p='20px'
+                rounded='25px'
+                p='10px'
+                size='xs'
+                fontSize='xs'
                 _hover={
                     {
                         transform: 'scale(1.05) translateY(-2px)',
@@ -51,7 +55,7 @@ const ActionPageHeader = (
                     }
                 }
                 >
-                    {`Add New ${heading}`} <FaPlus />
+                    {`Add ${heading}`} <FaPlus />
                 </Button>
     )
   return (
@@ -60,10 +64,14 @@ const ActionPageHeader = (
     //     <CreateRecordDialog table='roomtype' />
         
     // </Flex>
-    <HStack justify='space-between'>
-        <Heading color='#473647'>{heading}</Heading>
-        <CreateRecordDialog table='roomtype' dialogTrigger={dialogTrigger} />
-    </HStack>
+        <Flex justify='space-between' align='center' wrap='wrap'>
+            
+                <Heading fontWeight={300}>{`${
+                    heading.endsWith('y') ? heading.slice(0, -1) + 'ies' : heading + 's'
+                }`}</Heading>
+                <CreateRecordDialog table='roomtype' dialogTrigger={dialogTrigger} />
+            
+        </Flex>
   )
 }
 

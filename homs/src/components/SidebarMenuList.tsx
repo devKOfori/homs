@@ -1,12 +1,13 @@
 import { List, Text } from '@chakra-ui/react'
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
     data: {item: string, url: string}[];
+    selectedMenu: string;
+    setSelectedMenu: (value: string)=>void;
 }   
 
-const SidebarMenuList = ({ data }: Props) => {
+const SidebarMenuList = ({ data, selectedMenu, setSelectedMenu }: Props) => {
   return (
     <List.Root variant='plain'>
           {data.map((menuItem, index)=>(
@@ -15,7 +16,7 @@ const SidebarMenuList = ({ data }: Props) => {
               to={`/dashboard/${menuItem.url}`}
               >
                   <List.Item py='5px' 
-                  bg={index % 2 === 0 ? 'var(--darkened-bg)' : 'white'}
+                  bg={index % 2 === 0 ? 'var(--darkened-bg)' : 'white'} 
                   display='block'
                   borderBottom='1px solid var(--hairline-color)'
                   >

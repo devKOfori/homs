@@ -1,49 +1,38 @@
 import React, { useEffect, useState } from "react";
+import Dashboard from "./Dashboard";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ActionPageHeader from "../components/ActionPageHeader";
+import { Box, Table, Flex, Button, IconButton } from "@chakra-ui/react";
+import { BiTrash } from "react-icons/bi";
+import { FaEye } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { Tooltip } from "../components/ui/tooltip";
 import roomService from "../services/room-service";
 import { CanceledError } from "axios";
-import { Box, Flex, IconButton, Table } from "@chakra-ui/react";
-import { Tooltip } from "../components/ui/tooltip";
-import { MdEdit } from "react-icons/md";
-import { BiTrash } from "react-icons/bi";
-import { Button } from "../components/ui/button";
-import { FaEye } from "react-icons/fa";
 
-interface Room {
+interface HostelFloor {
   id: string;
-  room_number: string;
-  room_category: string;
-  room_type: string;
-  floor: string;
-  bed_type: string;
-  rate: number;
-  max_guests: number;
-  is_occupied: boolean;
-  room_maintenance_status: string;
-  room_booking_status: string;
-  amenities: string[];
+  name: string;
 }
 
-const Rooms = () => {
-  const [rooms, setRooms] = useState<Room[]>([]);
+const Floors = () => {
+    const [hostelFloors, setHostelFloors] = useState<HostelFloor[]>([]);
 
-  useEffect(() => {
-    const { request, cancel } = roomService.getRooms();
-    request.then((response) => {
-      setRooms(response.data);
-      console.log(response.data);
-    });
-    request.catch((error) => {
-      if (error instanceof CanceledError) return;
-      console.log(error.message);
-    });
-    return () => cancel();
-  }, []);
-
+    useEffect(() => {
+        const { request, cancel } = roomService.getFloors();
+        request.then((response) => {
+            setHostelFloors(response.data);
+            console.log(response.data);
+        });
+        request.catch((error) => {
+            if (error instanceof CanceledError) return;
+            console.log(error.message);
+        });
+        return () => cancel();
+    }, []);
   return (
     <DashboardLayout>
-      <ActionPageHeader heading="Rooms" />
+      <ActionPageHeader heading="Floor" />
       <Box>
         <Table.Root mt="50px" mb="20px" size="sm" interactive>
           <Table.Header>
@@ -51,37 +40,10 @@ const Rooms = () => {
               <Table.ColumnHeader
                 bg="var(--darkened-bg-2)"
                 color="black"
-                px="30px" py="5px"
-              >
-                Room Number
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Room Type
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
+                px="30px"
+                py="5px"
               >
                 Floor
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Maintenance
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Booking{" "}
               </Table.ColumnHeader>
               <Table.ColumnHeader
                 bg="var(--darkened-bg-2)"
@@ -92,25 +54,13 @@ const Rooms = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {rooms.map((room) => (
-              <Table.Row key={room.id} bg="white">
+            {hostelFloors.map((hostelFloor) => (
+              <Table.Row key={hostelFloor.id} bg="white">
                 <Table.Cell px="30px" py="5px">
-                  {room.room_number}
+                  {hostelFloor.name}
                 </Table.Cell>
                 <Table.Cell px="30px" py="5px">
-                  {room.room_type}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.floor}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.room_maintenance_status}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.room_booking_status}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  <Flex justifyContent={"center"} w={"100%"}>
+                  <Flex justifyContent={"end"} w={"100%"}>
                     <Tooltip content={`View Room`}>
                       <Button
                         mx="1px"
@@ -161,4 +111,4 @@ const Rooms = () => {
   );
 };
 
-export default Rooms;
+export default Floors;

@@ -45,7 +45,7 @@ const ActionIcons = ({ roomtype }: Props) => {
                 border: '1px solid #473647',
             }}>
                 <FaPen color='#473647' />
-            </Button>
+        </Button>
     )
     const deleteDialogTrigger = (
         <Button size='xs'

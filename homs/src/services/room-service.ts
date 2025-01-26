@@ -80,6 +80,26 @@ class RoomService {
         })
         return {request, cancel: ()=>controller.abort()}
     }
+
+    getViews(){
+        const controller = new AbortController();
+        const request = apiClient.get('/hotel-views/', {
+            signal: controller.signal, headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}`
+            }
+        })
+        return {request, cancel: ()=>controller.abort()}
+    }
+
+    getRooms(){
+        const controller = new AbortController();
+        const request = apiClient.get('/rooms/', {
+            signal: controller.signal, headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}`
+            }
+        })
+        return {request, cancel: ()=>controller.abort()}
+    }
 }
 
 export default new RoomService()

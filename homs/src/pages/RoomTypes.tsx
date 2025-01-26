@@ -32,7 +32,7 @@ const RoomTypes = () => {
   const heading = 'Room Types'
   return (
     <DashboardLayout>
-      <ActionPageHeader heading='Room Types' />
+      <ActionPageHeader heading='Room Type' />
       <RoomTypeList
         data={roomTypes}
         heading={heading}

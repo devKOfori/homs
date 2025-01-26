@@ -11,6 +11,7 @@ const RoomCategories = () => {
   const [isEditButtonClicked, setIsEditButtonClicked] = useState<boolean>(false)
   const [roomCategories, setRoomCategories] = useState<Category[]>([])
   const [updatedCategory, setUpdatedCategory] = useState<Category | null>(null)
+  
 
 
   console.log(`edit button clicked: ${isEditButtonClicked}`)
@@ -33,7 +34,7 @@ const RoomCategories = () => {
       setShowCategoryForm(true);
     }
 
-    const heading = 'Room Categories'
+    const heading = 'Room Category'
 
   return (
     <DashboardLayout>

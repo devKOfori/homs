@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ActionPageHeader from "../components/ActionPageHeader";
+import { Box, Flex, IconButton, Table } from "@chakra-ui/react";
 import roomService from "../services/room-service";
 import { CanceledError } from "axios";
-import { Box, Flex, IconButton, Table } from "@chakra-ui/react";
-import { Tooltip } from "../components/ui/tooltip";
-import { MdEdit } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
+import { MdEdit } from "react-icons/md";
 import { Button } from "../components/ui/button";
 import { FaEye } from "react-icons/fa";
+import { Tooltip } from "../components/ui/tooltip";
 
-interface Room {
+interface View {
   id: string;
-  room_number: string;
-  room_category: string;
-  room_type: string;
-  floor: string;
-  bed_type: string;
-  rate: number;
-  max_guests: number;
-  is_occupied: boolean;
-  room_maintenance_status: string;
-  room_booking_status: string;
-  amenities: string[];
+  name: string;
 }
 
-const Rooms = () => {
-  const [rooms, setRooms] = useState<Room[]>([]);
+const Views = () => {
+  const [views, setViews] = useState<View[]>([]);
 
   useEffect(() => {
-    const { request, cancel } = roomService.getRooms();
+    const { request, cancel } = roomService.getViews();
     request.then((response) => {
-      setRooms(response.data);
+      setViews(response.data);
       console.log(response.data);
     });
     request.catch((error) => {
@@ -40,10 +30,9 @@ const Rooms = () => {
     });
     return () => cancel();
   }, []);
-
   return (
     <DashboardLayout>
-      <ActionPageHeader heading="Rooms" />
+      <ActionPageHeader heading="Hotel View" />
       <Box>
         <Table.Root mt="50px" mb="20px" size="sm" interactive>
           <Table.Header>
@@ -51,37 +40,10 @@ const Rooms = () => {
               <Table.ColumnHeader
                 bg="var(--darkened-bg-2)"
                 color="black"
-                px="30px" py="5px"
+                px="30px"
+                py="5px"
               >
-                Room Number
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Room Type
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Floor
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Maintenance
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px" py="5px"
-              >
-                Booking{" "}
+                View
               </Table.ColumnHeader>
               <Table.ColumnHeader
                 bg="var(--darkened-bg-2)"
@@ -92,25 +54,13 @@ const Rooms = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {rooms.map((room) => (
-              <Table.Row key={room.id} bg="white">
+            {views.map((view) => (
+              <Table.Row key={view.id} bg="white">
                 <Table.Cell px="30px" py="5px">
-                  {room.room_number}
+                  {view.name}
                 </Table.Cell>
                 <Table.Cell px="30px" py="5px">
-                  {room.room_type}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.floor}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.room_maintenance_status}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  {room.room_booking_status}
-                </Table.Cell>
-                <Table.Cell px="30px" py="5px">
-                  <Flex justifyContent={"center"} w={"100%"}>
+                  <Flex justifyContent={"end"} w={"100%"}>
                     <Tooltip content={`View Room`}>
                       <Button
                         mx="1px"
@@ -161,4 +111,4 @@ const Rooms = () => {
   );
 };
 
-export default Rooms;
+export default Views;

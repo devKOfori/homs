@@ -10,10 +10,12 @@ import SidebarMenuList from './SidebarMenuList';
 
 interface Props {
   isSidebarOpen: boolean;
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSidebarOpen: (value: boolean)=>void;
+  selectedMenu: string;
+  setSelectedMenu: (value: string)=>void;
 }
 
-const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: Props) => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, selectedMenu, setSelectedMenu }: Props) => {
 
   return (
     // <Container bg='white' borderTopRadius='5px' height='90vh'>
