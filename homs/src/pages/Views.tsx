@@ -10,7 +10,7 @@ import { Button } from "../components/ui/button";
 import { FaEye } from "react-icons/fa";
 import { Tooltip } from "../components/ui/tooltip";
 
-interface View {
+export interface View {
   id: string;
   name: string;
 }

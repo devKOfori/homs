@@ -24,7 +24,7 @@ const DashboardLayout: React.FC = ({ children }: React.ReactNode) => {
             <GridItem area='aside' display={asideDisplay} border='1px solid yellow' minH='calc(100vh - 60px)' overflow='hidden'>
                 <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
             </GridItem>
-            <GridItem area='main' border='1px solid green' minH='calc(100vh - 60px)'>
+            <GridItem area='main' border='1px solid green' h='calc(100vh - 60px)' overflow='scroll'>
                 <Box p='20px 40px'>  
                     {children}
                 </Box>

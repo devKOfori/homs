@@ -1,78 +1,115 @@
-import { Box, Button, Container, Flex,Heading, HStack } from '@chakra-ui/react'
-import React from 'react'
-import { Category } from './RoomCategoriesList';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Category } from "./RoomCategoriesList";
 import { FaEye, FaPlus } from "react-icons/fa";
 import {
-    DialogActionTrigger,
-    DialogBody,
-    DialogCloseTrigger,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-  } from "./ui/dialog"
-import CustomDialogHeader from './CustomDialogHeader';
-import CreateRecordDialog from './CreateRecordDialog';
-import './ActionPageHeader.css';
-
+  DialogActionTrigger,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import CustomDialogHeader from "./CustomDialogHeader";
+import CreateRecordDialog from "./CreateRecordDialog";
+import "./ActionPageHeader.css";
+import RoomTypeForm from "./RoomTypeForm";
+import RoomCategoriesForm from "./RoomCategoriesForm";
+import CrudDialog from "./CrudDialog";
+import { useRoomSetup } from "../contexts/RoomSetupProvider";
+import { set } from "react-hook-form";
 
 interface Props {
-    heading: string;
-    setIsAddNewButtonClicked: ()=>void;
-    setShowCategoryForm: ()=>void;
-    isAddNewButtonClicked: boolean;
-    showCategoryForm: boolean;
-    setUpdatedCategory: Category | null;
+  heading: string;
+  table: string;
+  setIsAddNewButtonClicked: () => void;
+  setShowCategoryForm: () => void;
+  isAddNewButtonClicked: boolean;
+  showCategoryForm: boolean;
+  setUpdatedCategory: Category | null;
 }
 
-const ActionPageHeader = (
-    { 
-        heading, 
-        isAddNewButtonClicked, 
-        setShowCategoryForm, 
-        showCategoryForm,
-        setUpdatedCategory
-    }: Props) => {
-    const handleClicked = ()=>{
-        setUpdatedCategory(null);
-        setShowCategoryForm(prev=>!prev)
-        console.log(isAddNewButtonClicked)
-    }
-    const dialogTrigger = (
-        <Button px='10px' 
-                bg='#747474'
-                color='white'
-                rounded='25px'
-                p='10px'
-                size='xs'
-                fontSize='xs'
-                _hover={
-                    {
-                        transform: 'scale(1.05) translateY(-2px)',
-                        transition: 'transform 0.3s ease-out',
-                    }
-                }
-                >
-                    {`Add ${heading}`} <FaPlus />
-                </Button>
-    )
+const ActionPageHeader = ({ heading, table }: Props) => {
+  const { createDialogOpened, setCreateDialogOpened } = useRoomSetup();
+  const createRecordDialogTriggerBtn = (
+    <Button
+      px="10px"
+      bg="#747474"
+      color="white"
+      rounded="25px"
+      p="10px"
+      size="xs"
+      fontSize="xs"
+      _hover={{
+        transform: "scale(1.05) translateY(-2px)",
+        transition: "transform 0.3s ease-out",
+      }}
+    >
+      {`Add ${heading}`} <FaPlus />
+    </Button>
+  );
+  console.log(`dialogOpened: ${createDialogOpened}`);
   return (
-    // <Flex justifyContent='space-between' alignItems='center' my={3}>
-    //     <Heading color='#473647'>{heading}</Heading>
-    //     <CreateRecordDialog table='roomtype' />
-        
-    // </Flex>
-        <Flex justify='space-between' align='center' wrap='wrap'>
-            
-                <Heading fontWeight={300}>{`${
-                    heading.endsWith('y') ? heading.slice(0, -1) + 'ies' : heading + 's'
-                }`}</Heading>
-                <CreateRecordDialog table='roomtype' dialogTrigger={dialogTrigger} />
-            
-        </Flex>
-  )
-}
+    <Flex justify="space-between" align="center" wrap="wrap">
+      <Heading fontWeight={300}>{`${
+        heading.endsWith("y") ? heading.slice(0, -1) + "ies" : heading + "s"
+      }`}</Heading>
 
-export default ActionPageHeader
+      <CrudDialog
+        heading={heading}
+        table={table}
+        dialogContentBody={
+          <RoomCategoriesForm setDialogOpened={setCreateDialogOpened} roomCategory={null} />
+        }
+        setDialogOpened={setCreateDialogOpened}
+        triggerButton={createRecordDialogTriggerBtn}
+        open={createDialogOpened}
+      />
+
+      {/* <DialogRoot
+        size="lg"
+        placement="center"
+        open={dialogOpened}
+        onOpenChange={(e) => setDialogOpened(e.open)}
+      >
+        <DialogBackdrop />
+        <DialogTrigger>{createRecordDialogTriggerBtn}</DialogTrigger>
+        <DialogContent
+          bg="white"
+          color="#473647"
+          p="20px 40px"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          // alignItems="center"
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          // boxShadow="lg"
+          rounded="md"
+        >
+          <CustomDialogHeader heading={heading} />
+          <DialogBody p="20px">
+            {table === "roomcategory" ? (
+              <RoomCategoriesForm setDialogOpened={setDialogOpened} />
+            ) : null}
+          </DialogBody>
+        </DialogContent>
+      </DialogRoot> */}
+    </Flex>
+  );
+};
+
+export default ActionPageHeader;

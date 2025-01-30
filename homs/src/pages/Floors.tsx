@@ -10,7 +10,7 @@ import { Tooltip } from "../components/ui/tooltip";
 import roomService from "../services/room-service";
 import { CanceledError } from "axios";
 
-interface HostelFloor {
+export interface HostelFloor {
   id: string;
   name: string;
 }

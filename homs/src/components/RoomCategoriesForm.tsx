@@ -1,124 +1,105 @@
-import { Box, Container, Flex, Input } from '@chakra-ui/react'
-import { Field } from './ui/field'
-import React, { useEffect, useState } from 'react'
-import { Button } from './ui/button'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import roomService from '../services/room-service'
-import { Category } from './RoomCategoriesList'
-import amenityService from '../services/amenity-service'
+import { useEffect, useState } from "react";
+import { Field } from "./ui/field";
+import { Button, Input, Text } from "@chakra-ui/react";
+import AmenitiesLoad from "./AmenitiesLoad";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import roomService from "../services/room-service";
+import {
+  RoomSetupContextProps,
+  useRoomSetup,
+} from "../contexts/RoomSetupProvider";
+import { Category } from "./RoomCategoriesList";
 
 interface Props {
-  setShowCategoryForm: (value: boolean)=>void;
-  setRoomCategories: (value: Category[])=>void
-  roomCategories: Category[]
-  category: Category | null
-  isEditButtonClicked: boolean
-  setIsEditButtonClicked: (value: boolean)=>void
+  setDialogOpened: (value: boolean) => void;
+  roomCategory: Category | null;
+  roomCategoryID: string;
 }
 
-interface Amenity {
-  id: string;
-  name: string;
-}
+const RoomCategoriesForm = ({
+  setDialogOpened,
+  roomCategory,
+  roomCategoryID,
+}: Props) => {
+  const [categoryAmenities, setCategoryAmenities] = useState<string[]>([]);
+  const [error, setError] = useState<string>("");
 
-type Inputs = {
-  name: string
-}
-const RoomCategoriesForm = (
-  { 
-    setRoomCategories, 
-    roomCategories, 
-    setShowCategoryForm, 
-    category,
-    isEditButtonClicked,
-    setIsEditButtonClicked
-  }: Props) => {
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([])
-  const [amenities, setAmenities] = useState<Amenity[]>([])
+  console.log(roomCategory);
 
-  useEffect(()=>{
-    const { request, cancel } = amenityService.getAmenities();
-    request.then((response)=>{
-      setAmenities(response.data)
-      console.log(response.data)
-    })
-    request.catch((error)=>{
-      console.log(error.message)
-    })
-    return ()=>cancel()
-  }, [])
+  useEffect(() => {
+    if (roomCategory) {
+      setCategoryAmenities(roomCategory.amenities || []);
+    }
+  }, [roomCategory]);
 
+  const { updateRoomCategories, amenities } =
+    useRoomSetup<RoomSetupContextProps>();
   const schema = z.object({
-    name: z.string().nonempty('Category Name is required')
-  })
-
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm({
+    name: z.string().nonempty({ message: "Category is required" }),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: category?.name || "",
+      name: roomCategory?.name,
     },
-  })
+  });
 
   const onSubmit = (data: Category) => {
-    console.log(`isEditButtonClicked: ${isEditButtonClicked}`)
-    data.amenities = selectedAmenities
-    var request;
-    if (isEditButtonClicked) { 
-      data.id = category?.id || ''
-      console.log(`data: ${data.id}`)
-      setRoomCategories((prev)=>prev.map((category)=>category.id===data.id ? data : category))
-      request = roomService.updateRoomCategory(data)
-    } else {   
-      console.log(`data: ${data}`)
-      // setRoomCategories((prev)=>[...prev, data])
-      request = roomService.createRoomCategory(data)
+    data.amenities = categoryAmenities;
+    let request; let action: string;
+    if (roomCategory) {
+      console.log('here... room category', roomCategory);
+      data.id = roomCategoryID;
+      request = roomService.updateRoomCategory(data);
+      action = 'edit';
+    } else {
+      console.log('no room category');
+      request = roomService.createRoomCategory(data);
+      action = 'create';
     }
-    request.then((response)=>{
-      console.log(response.data)
-      // setIsAddNewButtonClicked(false)
-      setRoomCategories((prev)=>[...prev, data])
-      setShowCategoryForm(false)
-    })
-    request.catch((error)=>{
-      setRoomCategories(roomCategories)
-      console.log(error.message)
-    })
-    request.finally(()=>setIsEditButtonClicked(false))
-  }
-
-  const handleAmenitySelect = (name: string)=>{
-    console.log('button clicked')
-    setSelectedAmenities(
-      (prev)=>prev.includes(name) ? 
-      prev.filter((amenity)=>amenity!==name) 
-      : [...prev, name])
-  }
-
+    request.then((response) => {
+      console.log(response.data);
+      updateRoomCategories(response.data, action=action);
+      setDialogOpened(false);
+    });
+    request.catch((error) => {
+      setError(error.message);
+      console.log(error.message);
+    });
+  };
   return (
-    <div>
-      <h1>Add Room Category</h1>
-      <form method='post' onSubmit={handleSubmit(onSubmit)}>
-        <Field label='Category Name'>
-            <Input type='text' placeholder='Category Name' {...register('name')} />
-            {errors.name && <p>{errors.name.message}</p>}
+    <>
+      {error && <Text color="red">{error}</Text>}
+      <form method="post" onSubmit={handleSubmit(onSubmit)}>
+        <Field label="Category" mb="10px">
+          <Input type="text" {...register("name")} />
+          {errors.name && <Text color="red">{errors.name.message}</Text>}
         </Field>
-        <Box>
-          <h2>Amenities</h2>
-          <Flex gap='10px'>
-          {amenities.map((amenity)=>(
-              <Button variant={selectedAmenities.includes(amenity.name) ? 'solid' : 'outline' } onClick={()=>handleAmenitySelect(amenity.name)} key={amenity.id}>
-                {amenity.name}
-              </Button>
-          ))}
-          </Flex>
-        </Box>
-        <Button type='submit' disabled={!isValid}>Save</Button>
-        <Button onClick={()=>setShowCategoryForm(false)}>Cancel</Button>
+        <Field label="Amenities" mb="10px">
+          <AmenitiesLoad
+            amenities={amenities}
+            selectedAmenities={categoryAmenities}
+            setSelectedAmenities={setCategoryAmenities}
+          />
+        </Field>
+        <Button
+          bg="var(--header-bg)"
+          p="10px 20px"
+          mt="10px"
+          type="submit"
+          color="white"
+        >
+          Save
+        </Button>
       </form>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default RoomCategoriesForm
+export default RoomCategoriesForm;

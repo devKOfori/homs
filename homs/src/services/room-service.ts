@@ -22,6 +22,7 @@ class RoomService {
     }
 
     updateRoomCategory(category: Category) {
+        console.log(category.id)
         const {name, amenities} = category
         const payload = {name, amenities}
         const request = apiClient.put(`/room-categories/${category.id}/`, payload, {
