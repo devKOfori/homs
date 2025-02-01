@@ -22,7 +22,6 @@ class RoomService {
     }
 
     updateRoomCategory(category: Category) {
-        console.log(category.id)
         const {name, amenities} = category
         const payload = {name, amenities}
         const request = apiClient.put(`/room-categories/${category.id}/`, payload, {
@@ -52,6 +51,24 @@ class RoomService {
         return {request, cancel: ()=>controller.abort()}
     }
 
+    createRoomType(data: any){
+        const request = apiClient.post('/room-types/', data, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}`
+            }
+        })
+        return request
+    }
+
+    updateRoomType(id: string, data: any){
+        const request = apiClient.put(`/room-types/${id}/`, data, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}`
+            }
+        })
+        return request
+    }
+
     getFloors(){
         const controller = new AbortController();
         const request = apiClient.get('/floors/', {
@@ -73,16 +90,6 @@ class RoomService {
     }
 
     getHotelViews(){
-        const controller = new AbortController();
-        const request = apiClient.get('/hotel-views/', {
-            signal: controller.signal, headers: {
-                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}`
-            }
-        })
-        return {request, cancel: ()=>controller.abort()}
-    }
-
-    getViews(){
         const controller = new AbortController();
         const request = apiClient.get('/hotel-views/', {
             signal: controller.signal, headers: {

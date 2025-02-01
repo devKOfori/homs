@@ -20,8 +20,6 @@ interface Props {
 const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState<string>("");
-
-//   console.log(roomCategory);
   return (
     <>
       <DialogRoot

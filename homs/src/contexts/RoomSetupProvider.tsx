@@ -61,6 +61,7 @@ export function RoomSetupProvider({ children }) {
       ? JSON.parse(localStorage.getItem("amenities"))
       : []
   );
+
   const [hotelViews, setHotelViews] = useState(
     localStorage.getItem("hotelViews")
       ? JSON.parse(localStorage.getItem("hotelViews"))
@@ -68,7 +69,6 @@ export function RoomSetupProvider({ children }) {
   );
 
   const updateRoomCategories = (category: Category, action: String) => {
-    console.log(category);
     const rc: Category[] = JSON.parse(localStorage.getItem("roomCategories"));
     if (action === "edit") {
       const updatedRoomCategory = rc.map((cat) =>
@@ -88,14 +88,21 @@ export function RoomSetupProvider({ children }) {
         JSON.stringify(updatedRoomCategories)
       );
     }
-    // const updatedRoomCategories = [category, ...rc];
-    // // setRoomCategories((prev: Category[]) => [category, ...prev]);
-    // setRoomCategories(updatedRoomCategories);
   };
 
-  const updateRoomTypes = (roomType: RoomType) => {
-    setRoomTypes((prev: RoomType[]) => [roomType, ...prev]);
-    // localStorage.setItem("roomTypes", JSON.stringify(roomTypes));
+  const updateRoomTypes = (data: RoomType, action: string) => {
+    console.log(data);
+    const rt: RoomType[] = JSON.parse(localStorage.getItem("roomTypes"));
+    if (action === "edit") {
+      const updatedRoomType = rt.map((rt) => (rt.id === data.id ? data : rt));
+      setRoomTypes(updatedRoomType);
+      localStorage.setItem("roomTypes", JSON.stringify(updatedRoomType));
+    }
+    if (action === "create") {
+      const updatedRoomTypes = [roomType, ...rt];
+      setRoomTypes(updatedRoomTypes);
+      localStorage.setItem("roomTypes", JSON.stringify(updatedRoomTypes));
+    }
   };
 
   const updateFloors = (hotelFloor: HostelFloor) => {
@@ -118,8 +125,6 @@ export function RoomSetupProvider({ children }) {
     // localStorage.setItem("hotelViews", JSON.stringify(hotelViews));
   };
 
-  console.log(roomCategories)
-
   return (
     <RoomSetupContext.Provider
       value={{
@@ -134,6 +139,7 @@ export function RoomSetupProvider({ children }) {
         viewDialogOpened,
         deleteDialogOpened,
         setRoomCategories,
+        setRoomTypes,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,

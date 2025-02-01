@@ -25,14 +25,17 @@ const RoomCategoryDeleteDialog = ({ roomCategory }: Props) => {
   const handleDelete = () => {
     const request = roomService.deleteRoomCategory(roomCategory.id);
     request.then((res) => {
-      console.log("Deleted", res.data);
-      setRoomCategories(
-        roomCategories.filter((category) => category.id !== roomCategory.id)
+      const updatedRoomCategories = roomCategories.filter(
+        (category) => category.id !== roomCategory.id
       );
+      setRoomCategories(updatedRoomCategories);
       setOpen(false);
+      localStorage.setItem(
+        "roomCategories",
+        JSON.stringify(updatedRoomCategories)
+      );
     });
     request.catch((err) => {
-      console.log("Error", err);
       setError(err.response.data.detail);
     });
   };

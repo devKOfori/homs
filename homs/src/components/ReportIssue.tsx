@@ -55,7 +55,6 @@ const ReportIssue = () => {
         const roomNumberInput = e.target.value
         if (roomNumberInput.length === 5) {
             setRoomNumber(roomNumberInput);
-            console.log(`room ###: ${roomNumber}`)
         }
     }
 

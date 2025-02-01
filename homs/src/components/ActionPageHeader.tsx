@@ -33,11 +33,6 @@ import { set } from "react-hook-form";
 interface Props {
   heading: string;
   table: string;
-  setIsAddNewButtonClicked: () => void;
-  setShowCategoryForm: () => void;
-  isAddNewButtonClicked: boolean;
-  showCategoryForm: boolean;
-  setUpdatedCategory: Category | null;
 }
 
 const ActionPageHeader = ({ heading, table }: Props) => {
@@ -59,7 +54,25 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       {`Add ${heading}`} <FaPlus />
     </Button>
   );
-  console.log(`dialogOpened: ${createDialogOpened}`);
+
+  let dialogContentBody = null;
+  switch (table) {
+    case "roomcategory":
+      dialogContentBody = (
+        <RoomCategoriesForm
+          setDialogOpened={setCreateDialogOpened}
+          roomCategory={null}
+        />
+      );
+      break;
+    case "roomtype":
+      dialogContentBody = (
+        <RoomTypeForm roomType={null} setDialogOpened={setCreateDialogOpened} />
+      );
+      break;
+    default:
+      break;
+  }
   return (
     <Flex justify="space-between" align="center" wrap="wrap">
       <Heading fontWeight={300}>{`${
@@ -69,9 +82,7 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       <CrudDialog
         heading={heading}
         table={table}
-        dialogContentBody={
-          <RoomCategoriesForm setDialogOpened={setCreateDialogOpened} roomCategory={null} />
-        }
+        dialogContentBody={dialogContentBody}
         setDialogOpened={setCreateDialogOpened}
         triggerButton={createRecordDialogTriggerBtn}
         open={createDialogOpened}

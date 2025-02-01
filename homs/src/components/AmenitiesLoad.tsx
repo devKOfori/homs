@@ -3,19 +3,18 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Tooltip } from "./ui/tooltip";
 import { Amenity } from "../hooks/useAmenities";
+import { useRoomSetup } from "../contexts/RoomSetupProvider";
 
 interface Props {
-  amenities: Amenity[];
   selectedAmenities: string[];
   setSelectedAmenities: (value: string[]) => void;
 }
 
 const AmenitiesLoad = ({
-  amenities,
   selectedAmenities,
   setSelectedAmenities,
 }: Props) => {
-  console.log(selectedAmenities);
+  const { amenities, setAmenities } = useRoomSetup();
   return (
     <Flex gap="10px">
       {amenities.map((amenity: Amenity) => (
@@ -41,7 +40,6 @@ const AmenitiesLoad = ({
               border: "1px solid #473647",
             }}
             onClick={() => {
-              console.log("amenity clicked");
               if (selectedAmenities.includes(amenity.name)) {
                 setSelectedAmenities(
                   selectedAmenities.filter((item) => item !== amenity.name)

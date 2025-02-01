@@ -5,10 +5,8 @@ const RoleProtectedRoute = ({ children }) => {
     const token = localStorage.getItem('accessToken')
     const userDepartment = localStorage.getItem('department')
 
-    // console.log(`pr user dpt: ${userDepartment}`)
     
     const { department } = useAuth();
-    // console.log(`pr dpt: ${userDepartment}`)
 
     if (!token) {
         return <Navigate to='/login' />

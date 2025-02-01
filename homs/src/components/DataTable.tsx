@@ -34,7 +34,6 @@ const DataTable = ({ columnHeaders, data, heading, table }: Props) => {
                             <Tooltip content={`View ${heading}`}>
                             <Button 
                             size={'xs'} 
-                            onClick={()=>console.log('icon clicked')} 
                             _hover={
                                 {
                                     transform: 'scale(1.1)',

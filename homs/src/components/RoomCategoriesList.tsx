@@ -53,13 +53,10 @@ interface Props {
 const RoomCategoriesList = ({ data, heading, setRoomCategories }: Props) => {
   const [selection, setSelection] = useState<string[]>([]);
 
-  console.log(data)
-
   const viewTriggerBtn = (
     <Tooltip content={`View ${heading}`}>
       <Button
         size={"xs"}
-        onClick={() => console.log("icon clicked")}
         _hover={{
           transform: "scale(1.1)",
           border: "1px solid var(--darkened-bg-2)",
@@ -124,18 +121,15 @@ const RoomCategoriesList = ({ data, heading, setRoomCategories }: Props) => {
         </Table.Header>
         <Table.Body>
           {data.map((category) => (
-            <Table.Row
-              key={category.id}
-              bg="white"
-            >
+            <Table.Row key={category.id} bg="white">
               <Table.Cell px="30px" py="5px">
                 {category.name}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 {/* <RoomCategoryEditDialog roomCategory={category}  /> */}
                 <Flex justifyContent={"flex-end"} w={"100%"}>
-                  <RoomCategoryEditDialog roomCategory={category} />
                   <RoomCategoryViewDialog roomCategory={category} />
+                  <RoomCategoryEditDialog roomCategory={category} />
                   <RoomCategoryDeleteDialog roomCategory={category} />
                 </Flex>
                 {/* <ActionIcons roomtype={category} /> */}

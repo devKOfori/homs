@@ -15,18 +15,11 @@ import { Category } from "./RoomCategoriesList";
 interface Props {
   setDialogOpened: (value: boolean) => void;
   roomCategory: Category | null;
-  roomCategoryID: string;
 }
 
-const RoomCategoriesForm = ({
-  setDialogOpened,
-  roomCategory,
-  roomCategoryID,
-}: Props) => {
+const RoomCategoriesForm = ({ setDialogOpened, roomCategory }: Props) => {
   const [categoryAmenities, setCategoryAmenities] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
-
-  console.log(roomCategory);
 
   useEffect(() => {
     if (roomCategory) {
@@ -52,25 +45,22 @@ const RoomCategoriesForm = ({
 
   const onSubmit = (data: Category) => {
     data.amenities = categoryAmenities;
-    let request; let action: string;
+    let request;
+    let action: string;
     if (roomCategory) {
-      console.log('here... room category', roomCategory);
-      data.id = roomCategoryID;
+      data.id = roomCategory.id;
       request = roomService.updateRoomCategory(data);
-      action = 'edit';
+      action = "edit";
     } else {
-      console.log('no room category');
       request = roomService.createRoomCategory(data);
-      action = 'create';
+      action = "create";
     }
     request.then((response) => {
-      console.log(response.data);
-      updateRoomCategories(response.data, action=action);
+      updateRoomCategories(response.data, (action = action));
       setDialogOpened(false);
     });
     request.catch((error) => {
       setError(error.message);
-      console.log(error.message);
     });
   };
   return (

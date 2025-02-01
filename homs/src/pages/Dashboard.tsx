@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../contexts/AuthProvider";
 import FrontdeskDashboard from "../dashboards/FrontdeskDashboard";
 import HousekeepingDashboard from "../dashboards/HousekeepingDashboard";
-import { Route, Routes } from "react-router-dom";
-import RoomCategories from "./RoomCategories";
-import { RoomType } from "../components/RoomTypeList";
-import { Category } from "../components/RoomCategoriesList";
-import { Amenity } from "../hooks/useAmenities";
 import roomService from "../services/room-service";
 import { CanceledError } from "axios";
 import amenityService from "../services/amenity-service";
@@ -18,6 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = roomService.getRoomTypes();
     request.then((response) => {
+
       localStorage.setItem("roomTypes", JSON.stringify(response.data));
       console.log(response.data);
     });
@@ -71,6 +67,18 @@ const Dashboard = () => {
     const { request, cancel } = roomService.getBedTypes();
     request.then((response) => {
       localStorage.setItem("bedTypes", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = roomService.getHotelViews();
+    request.then((response) => {
+      localStorage.setItem("hotelViews", JSON.stringify(response.data));
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;

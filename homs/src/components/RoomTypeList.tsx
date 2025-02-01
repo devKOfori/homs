@@ -1,42 +1,33 @@
-import { Flex, Table, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Flex, Table, IconButton } from "@chakra-ui/react";
 import { Button } from "./ui/button";
 import { FaEye } from "react-icons/fa";
 import { Tooltip } from "./ui/tooltip";
 import { BiTrash } from "react-icons/bi";
 import { MdEdit } from "react-icons/md";
+import TableStatistics from "./TableStatistics";
+import RoomTypeViewDialog from "./RoomTypeViewDialog";
+import { Category } from "./RoomCategoriesList";
+import RoomTypeEditDialog from "./RoomTypeEditDialog";
 
 export interface RoomType {
   id: string;
   name: string;
   amenities: string[] | null;
-  bedTypes: string[] | null;
+  bed_types: string[] | null;
   view: string | null;
-  areaInMeters: number;
-  areaInFeet: number;
-  maxGuests: number;
+  area_in_meters: number;
+  area_in_feet: number;
+  max_guests: number;
   rate: number;
+  room_category: string | null;
 }
 
 interface Props {
   data: RoomType[];
   heading: string;
-  setShowRoomTypeForm: (value: boolean) => void;
-  isEditButtonClicked: boolean;
-  setIsEditButtonClicked: (value: boolean) => void;
-  setUpdatedRoomType: (roomType: RoomType | null) => void;
-  roomType: RoomType | null;
-  setRoomRoomTypes: (value: RoomType[]) => void;
 }
 
-const RoomTypeList = ({
-  data,
-  heading,
-  setShowRoomTypeForm,
-  setIsEditButtonClicked,
-  setUpdatedRoomType,
-  roomType,
-  setRoomRoomTypes,
-}: Props) => {
+const RoomTypeList = ({ data, heading }: Props) => {
   return (
     <>
       <Table.Root mt="50px" mb="20px" size="sm" interactive>
@@ -67,42 +58,18 @@ const RoomTypeList = ({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((category) => (
-            <Table.Row key={category.id} bg="white">
+          {data.map((roomType) => (
+            <Table.Row key={roomType.id} bg="white">
               <Table.Cell px="30px" py="5px">
-                {category.name}
+                {roomType.name}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
-                {category.rate}
+                {roomType.rate}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 <Flex justifyContent={"flex-end"} w={"100%"}>
-                  <Tooltip content={`View ${heading}`}>
-                    <Button
-                      size={"xs"}
-                      onClick={() => console.log("icon clicked")}
-                      _hover={{
-                        transform: "scale(1.1)",
-                        border: "1px solid var(--darkened-bg-2)",
-                        bg: "var(--darkened-bg)",
-                      }}
-                    >
-                      <FaEye />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip content="Edit Category">
-                    <IconButton
-                      size={"xs"}
-                      _hover={{
-                        transform: "scale(1.05)",
-                        transition: "transform 0.3s ease-out",
-                        border: "1px solid var(--darkened-bg-2)",
-                        bg: "var(--darkened-bg)",
-                      }}
-                    >
-                      <MdEdit />
-                    </IconButton>
-                  </Tooltip>
+                  <RoomTypeViewDialog roomType={roomType} />
+                  <RoomTypeEditDialog roomType={roomType} />
                   <Tooltip content="Delete Category">
                     <IconButton
                       size={"xs"}
@@ -121,10 +88,7 @@ const RoomTypeList = ({
           ))}
         </Table.Body>
       </Table.Root>
-      <HStack>
-        <Text>{data.length}</Text>
-        <Text>{heading.endsWith("y") ? `${heading.slice(0, -1)}ies` : ""}</Text>
-      </HStack>
+      <TableStatistics heading={heading} data={data} />
     </>
   );
 };

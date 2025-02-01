@@ -1,61 +1,58 @@
-import { Box, HStack, VStack, Text, Container, Heading, Flex } from '@chakra-ui/react'
-import { RoomType } from './RoomTypeList'
+import { DataList } from "@chakra-ui/react";
+import React from "react";
+import { RoomType } from "./RoomTypeList";
 
 interface Props {
-    roomtype: RoomType;
+  roomType: RoomType;
 }
 
-const RoomTypeDetails = ({ roomtype }: Props) => {
+const RoomTypeDetails = ({ roomType }: Props) => {
   return (
-    <VStack>
-        <Container mt='20px' mb='10px'>
-            <Heading color='#473647' size='lg'>Amenities</Heading>  
-            <Container>
-                <Container>
-                    {
-                        <Flex gap='10px'>
-                            {roomtype.amenities?.map((amenity)=>(
-                                <Text key={amenity}>{amenity}</Text>
-                            ))}
-                        </Flex>
-                    }
-                </Container>
-            </Container>
-        </Container>
-        <Container mb='10px'>
-            <Heading color='#473647' size='lg'>Area</Heading>  
-            <Container>
-                <Text>{`Area (m/ft): ${roomtype.area_in_meters} / ${roomtype.area_in_feet}`}</Text>
-            </Container>
-        </Container>
-        <Container mb='10px'>
-            <Heading color='#473647' size='lg'>Rate</Heading>  
-            <Container>
-                <Text>{roomtype.rate}</Text>
-            </Container>
-        </Container>
-        <Container mb='10px'>
-            <Heading color='#473647' size='lg'>Max. Guests</Heading>  
-            <Container>
-                <Text>{roomtype.max_guests}</Text>
-            </Container>
-        </Container>
-        <Container mb='10px'>
-            <Heading color='#473647' size='lg'>Bed Types</Heading>  
-            <Container>
-            <Container>
-                    {
-                    <Flex gap='10px'>
-                        {roomtype.bed_types?.map((amenity)=>(
-                            <Text key={amenity}>{amenity}</Text>
-                        ))}
-                    </Flex>
-                    }
-                </Container>
-            </Container>
-        </Container>
-    </VStack>
-  )
-}
+    <DataList.Root orientation="horizontal">
+      <DataList.Item>
+        <DataList.ItemLabel>Room Type</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.name}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Room Category</DataList.ItemLabel>
+        <DataList.ItemValue>
+          {roomType.room_category || "N/A"}
+        </DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Rate</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.rate || "N/A"}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Max Guests</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.max_guests}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Area in Meters</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.area_in_meters}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Area in Feet</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.area_in_feet}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>View</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.view}</DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Bed Types</DataList.ItemLabel>
+        <DataList.ItemValue>
+          {roomType.bed_types ? roomType.bed_types?.join(", ") : "N/A"}
+        </DataList.ItemValue>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.ItemLabel>Amenities</DataList.ItemLabel>
+        <DataList.ItemValue>
+          {roomType.amenities ? roomType.amenities?.join(", ") : "N/A"}
+        </DataList.ItemValue>
+      </DataList.Item>
+    </DataList.Root>
+  );
+};
 
-export default RoomTypeDetails
+export default RoomTypeDetails;

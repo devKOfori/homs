@@ -20,8 +20,6 @@ import Floors from './pages/Floors'
 import Views from './pages/Views'
 
 function App() {
-  // const userDepartment = localStorage.getItem('department')
-  // console.log(`user department: ${userDepartment}`)
 
   return (
     <Provider>

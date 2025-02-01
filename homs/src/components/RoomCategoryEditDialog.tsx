@@ -18,7 +18,7 @@ import {
   useRoomSetup,
 } from "../contexts/RoomSetupProvider";
 import { z } from "zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import roomService from "../services/room-service";
 
@@ -50,16 +50,12 @@ const RoomCategoryEditDialog = ({ roomCategory }: Props) => {
     },
   });
 
-  console.log(categoryAmenities);
-
   const onSubmit = (data: Category) => {
     data.amenities = categoryAmenities;
-    console.log(data);
     let request;
     let action: string;
     if (roomCategory) {
       data.id = roomCategory.id;
-      //   console.log(data);
       request = roomService.updateRoomCategory(data);
       action = "edit";
     } else {
@@ -67,12 +63,10 @@ const RoomCategoryEditDialog = ({ roomCategory }: Props) => {
       action = "create";
     }
     request.then((response) => {
-      console.log(response.data);
       updateRoomCategories(response.data, (action = action));
       setOpen(false);
     });
     request.catch((error) => {
-      // updateRoomCategories(roomCategories);
       setError(error.message);
       console.log(error.message);
     });

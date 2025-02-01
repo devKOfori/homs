@@ -1,48 +1,61 @@
-import { FaEye } from "react-icons/fa"
-import { Button } from "./ui/button"
+import { FaEye } from "react-icons/fa";
+import { Button } from "./ui/button";
 import {
-    DialogActionTrigger,
-    DialogBody,
-    DialogCloseTrigger,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-  } from "./ui/dialog"
-import { Box, HStack, VStack, Text, Container, Heading, Flex } from '@chakra-ui/react'
-import CustomDialogHeader from "./CustomDialogHeader"
-import RoomTypeDetails from "./RoomTypeDetails"
-import { RoomType } from "./RoomTypeList"
+  DialogActionTrigger,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import CustomDialogHeader from "./CustomDialogHeader";
+import RoomTypeDetails from "./RoomTypeDetails";
+import { RoomType } from "./RoomTypeList";
+import { useState } from "react";
+import { Tooltip } from "./ui/tooltip";
 
 interface Props {
-    roomtype: RoomType;
+  roomType: RoomType;
 }
 
-const RoomTypeViewDialog = ({ roomtype }: Props) => {
+const RoomTypeViewDialog = ({ roomType }: Props) => {
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string>("");
+
+
   return (
-    <DialogRoot size='lg' placement='center'>
+    <Tooltip content={`View Type`}>
+      <DialogRoot
+        size="lg"
+        placement="center"
+        open={open}
+        onOpenChange={(e) => setOpen(e.open)}
+      >
         <DialogTrigger>
-            <Button size='xs'
+          <Button
+            size="xs"
             _hover={{
-                transform: 'scale(1.2) translateY(-2px)',
-                transition: 'transform 0.3s ease-out',
-                bg: '#DDDCDD',
-                border: '1px solid #473647',
-
-            }}>
-                <FaEye color='#473647'/>
-            </Button>
+              transform: "scale(1.2) translateY(-2px)",
+              transition: "transform 0.3s ease-out",
+              bg: "#DDDCDD",
+              border: "1px solid #473647",
+            }}
+          >
+            <FaEye color="#473647" />
+          </Button>
         </DialogTrigger>
-        <DialogContent bg='white' color='#473647' p='20px 40px'>
-            <CustomDialogHeader heading={`Room Type: ${roomtype.name}`} />
-            <DialogBody>
-                <RoomTypeDetails roomtype={roomtype} />
-            </DialogBody>
+        <DialogContent bg="white" color="#473647" p="20px 40px">
+          <CustomDialogHeader heading={`${roomType.name}`} />
+          <DialogBody>
+            <RoomTypeDetails roomType={roomType} />
+          </DialogBody>
         </DialogContent>
-    </DialogRoot>
-  )
-}
+      </DialogRoot>
+    </Tooltip>
+  );
+};
 
-export default RoomTypeViewDialog
+export default RoomTypeViewDialog;
