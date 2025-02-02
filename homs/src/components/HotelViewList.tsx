@@ -1,5 +1,8 @@
 import { Table, Flex } from "@chakra-ui/react";
 import TableStatistics from "./TableStatistics";
+import HotelViewViewDialog from "./HotelViewViewDialog";
+import HotelViewEditDialog from "./HotelViewEditDialog";
+import HotelViewDeleteDialog from "./HotelViewDeleteDialog";
 
 export interface HotelView {
   id: string;
@@ -41,6 +44,9 @@ const HotelViewList = ({ data, heading }: Props) => {
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 <Flex justifyContent={"end"} w={"100%"}>
+                    <HotelViewViewDialog hotelView={hotelView} />
+                    <HotelViewEditDialog hotelView={hotelView} />
+                    <HotelViewDeleteDialog hotelView={hotelView} />
                 </Flex>
               </Table.Cell>
             </Table.Row>

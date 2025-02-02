@@ -163,6 +163,7 @@ export function RoomSetupProvider({ children }) {
         setRoomCategories,
         setRoomTypes,
         setFloors,
+        setHotelViews,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,

@@ -5,42 +5,44 @@ import {
   DialogRoot,
   DialogTrigger,
 } from "./ui/dialog";
-import { HotelFloor } from "../pages/Floors";
+import { View } from "../pages/Views";
 import { Flex, HStack, Text } from "@chakra-ui/react";
 import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { FaTrash } from "react-icons/fa";
 import roomService from "../services/room-service";
-import { RoomSetupContextProps, useRoomSetup } from "../contexts/RoomSetupProvider";
+import {
+  RoomSetupContextProps,
+  useRoomSetup,
+} from "../contexts/RoomSetupProvider";
+import { HotelView } from "./HotelViewList";
 
 interface Props {
-  hotelFloor: HotelFloor;
+  hotelView: HotelView;
 }
+const HotelViewDeleteDialog = ({ hotelView }: Props) => {
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState<string>("");
 
-const FloorDeleteDialog = ({ hotelFloor }: Props) => {
-  const [open, setOpen] = useState(false);
-  const [error, setError] = useState<string>("");
-
-  const { floors, setFloors } = useRoomSetup<RoomSetupContextProps>();
+    const { hotelViews, setHotelViews } = useRoomSetup<RoomSetupContextProps>();
 
     const handleDelete = () => {
-        const request = roomService.deleteFloor(hotelFloor.id);
+        const request = roomService.deleteHotelView(hotelView.id);
         request.then((res) => {
-          const updatedFloors = floors.filter(
-            (floor) => floor.id !== hotelFloor.id
-          );
-          setFloors(updatedFloors);
-          setOpen(false);
-          localStorage.setItem(
-            "floors",
-            JSON.stringify(updatedFloors)
-          );
+            const updatedHotelViews = hotelViews.filter(
+                (view) => view.id !== hotelView.id
+            );
+            setHotelViews(updatedHotelViews);
+            setOpen(false);
+            localStorage.setItem(
+                "hotelViews",
+                JSON.stringify(updatedHotelViews)
+            );
         });
         request.catch((err) => {
-          setError(err.response.data.detail);
+            setError(err.response.data.detail);
         });
     };
-
   return (
     <>
       <DialogRoot
@@ -69,7 +71,7 @@ const FloorDeleteDialog = ({ hotelFloor }: Props) => {
             <HStack>
               <Text>Are you sure you want to delete this record</Text>
               <Text color="#417690" fontWeight="bold">
-                {hotelFloor.name}
+                {hotelView.name}
               </Text>
               ?{" "}
             </HStack>
@@ -88,4 +90,4 @@ const FloorDeleteDialog = ({ hotelFloor }: Props) => {
   );
 };
 
-export default FloorDeleteDialog;
+export default HotelViewDeleteDialog;

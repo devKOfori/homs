@@ -41,9 +41,7 @@ const FloorEditDialog = ({ hotelFloor }: Props) => {
       <DialogContent bg="white" color="#473647" p="20px 40px">
         <CustomDialogHeader heading={`Update Floor: ${hotelFloor.id}`} />
         <DialogBody>
-          <div>
             <FloorForm hotelFloor={hotelFloor} setDialogOpened={setOpen} />
-          </div>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

@@ -18,12 +18,12 @@ export interface View {
 }
 
 const Views = () => {
-  const { hotelViews, setViews, updateViews } = useRoomSetup();
+  const { hotelViews, setHotelViews, updateViews } = useRoomSetup();
 
   useEffect(() => {
     const { request, cancel } = roomService.getHotelViews();
     request.then((response) => {
-      setViews(response.data);
+      setHotelViews(response.data);
       console.log(response.data);
     });
     request.catch((error) => {

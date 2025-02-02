@@ -12,7 +12,7 @@ import { CanceledError } from "axios";
 import FloorList from "../components/FloorList";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 
-export interface HostelFloor {
+export interface HotelFloor {
   id: string;
   name: string;
 }
