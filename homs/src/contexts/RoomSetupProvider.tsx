@@ -99,7 +99,7 @@ export function RoomSetupProvider({ children }) {
       localStorage.setItem("roomTypes", JSON.stringify(updatedRoomType));
     }
     if (action === "create") {
-      const updatedRoomTypes = [roomType, ...rt];
+      const updatedRoomTypes = [data, ...rt];
       setRoomTypes(updatedRoomTypes);
       localStorage.setItem("roomTypes", JSON.stringify(updatedRoomTypes));
     }

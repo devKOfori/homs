@@ -8,6 +8,7 @@ import TableStatistics from "./TableStatistics";
 import RoomTypeViewDialog from "./RoomTypeViewDialog";
 import { Category } from "./RoomCategoriesList";
 import RoomTypeEditDialog from "./RoomTypeEditDialog";
+import RoomTypeDeleteDialog from "./RoomTypeDeleteDialog";
 
 export interface RoomType {
   id: string;
@@ -70,18 +71,7 @@ const RoomTypeList = ({ data, heading }: Props) => {
                 <Flex justifyContent={"flex-end"} w={"100%"}>
                   <RoomTypeViewDialog roomType={roomType} />
                   <RoomTypeEditDialog roomType={roomType} />
-                  <Tooltip content="Delete Category">
-                    <IconButton
-                      size={"xs"}
-                      _hover={{
-                        transform: "scale(1.1)",
-                        border: "1px solid var(--darkened-bg-2)",
-                        bg: "var(--darkened-bg)",
-                      }}
-                    >
-                      <BiTrash />
-                    </IconButton>
-                  </Tooltip>
+                  <RoomTypeDeleteDialog roomType={roomType} />
                 </Flex>
               </Table.Cell>
             </Table.Row>
