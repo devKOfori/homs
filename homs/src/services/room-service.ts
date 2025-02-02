@@ -168,6 +168,39 @@ class RoomService {
     return { request, cancel: () => controller.abort() };
   }
 
+  createHotelView(data: any) {
+    const request = apiClient.post("/hotel-views/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  updateHotelView(id: string, data: any) {
+    const request = apiClient.put(`/hotel-views/${id}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  deleteHotelView(id: string) {
+    const request = apiClient.delete(`/hotel-views/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
   getRooms() {
     const controller = new AbortController();
     const request = apiClient.get("/rooms/", {

@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Category } from "./RoomCategoriesList";
 import { DataListItem, DataListRoot } from "./ui/data-list";
 import {
   DialogBody,
@@ -10,12 +8,14 @@ import {
 import { FaEye } from "react-icons/fa";
 import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
+import { HostelFloor } from "../pages/Floors";
+import { useState } from "react";
 
 interface Props {
-  roomCategory: Category;
+  hotelFloor: HostelFloor;
 }
 
-const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
+const FloorViewDialog = ({ hotelFloor }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -39,14 +39,10 @@ const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
           </Button>
         </DialogTrigger>
         <DialogContent bg="white" color="#473647" p="20px 40px">
-          <CustomDialogHeader heading={`${roomCategory.name}`} />
+          <CustomDialogHeader heading={`${hotelFloor.name}`} />
           <DialogBody>
             <DataListRoot orientation="horizontal">
-              <DataListItem label={"Name"} value={roomCategory.name} />
-              <DataListItem
-                label={"Amenities"}
-                value={roomCategory.amenities?.join(", ")}
-              />
+              <DataListItem label={"Name"} value={hotelFloor.name} />
             </DataListRoot>
           </DialogBody>
         </DialogContent>
@@ -55,4 +51,4 @@ const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
   );
 };
 
-export default RoomCategoryViewDialog;
+export default FloorViewDialog;

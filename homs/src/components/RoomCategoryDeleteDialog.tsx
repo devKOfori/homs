@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DialogBody,
   DialogContent,
@@ -20,8 +20,10 @@ interface Props {
 const RoomCategoryDeleteDialog = ({ roomCategory }: Props) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string>("");
+
   const { roomCategories, setRoomCategories } =
     useRoomSetup<RoomSetupContextProps>();
+    
   const handleDelete = () => {
     const request = roomService.deleteRoomCategory(roomCategory.id);
     request.then((res) => {

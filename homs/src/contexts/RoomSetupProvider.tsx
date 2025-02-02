@@ -131,8 +131,19 @@ export function RoomSetupProvider({ children }) {
     // localStorage.setItem("amenities", JSON.stringify(amenities));
   };
 
-  const updateHotelViews = (view: View) => {
-    setHotelViews((prev: View[]) => [view, ...prev]);
+  const updateHotelViews = (view: View, action: string) => {
+    console.log(view)
+    const hv: View[] = JSON.parse(localStorage.getItem("hotelViews"));
+    if (action === "edit") {
+      const updatedView = hv.map((v) => (v.id === view.id ? view : v));
+      setHotelViews(updatedView);
+      localStorage.setItem("hotelViews", JSON.stringify(updatedView));
+    }
+    if (action === "create") {
+      const updatedViews = [view, ...hv];
+      setHotelViews(updatedViews);
+      localStorage.setItem("hotelViews", JSON.stringify(updatedViews));
+    }
     // localStorage.setItem("hotelViews", JSON.stringify(hotelViews));
   };
 

@@ -1,21 +1,17 @@
 import { Table, Flex } from "@chakra-ui/react";
 import TableStatistics from "./TableStatistics";
-import FloorEditDialog from "./FloorEditDialog";
-import FloorViewDialog from "./FloorViewDialog";
-import FloorDeleteDialog from "./FloorDeleteDialog";
 
-interface HotelFloor {
+export interface HotelView {
   id: string;
   name: string;
 }
 
 interface Props {
-  data: HotelFloor[];
+  data: HotelView[];
   heading: string;
 }
 
-const FloorList = ({ data, heading }: Props) => {
-  console.log(data);
+const HotelViewList = ({ data, heading }: Props) => {
   return (
     <>
       <Table.Root mt="50px" mb="20px" size="sm" interactive>
@@ -27,7 +23,7 @@ const FloorList = ({ data, heading }: Props) => {
               px="30px"
               py="5px"
             >
-              Floor
+              View
             </Table.ColumnHeader>
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
@@ -38,16 +34,13 @@ const FloorList = ({ data, heading }: Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((hotelFloor: HotelFloor) => (
-            <Table.Row key={hotelFloor.id} bg="white">
+          {data.map((hotelView: HotelView) => (
+            <Table.Row key={hotelView.id} bg="white">
               <Table.Cell px="30px" py="5px">
-                {hotelFloor.name}
+                {hotelView.name}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 <Flex justifyContent={"end"} w={"100%"}>
-                  <FloorViewDialog hotelFloor={hotelFloor} />
-                  <FloorEditDialog hotelFloor={hotelFloor} />
-                  <FloorDeleteDialog hotelFloor={hotelFloor} />
                 </Flex>
               </Table.Cell>
             </Table.Row>
@@ -59,4 +52,4 @@ const FloorList = ({ data, heading }: Props) => {
   );
 };
 
-export default FloorList;
+export default HotelViewList;
