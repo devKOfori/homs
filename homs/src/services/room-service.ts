@@ -292,6 +292,39 @@ class RoomService {
     });
     return { request, cancel: () => controller.abort() };
   }
+
+  createRoom(data: any) {
+    const request = apiClient.post("/rooms/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  updateRoom(id: string, data: any) {
+    const request = apiClient.put(`/rooms/${id}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  deleteRoom(id: string) {
+    const request = apiClient.delete(`/rooms/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
 }
 
 export default new RoomService();

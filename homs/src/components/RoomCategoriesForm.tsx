@@ -73,7 +73,6 @@ const RoomCategoriesForm = ({ setDialogOpened, roomCategory }: Props) => {
         </Field>
         <Field label="Amenities" mb="10px">
           <AmenitiesLoad
-            amenities={amenities}
             selectedAmenities={categoryAmenities}
             setSelectedAmenities={setCategoryAmenities}
           />

@@ -86,6 +86,18 @@ const Dashboard = () => {
     return () => cancel();
   }, []);
 
+  useEffect(() => {
+    const { request, cancel } = roomService.getRooms();
+    request.then((response) => {
+      localStorage.setItem("rooms", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
   const { department } = useAuth();
   // console.log(`Department: ${department}`)
   switch (department) {

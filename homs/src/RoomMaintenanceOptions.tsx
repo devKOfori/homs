@@ -1,0 +1,1 @@
+export const maintenanceOptions = ['default', 'cleaned', 'used', 'broken']

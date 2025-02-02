@@ -1,28 +1,31 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Category } from "../components/RoomCategoriesList";
 import { RoomType } from "../components/RoomTypeList";
-import { HostelFloor } from "../pages/Floors";
+import { HotelFloor } from "../pages/Floors";
 import { Amenity } from "../hooks/useAmenities";
 import { View } from "../pages/Views";
 import { BedType } from "../components/BedTypeList";
+import { Room } from "../components/RoomList";
 
 export interface RoomSetupContextProps {
   roomCategories: Category[];
   roomTypes: RoomType[];
-  floors: HostelFloor[];
+  floors: HotelFloor[];
   bedTypes: any[];
   amenities: Amenity[];
   hotelViews: View[];
+  rooms: Room[];
   createDialogOpened: boolean;
   editDialogOpened: boolean;
   viewDialogOpened: boolean;
   deleteDialogOpened: boolean;
   updateRoomCategories: (category: Category) => void;
   updateRoomTypes: (roomType: RoomType) => void;
-  updateFloors: (hotelFloor: HostelFloor) => void;
+  updateFloors: (hotelFloor: HotelFloor) => void;
   updateBedTypes: (bedType: any) => void;
   updateAmenities: (amenity: Amenity) => void;
   updateHotelViews: (view: View) => void;
+  updateRooms: (room: Room) => void;
   setCreateDialogOpened: (value: boolean) => void;
   setEditDialogOpened: (value: boolean) => void;
   setViewDialogOpened: (value: boolean) => void;
@@ -69,6 +72,12 @@ export function RoomSetupProvider({ children }) {
       : []
   );
 
+  const [rooms, setRooms] = useState(
+    localStorage.getItem("rooms")
+      ? JSON.parse(localStorage.getItem("rooms"))
+      : []
+  );
+
   const updateRoomCategories = (category: Category, action: String) => {
     const rc: Category[] = JSON.parse(localStorage.getItem("roomCategories"));
     if (action === "edit") {
@@ -110,7 +119,9 @@ export function RoomSetupProvider({ children }) {
     console.log(hotelFloor);
     const hfloors: HostelFloor[] = JSON.parse(localStorage.getItem("floors"));
     if (action === "edit") {
-      const updatedFloor = hfloors.map((hf) => (hf.id === hotelFloor.id ? hotelFloor : hf));
+      const updatedFloor = hfloors.map((hf) =>
+        hf.id === hotelFloor.id ? hotelFloor : hf
+      );
       setFloors(updatedFloor);
       localStorage.setItem("floors", JSON.stringify(updatedFloor));
     }
@@ -126,7 +137,9 @@ export function RoomSetupProvider({ children }) {
     console.log(bedType);
     const bt: BedType[] = JSON.parse(localStorage.getItem("bedTypes"));
     if (action === "edit") {
-      const updatedBedType = bt.map((bt) => (bt.id === bedType.id ? bedType : bt));
+      const updatedBedType = bt.map((bt) =>
+        bt.id === bedType.id ? bedType : bt
+      );
       setBedTypes(updatedBedType);
       localStorage.setItem("bedTypes", JSON.stringify(updatedBedType));
     }
@@ -154,7 +167,7 @@ export function RoomSetupProvider({ children }) {
   };
 
   const updateHotelViews = (view: View, action: string) => {
-    console.log(view)
+    console.log(view);
     const hv: View[] = JSON.parse(localStorage.getItem("hotelViews"));
     if (action === "edit") {
       const updatedView = hv.map((v) => (v.id === view.id ? view : v));
@@ -169,6 +182,22 @@ export function RoomSetupProvider({ children }) {
     // localStorage.setItem("hotelViews", JSON.stringify(hotelViews));
   };
 
+  const updateRooms = (room: Room, action: string) => {
+    const r: any = JSON.parse(localStorage.getItem("rooms"));
+    if (action === "edit") {
+      const updatedRoom = r.map((room: Room) =>
+        room.id === room.id ? room : room
+      );
+      setRooms(updatedRoom);
+      localStorage.setItem("rooms", JSON.stringify(updatedRoom));
+    }
+    if (action === "create") {
+      const updatedRooms = [room, ...r];
+      setRooms(updatedRooms);
+      localStorage.setItem("rooms", JSON.stringify(updatedRooms));
+    }
+  };
+
   return (
     <RoomSetupContext.Provider
       value={{
@@ -178,6 +207,7 @@ export function RoomSetupProvider({ children }) {
         bedTypes,
         amenities,
         hotelViews,
+        rooms,
         createDialogOpened,
         editDialogOpened,
         viewDialogOpened,
@@ -188,12 +218,14 @@ export function RoomSetupProvider({ children }) {
         setHotelViews,
         setBedTypes,
         setAmenities,
+        setRooms,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,
         updateBedTypes,
         updateAmenities,
         updateHotelViews,
+        updateRooms,
         setCreateDialogOpened,
         setEditDialogOpened,
         setViewDialogOpened,

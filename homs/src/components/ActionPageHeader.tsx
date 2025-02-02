@@ -33,6 +33,7 @@ import FloorForm from "./FloorForm";
 import HotelViewForm from "./HotelViewForm";
 import BedTypeForm from "./BedTypeForm";
 import AmenityForm from "./AmenityForm";
+import RoomForm from "./RoomForm";
 
 interface Props {
   heading: string;
@@ -92,6 +93,11 @@ const ActionPageHeader = ({ heading, table }: Props) => {
     case "amenities":
       dialogContentBody = (
         <AmenityForm amenity={null} setDialogOpened={setCreateDialogOpened} />
+      );
+      break;
+    case "room":
+      dialogContentBody = (
+        <RoomForm room={null} setDialogOpened={setCreateDialogOpened} />
       );
       break;
     default:
