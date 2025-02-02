@@ -21,7 +21,10 @@ interface Props {
 }
 
 const RoomForm = ({ room, setDialogOpened }: Props) => {
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  console.log(room);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(
+    room?.amenities || []
+  );
   const [error, setError] = useState<string>("");
   const { roomCategories, roomTypes, floors, bedTypes, updateRooms } =
     useRoomSetup<RoomSetupContextProps>();
@@ -175,12 +178,7 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
             setSelectedAmenities={setSelectedAmenities}
           />
         </Field>
-        <Button
-          bg="var(--header-bg)"
-          p="10px 20px"
-          type="submit"
-          color="white"
-        >
+        <Button bg="var(--header-bg)" p="10px 20px" type="submit" color="white">
           Save
         </Button>
       </form>

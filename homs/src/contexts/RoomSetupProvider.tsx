@@ -183,10 +183,11 @@ export function RoomSetupProvider({ children }) {
   };
 
   const updateRooms = (room: Room, action: string) => {
+        console.log(room);
     const r: any = JSON.parse(localStorage.getItem("rooms"));
     if (action === "edit") {
-      const updatedRoom = r.map((room: Room) =>
-        room.id === room.id ? room : room
+      const updatedRoom = r.map((rm: Room) =>
+        rm.id === room.id ? room : rm
       );
       setRooms(updatedRoom);
       localStorage.setItem("rooms", JSON.stringify(updatedRoom));

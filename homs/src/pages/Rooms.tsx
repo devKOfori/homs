@@ -26,6 +26,7 @@ interface Room {
 
 const Rooms = () => {
   const { rooms } = useRoomSetup();
+  console.log(rooms);
 
   return (
     <DashboardLayout>

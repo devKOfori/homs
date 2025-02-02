@@ -5,7 +5,9 @@ import { BiTrash } from "react-icons/bi";
 import { Button } from "../components/ui/button";
 import { FaEye } from "react-icons/fa";
 import TableStatistics from "./TableStatistics";
-
+import RoomDeleteDialog from "./RoomDeleteDialog";
+import RoomEditDialog from "./RoomEditDialog";
+import RoomViewDialog from "./RoomViewDialog";
 
 export interface Room {
   id: string;
@@ -30,123 +32,87 @@ interface Props {
 const RoomList = ({ data, heading }: Props) => {
   return (
     <>
-    <Table.Root mt="50px" mb="20px" size="sm" interactive>
-      <Table.Header>
-        <Table.Row>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          >
-            Room Number
-          </Table.ColumnHeader>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          >
-            Room Type
-          </Table.ColumnHeader>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          >
-            Floor
-          </Table.ColumnHeader>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          >
-            Maintenance
-          </Table.ColumnHeader>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          >
-            Booking{" "}
-          </Table.ColumnHeader>
-          <Table.ColumnHeader
-            bg="var(--darkened-bg-2)"
-            color="black"
-            px="30px"
-            py="5px"
-          ></Table.ColumnHeader>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map((room) => (
-          <Table.Row key={room.id} bg="white">
-            <Table.Cell px="30px" py="5px">
-              {room.room_number}
-            </Table.Cell>
-            <Table.Cell px="30px" py="5px">
-              {room.room_type}
-            </Table.Cell>
-            <Table.Cell px="30px" py="5px">
-              {room.floor}
-            </Table.Cell>
-            <Table.Cell px="30px" py="5px">
-              {room.room_maintenance_status}
-            </Table.Cell>
-            <Table.Cell px="30px" py="5px">
-              {room.room_booking_status}
-            </Table.Cell>
-            <Table.Cell px="30px" py="5px">
-              <Flex justifyContent={"center"} w={"100%"}>
-                <Tooltip content={`View Room`}>
-                  <Button
-                    mx="1px"
-                    size={"xs"}
-                    onClick={() => console.log("icon clicked")}
-                    _hover={{
-                      transform: "scale(1.1)",
-                      border: "1px solid var(--darkened-bg-2)",
-                      bg: "var(--darkened-bg)",
-                    }}
-                  >
-                    <FaEye />
-                  </Button>
-                </Tooltip>
-                <Tooltip content="Edit Category">
-                  <IconButton
-                    size={"xs"}
-                    _hover={{
-                      transform: "scale(1.05)",
-                      transition: "transform 0.3s ease-out",
-                      border: "1px solid var(--darkened-bg-2)",
-                      bg: "var(--darkened-bg)",
-                    }}
-                  >
-                    <MdEdit />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip content="Delete Category">
-                  <IconButton
-                    size={"xs"}
-                    _hover={{
-                      transform: "scale(1.1)",
-                      border: "1px solid var(--darkened-bg-2)",
-                      bg: "var(--darkened-bg)",
-                    }}
-                  >
-                    <BiTrash />
-                  </IconButton>
-                </Tooltip>
-              </Flex>
-            </Table.Cell>
+      <Table.Root mt="50px" mb="20px" size="sm" interactive>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Room Number
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Room Type
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Floor
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Maintenance
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Booking{" "}
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            ></Table.ColumnHeader>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table.Root>
-    <TableStatistics data={data} heading={heading} />
+        </Table.Header>
+        <Table.Body>
+          {data.map((room) => (
+            <Table.Row key={room.id} bg="white">
+              <Table.Cell px="30px" py="5px">
+                {room.room_number}
+              </Table.Cell>
+              <Table.Cell px="30px" py="5px">
+                {room.room_type}
+              </Table.Cell>
+              <Table.Cell px="30px" py="5px">
+                {room.floor}
+              </Table.Cell>
+              <Table.Cell px="30px" py="5px">
+                {room.room_maintenance_status}
+              </Table.Cell>
+              <Table.Cell px="30px" py="5px">
+                {room.room_booking_status}
+              </Table.Cell>
+              <Table.Cell px="30px" py="5px">
+                <Flex justifyContent={"center"} w={"100%"}>
+                  <RoomViewDialog room={room} />
+                  <RoomEditDialog room={room} />
+                  <RoomDeleteDialog room={room} />
+                </Flex>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
+      <TableStatistics data={data} heading={heading} />
     </>
   );
 };
