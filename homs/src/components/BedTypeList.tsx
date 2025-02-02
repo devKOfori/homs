@@ -1,21 +1,20 @@
-import React from "react";
 import { Table, Flex } from "@chakra-ui/react";
 import TableStatistics from "./TableStatistics";
-import AmenityDeleteDialog from "./AmenityDeleteDialog";
-import AmenityEditDialog from "./AmenityEditDialog";
-import AmenityViewDialog from "./AmenityViewDialog";
+import BedTypeViewDialog from "./BedTypeViewDialog";
+import BedTypeEditDialog from "./BedTypeEditDialog";
+import BedTypeDeleteDialog from "./BedTypeDeleteDialog";
 
-export interface Amenity {
+export interface BedType {
   id: string;
   name: string;
 }
 
 interface Props {
-  data: Amenity[];
+  data: BedType[];
   heading: string;
 }
 
-const AmenityList = ({ data, heading }: Props) => {
+const BedTypeList = ({ data, heading }: Props) => {
   return (
     <>
       <Table.Root mt="50px" mb="20px" size="sm" interactive>
@@ -27,7 +26,7 @@ const AmenityList = ({ data, heading }: Props) => {
               px="30px"
               py="5px"
             >
-              Amenity
+              Bed Type
             </Table.ColumnHeader>
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
@@ -38,16 +37,16 @@ const AmenityList = ({ data, heading }: Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((amenity: Amenity) => (
-            <Table.Row key={amenity.id} bg="white">
+          {data.map((bedType: BedType) => (
+            <Table.Row key={bedType.id} bg="white">
               <Table.Cell px="30px" py="5px">
-                {amenity.name}
+                {bedType.name}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 <Flex justifyContent={"end"} w={"100%"}>
-                  <AmenityViewDialog amenity={amenity} />
-                  <AmenityEditDialog amenity={amenity} />
-                  <AmenityDeleteDialog amenity={amenity} />
+                  <BedTypeViewDialog bedType={bedType} />
+                  <BedTypeEditDialog bedType={bedType} />
+                  <BedTypeDeleteDialog bedType={bedType} />
                 </Flex>
               </Table.Cell>
             </Table.Row>
@@ -59,4 +58,4 @@ const AmenityList = ({ data, heading }: Props) => {
   );
 };
 
-export default AmenityList;
+export default BedTypeList;

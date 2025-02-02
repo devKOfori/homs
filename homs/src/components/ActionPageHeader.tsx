@@ -31,6 +31,8 @@ import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import { set } from "react-hook-form";
 import FloorForm from "./FloorForm";
 import HotelViewForm from "./HotelViewForm";
+import BedTypeForm from "./BedTypeForm";
+import AmenityForm from "./AmenityForm";
 
 interface Props {
   heading: string;
@@ -81,6 +83,16 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       dialogContentBody = (
         <HotelViewForm hotelView={null} setDialogOpened={setCreateDialogOpened} />
       )
+      break;
+    case "bedtype": 
+      dialogContentBody = (
+        <BedTypeForm bedType={null} setDialogOpened={setCreateDialogOpened} />
+      )
+      break;
+    case "amenities":
+      dialogContentBody = (
+        <AmenityForm amenity={null} setDialogOpened={setCreateDialogOpened} />
+      );
       break;
     default:
       break;

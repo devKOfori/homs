@@ -18,6 +18,8 @@ import MyShifts from './pages/MyShifts'
 import { RoomSetupProvider } from './contexts/RoomSetupProvider'
 import Floors from './pages/Floors'
 import Views from './pages/Views'
+import Amenities from './pages/Amenities'
+import BedTypes from './pages/BedTypes'
 
 function App() {
 
@@ -74,6 +76,16 @@ function App() {
           <Route path='/dashboard/manage-shift' element={
             <RoleProtectedRoute>
               <ManageShift />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/amenities' element={
+            <RoleProtectedRoute>
+              <Amenities />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/bed-types' element={
+            <RoleProtectedRoute>
+              <BedTypes />
             </RoleProtectedRoute>
             } />
         </Routes>

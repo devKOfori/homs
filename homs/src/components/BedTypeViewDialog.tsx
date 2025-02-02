@@ -8,15 +8,15 @@ import {
 import { FaEye } from "react-icons/fa";
 import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
-import { HotelFloor } from "../pages/Floors";
 import { useState } from "react";
+import { BedType } from "./BedTypeList";
 
 interface Props {
-  hotelFloor: HotelFloor;
+  bedType: BedType;
 }
 
-const FloorViewDialog = ({ hotelFloor }: Props) => {
-  const [open, setOpen] = useState(false);
+const BedTypeViewDialog = ({ bedType }: Props) => {
+    const [open, setOpen] = useState(false);
   return (
     <>
       <DialogRoot
@@ -39,10 +39,10 @@ const FloorViewDialog = ({ hotelFloor }: Props) => {
           </Button>
         </DialogTrigger>
         <DialogContent bg="white" color="#473647" p="20px 40px">
-          <CustomDialogHeader heading={`${hotelFloor.name}`} />
+          <CustomDialogHeader heading={`${bedType.name}`} />
           <DialogBody>
             <DataListRoot orientation="horizontal">
-              <DataListItem label={"Name"} value={hotelFloor.name} />
+              <DataListItem label={"Name"} value={bedType.name} />
             </DataListRoot>
           </DialogBody>
         </DialogContent>
@@ -51,4 +51,4 @@ const FloorViewDialog = ({ hotelFloor }: Props) => {
   );
 };
 
-export default FloorViewDialog;
+export default BedTypeViewDialog;

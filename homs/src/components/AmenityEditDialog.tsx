@@ -8,16 +8,15 @@ import {
 import { Button } from "./ui/button";
 import { FaPen } from "react-icons/fa";
 import CustomDialogHeader from "./CustomDialogHeader";
-import FloorForm from "./FloorForm";
-import { HotelFloor } from "../pages/Floors";
+import { Amenity } from "./AmenityList";
+import AmenityForm from "./AmenityForm";
 
 interface Props {
-  hotelFloor: HotelFloor;
+  amenity: Amenity;
 }
 
-const FloorEditDialog = ({ hotelFloor }: Props) => {
-  const [open, setOpen] = useState(false);
-
+const AmenityEditDialog = ({ amenity }: Props) => {
+    const [open, setOpen] = useState(false);
 
   return (
     <DialogRoot
@@ -40,13 +39,13 @@ const FloorEditDialog = ({ hotelFloor }: Props) => {
         </Button>
       </DialogTrigger>
       <DialogContent bg="white" color="#473647" p="20px 40px">
-        <CustomDialogHeader heading={`Update Floor: ${hotelFloor.id}`} />
+        <CustomDialogHeader heading={`Update Floor: ${amenity.id}`} />
         <DialogBody>
-            <FloorForm hotelFloor={hotelFloor} setDialogOpened={setOpen} />
+          <AmenityForm amenity={amenity} setDialogOpened={setOpen} />
         </DialogBody>
       </DialogContent>
     </DialogRoot>
   );
 };
 
-export default FloorEditDialog;
+export default AmenityEditDialog;

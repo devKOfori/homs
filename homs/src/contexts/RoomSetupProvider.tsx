@@ -4,6 +4,7 @@ import { RoomType } from "../components/RoomTypeList";
 import { HostelFloor } from "../pages/Floors";
 import { Amenity } from "../hooks/useAmenities";
 import { View } from "../pages/Views";
+import { BedType } from "../components/BedTypeList";
 
 export interface RoomSetupContextProps {
   roomCategories: Category[];
@@ -121,14 +122,35 @@ export function RoomSetupProvider({ children }) {
     // localStorage.setItem("floors", JSON.stringify(floors));
   };
 
-  const updateBedTypes = (bedType) => {
-    setBedTypes((prev) => [bedType, ...prev]);
+  const updateBedTypes = (bedType: BedType, action: string) => {
+    console.log(bedType);
+    const bt: BedType[] = JSON.parse(localStorage.getItem("bedTypes"));
+    if (action === "edit") {
+      const updatedBedType = bt.map((bt) => (bt.id === bedType.id ? bedType : bt));
+      setBedTypes(updatedBedType);
+      localStorage.setItem("bedTypes", JSON.stringify(updatedBedType));
+    }
+    if (action === "create") {
+      const updatedBedTypes = [bedType, ...bt];
+      setBedTypes(updatedBedTypes);
+      localStorage.setItem("bedTypes", JSON.stringify(updatedBedTypes));
+    }
     // localStorage.setItem("bedTypes", JSON.stringify(bedTypes));
   };
 
-  const updateAmenities = (amenity: Amenity) => {
-    setAmenities((prev: Amenity[]) => [amenity, ...prev]);
-    // localStorage.setItem("amenities", JSON.stringify(amenities));
+  const updateAmenities = (amenity: Amenity, action: string) => {
+    console.log(amenity);
+    const a: Amenity[] = JSON.parse(localStorage.getItem("amenities"));
+    if (action === "edit") {
+      const updatedAmenity = a.map((a) => (a.id === amenity.id ? amenity : a));
+      setAmenities(updatedAmenity);
+      localStorage.setItem("amenities", JSON.stringify(updatedAmenity));
+    }
+    if (action === "create") {
+      const updatedAmenities = [amenity, ...a];
+      setAmenities(updatedAmenities);
+      localStorage.setItem("amenities", JSON.stringify(updatedAmenities));
+    }
   };
 
   const updateHotelViews = (view: View, action: string) => {
@@ -164,6 +186,8 @@ export function RoomSetupProvider({ children }) {
         setRoomTypes,
         setFloors,
         setHotelViews,
+        setBedTypes,
+        setAmenities,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,

@@ -13,7 +13,6 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = roomService.getRoomTypes();
     request.then((response) => {
-
       localStorage.setItem("roomTypes", JSON.stringify(response.data));
       console.log(response.data);
     });
@@ -39,7 +38,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const { request, cancel } = amenityService.getAmenities();
+    const { request, cancel } = roomService.getAmenities();
     request.then((response) => {
       localStorage.setItem("amenities", JSON.stringify(response.data));
       console.log(response.data);

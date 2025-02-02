@@ -155,6 +155,39 @@ class RoomService {
     return { request, cancel: () => controller.abort() };
   }
 
+  createBedType(data: any) {
+    const request = apiClient.post("/bed-types/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  updateBedType(id: string, data: any) {
+    const request = apiClient.put(`/bed-types/${id}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  deleteBedType(id: string) {
+    const request = apiClient.delete(`/bed-types/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
   getHotelViews() {
     const controller = new AbortController();
     const request = apiClient.get("/hotel-views/", {
@@ -192,6 +225,52 @@ class RoomService {
 
   deleteHotelView(id: string) {
     const request = apiClient.delete(`/hotel-views/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  getAmenities() {
+    const controller = new AbortController();
+    const request = apiClient.get("/amenities/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  createAmenity(data: any) {
+    const request = apiClient.post("/amenities/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  updateAmenity(id: string, data: any) {
+    const request = apiClient.put(`/amenities/${id}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  deleteAmenity(id: string) {
+    const request = apiClient.delete(`/amenities/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken")

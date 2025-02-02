@@ -8,17 +8,15 @@ import {
 import { Button } from "./ui/button";
 import { FaPen } from "react-icons/fa";
 import CustomDialogHeader from "./CustomDialogHeader";
-import FloorForm from "./FloorForm";
-import { HotelFloor } from "../pages/Floors";
+import { BedType } from "./BedTypeList";
+import BedTypeForm from "./BedTypeForm";
 
 interface Props {
-  hotelFloor: HotelFloor;
+  bedType: BedType;
 }
 
-const FloorEditDialog = ({ hotelFloor }: Props) => {
-  const [open, setOpen] = useState(false);
-
-
+const BedTypeEditDialog = ({ bedType }: Props) => {
+    const [open, setOpen] = useState(false);
   return (
     <DialogRoot
       size="lg"
@@ -40,13 +38,13 @@ const FloorEditDialog = ({ hotelFloor }: Props) => {
         </Button>
       </DialogTrigger>
       <DialogContent bg="white" color="#473647" p="20px 40px">
-        <CustomDialogHeader heading={`Update Floor: ${hotelFloor.id}`} />
+        <CustomDialogHeader heading={`Update Floor: ${bedType.id}`} />
         <DialogBody>
-            <FloorForm hotelFloor={hotelFloor} setDialogOpened={setOpen} />
+          <BedTypeForm bedType={bedType} setDialogOpened={setOpen} />
         </DialogBody>
       </DialogContent>
     </DialogRoot>
   );
 };
 
-export default FloorEditDialog;
+export default BedTypeEditDialog;
