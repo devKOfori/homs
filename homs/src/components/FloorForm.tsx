@@ -27,7 +27,7 @@ const FloorForm = ({ hotelFloor, setDialogOpened }: Props) => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: hotelFloor ? hotelFloor.floor_name : "",
+      name: hotelFloor ? hotelFloor.name : "",
     },
   });
 
@@ -62,7 +62,7 @@ const FloorForm = ({ hotelFloor, setDialogOpened }: Props) => {
         type="submit"
         color="white"
       >
-        Submit
+        Save
       </Button>
     </form>
   );

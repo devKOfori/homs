@@ -6,6 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 import TableStatistics from "./TableStatistics";
+import FloorEditDialog from "./FloorEditDialog";
 
 interface HostelFloor {
   id: string;
@@ -62,6 +63,7 @@ const FloorList = ({ data, heading }: Props) => {
                       <FaEye />
                     </Button>
                   </Tooltip>
+                  <FloorEditDialog hotelFloor={hostelFloor} />
                   <Tooltip content="Edit Category">
                     <IconButton
                       size={"xs"}
