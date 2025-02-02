@@ -109,6 +109,39 @@ class RoomService {
     return { request, cancel: () => controller.abort() };
   }
 
+  createFloor(data: any) {
+    const request = apiClient.post("/floors/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  updateFloor(id: string, data: any) {
+    const request = apiClient.put(`/floors/${id}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  deleteFloor(id: string) {
+    const request = apiClient.delete(`/floors/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken")
+        )}`,
+      },
+    });
+    return request;
+  }
+
   getBedTypes() {
     const controller = new AbortController();
     const request = apiClient.get("/bed-types/", {

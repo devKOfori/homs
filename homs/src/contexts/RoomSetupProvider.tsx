@@ -105,8 +105,19 @@ export function RoomSetupProvider({ children }) {
     }
   };
 
-  const updateFloors = (hotelFloor: HostelFloor) => {
-    setFloors((prev: HostelFloor[]) => [hotelFloor, ...prev]);
+  const updateFloors = (hotelFloor: HostelFloor, action: string) => {
+    console.log(hotelFloor);
+    const hfloors: HostelFloor[] = JSON.parse(localStorage.getItem("floors"));
+    if (action === "edit") {
+      const updatedFloor = hfloors.map((hf) => (hf.id === hotelFloor.id ? hotelFloor : hf));
+      setFloors(updatedFloor);
+      localStorage.setItem("floors", JSON.stringify(updatedFloor));
+    }
+    if (action === "create") {
+      const updatedFloors = [hotelFloor, ...hfloors];
+      setFloors(updatedFloors);
+      localStorage.setItem("floors", JSON.stringify(updatedFloors));
+    }
     // localStorage.setItem("floors", JSON.stringify(floors));
   };
 
@@ -140,6 +151,7 @@ export function RoomSetupProvider({ children }) {
         deleteDialogOpened,
         setRoomCategories,
         setRoomTypes,
+        setFloors,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,

@@ -29,6 +29,7 @@ import RoomCategoriesForm from "./RoomCategoriesForm";
 import CrudDialog from "./CrudDialog";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import { set } from "react-hook-form";
+import FloorForm from "./FloorForm";
 
 interface Props {
   heading: string;
@@ -68,6 +69,11 @@ const ActionPageHeader = ({ heading, table }: Props) => {
     case "roomtype":
       dialogContentBody = (
         <RoomTypeForm roomType={null} setDialogOpened={setCreateDialogOpened} />
+      );
+      break;
+    case "floor":
+      dialogContentBody = (
+        <FloorForm hotelFloor={null} setDialogOpened={setCreateDialogOpened} />
       );
       break;
     default:
