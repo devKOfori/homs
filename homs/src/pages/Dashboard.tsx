@@ -6,9 +6,22 @@ import roomService from "../services/room-service";
 import { CanceledError } from "axios";
 import amenityService from "../services/amenity-service";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
+import authService from "../services/auth-service";
 
 const Dashboard = () => {
   const { setRoomCategories } = useRoomSetup();
+
+  useEffect(() => {
+    const { request, cancel } = authService.getMyDepartmentStaffList();
+    request.then((response) => {
+      localStorage.setItem("myDepartmentStaffList", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
 
   useEffect(() => {
     const { request, cancel } = roomService.getRoomTypes();

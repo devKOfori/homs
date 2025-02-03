@@ -30,7 +30,7 @@ const Rooms = () => {
 
   return (
     <DashboardLayout>
-      <ActionPageHeader heading="Rooms" table="room" />
+      <ActionPageHeader heading="Room" table="room" />
       <RoomList data={rooms} heading="Room" />
     </DashboardLayout>
   );
