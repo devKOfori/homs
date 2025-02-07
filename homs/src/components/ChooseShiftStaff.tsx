@@ -51,6 +51,8 @@ const ChooseShiftStaff = ({ shiftDate, shift }: Props) => {
     return () => cancel();
   }, [shiftDate, shift]);
 
+  const pastDate = dayjs(shiftDate).isBefore(dayjs(), "day");
+
   return (
     <>
       <ShiftStaffList
@@ -70,6 +72,7 @@ const ChooseShiftStaff = ({ shiftDate, shift }: Props) => {
             variant="plain"
             px="10px"
             py="5px"
+            disabled={pastDate}
           >
             Add Staff
           </Button>

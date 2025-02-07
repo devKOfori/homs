@@ -5,6 +5,9 @@ import hotelService from "../services/hotel-service";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { ShiftStaff } from "./ChooseShiftStaff";
+import objectSupport from "dayjs/plugin/objectSupport";
+
+dayjs.extend(objectSupport);
 
 export type Shift = {
   id: string;
@@ -34,6 +37,9 @@ const ShiftStaffListItem = ({
     selectedStaff.some((stf) => stf.profile === staff.id)
   );
   const [shiftAssignmentId, setShiftAssignmentId] = useState("");
+  const [error, setError] = useState("");
+  const pastDate = dayjs(shiftDate).isBefore(dayjs(), "day");
+
   const handleAddStaffToShift = () => {
     if (shiftAssignmentId) {
       const request = hotelService.removeShiftAssignment(shiftAssignmentId);
@@ -62,7 +68,8 @@ const ShiftStaffListItem = ({
       console.log(res.data);
     });
     request.catch((err) => {
-      console.log(err);
+      setError(err.message);
+      console.log(err.message);
     });
   };
 
@@ -96,9 +103,11 @@ const ShiftStaffListItem = ({
           px="10px"
           color="var(--header-bg)"
           onClick={handleAddStaffToShift}
+          disabled={pastDate}
         >
           {isAdded ? "Remove from Shift" : "Add to Shift"}
         </Button>
+        <Text color="red.500">{error}</Text>
       </HStack>
     </List.Item>
   );
