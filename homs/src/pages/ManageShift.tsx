@@ -5,51 +5,45 @@ import { Field } from "../components/ui/field";
 import { Table } from "@chakra-ui/react";
 import ShiftWorkingDay from "../components/ShiftWorkingDay";
 import { useState } from "react";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import objectSupport from "dayjs/plugin/objectSupport";
+
+dayjs.extend(utc);
+dayjs.extend(objectSupport);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault("America/New_York");
 
 const ManageShift = () => {
-  const [shiftPeriod, setShiftPeriod] = useState({
-    from: new Date(),
-    to: new Date(),
+  const [shiftPeriod2, setShiftPeriod2] = useState({
+    from: dayjs().tz("America/New_York"),
+    to: dayjs().tz("America/New_York"),
   });
   const { auth } = useAuth();
   const department = auth?.department;
 
-  console.log(shiftPeriod);
+  console.log(shiftPeriod2);
 
-  // const getDatesInPeriod = (from: Date, to: Date) => {
-  //   const dates = [];
-  //   let currentDate = new Date(from);
-  //   while (currentDate <= to) {
-  //     // console.log(from, to);
-  //     dates.push(new Date(currentDate));
-  //     currentDate.setDate(currentDate.getDate() + 1);
-  //   }
-  //   return dates;
-  // };
-  const getDatesInPeriod2 = (shiftPeriod: { from: Date; to: Date }) => {
-    // console.log(shiftPeriod.from <= shiftPeriod.to);
+  const endDate = dayjs({
+    year: shiftPeriod2.to.year(),
+    month: shiftPeriod2.to.month(),
+    day: shiftPeriod2.to.date(),
+    hour: 23,
+    minute: 59,
+    second: 59,
+  });
 
+  const getDatesInPeriod = (from: dayjs.Dayjs, to: dayjs.Dayjs) => {
     const dates = [];
-    let currentDate = new Date(shiftPeriod.from);
-    const endDate = new Date(
-      shiftPeriod.to.getFullYear(),
-      shiftPeriod.to.getMonth(),
-      shiftPeriod.to.getDate(),
-      23,
-      59,
-      59
-    );
-    console.log("endDate", shiftPeriod.to);
-    while (currentDate <= endDate) {
-      dates.push(new Date(currentDate));
-      console.log("pushed", currentDate);
-      currentDate.setDate(currentDate.getDate() + 1);
-      console.log("currentDate", currentDate);
+    let currentDate = from;
+    while (currentDate.isBefore(to) || currentDate.isSame(to)) {
+      dates.push(new Date(currentDate.toISOString()));
+      currentDate = currentDate.add(1, "day");
     }
     return dates;
   };
-
-  // console.log(getDatesInPeriod(shiftPeriod.from, shiftPeriod.to));
 
   return (
     <DashboardLayout>
@@ -66,15 +60,15 @@ const ManageShift = () => {
               type="date"
               px="10px"
               value={
-                shiftPeriod.from
-                  ? shiftPeriod.from.toISOString().split("T")[0]
+                shiftPeriod2.from
+                  ? shiftPeriod2.from.toISOString().split("T")[0]
                   : ""
               }
               onChange={(e) => {
                 const newDate = e.target.value
-                  ? new Date(e.target.value)
-                  : new Date();
-                setShiftPeriod((prev) => ({ ...prev, from: newDate }));
+                  ? dayjs.tz(e.target.value, "America/New_York")
+                  : dayjs.tz();
+                setShiftPeriod2((prev) => ({ ...prev, from: newDate }));
               }}
             />
           </Field>
@@ -83,26 +77,19 @@ const ManageShift = () => {
               type="date"
               px="10px"
               value={
-                shiftPeriod.to ? shiftPeriod.to.toISOString().split("T")[0] : ""
+                shiftPeriod2.to
+                  ? shiftPeriod2.to.toISOString().split("T")[0]
+                  : ""
               }
               onChange={(e) => {
                 const newDate = e.target.value
-                  ? new Date(e.target.value)
-                  : new Date();
-                setShiftPeriod((prev) => ({ ...prev, to: newDate }));
+                  ? dayjs.tz(e.target.value, "America/New_York")
+                  : dayjs.tz();
+                setShiftPeriod2((prev) => ({ ...prev, to: newDate }));
               }}
             />
           </Field>
         </HStack>
-        {/* <Button
-          bg="var(--header-bg)"
-          p="10px 20px"
-          mt="10px"
-          type="submit"
-          color="white"
-        >
-          Process
-        </Button> */}
       </Box>
       <Box>
         <Table.Root
@@ -149,16 +136,7 @@ const ManageShift = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {/* {getDatesInPeriod(shiftPeriod.from, shiftPeriod.to).map((date) => (
-              // console.log(date),
-              <ShiftWorkingDay
-                key={date.toISOString()}
-                date={date}
-                department={department}
-              />
-            ))} */}
-            {getDatesInPeriod2(shiftPeriod).map((date) => (
-              // console.log(date),
+            {getDatesInPeriod(shiftPeriod2.from, endDate).map((date) => (
               <ShiftWorkingDay
                 key={date.toISOString()}
                 date={date}

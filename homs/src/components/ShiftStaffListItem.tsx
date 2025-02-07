@@ -15,7 +15,7 @@ const ShiftStaffListItem = ({
 }: Props) => {
   const handleAddStaffToShift = () => {
     selectedStaff.includes(staff)
-      ? setSelectedStaff(selectedStaff.filter((staff) => staff.id !== staff.id))
+      ? setSelectedStaff(selectedStaff.filter((stf) => stf.id !== staff.id))
       : setSelectedStaff([...selectedStaff, staff]);
   };
 
@@ -35,8 +35,9 @@ const ShiftStaffListItem = ({
             bg="green.700"
             px="7px"
             colorPalette="green"
+            shadow='sm'
           >
-            Added
+            Added to Shift
           </Badge>
         ) : (
           <Badge></Badge>

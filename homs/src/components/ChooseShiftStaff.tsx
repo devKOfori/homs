@@ -1,9 +1,4 @@
-import {
-  DialogTitle,
-  Heading,
-  HStack,
-  List,
-} from "@chakra-ui/react";
+import { DialogTitle, Heading, HStack, List } from "@chakra-ui/react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import {
@@ -17,6 +12,7 @@ import {
 import { useAuth } from "../contexts/AuthProvider";
 import ShiftStaffListItem from "./ShiftStaffListItem";
 import { Staff } from "./StaffList";
+import ShiftStaffList from "./ShiftStaffList";
 
 interface Props {
   department: string;
@@ -30,13 +26,10 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
   const { myDepartmentStaffList } = useAuth();
   return (
     <>
-      {selectedStaff.length > 0 && (
-        <List.Root variant="plain">
-          {selectedStaff.map((staff, index) => (
-            <List.Item key={index}>{staff.full_name}</List.Item>
-          ))}
-        </List.Root>
-      )}
+      <ShiftStaffList
+        selectedStaff={selectedStaff}
+        setSelectedStaff={setSelectedStaff}
+      />
       <DialogRoot
         size="lg"
         placement="center"
@@ -92,6 +85,18 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
           </DialogBody>
         </DialogContent>
       </DialogRoot>
+      {selectedStaff.length > 0 && (
+        <Button
+          size="xs"
+          color="red.500"
+          variant="plain"
+          px="10px"
+          py="5px"
+          onClick={() => setSelectedStaff([])}
+        >
+          Clear List
+        </Button>
+      )}
     </>
   );
 };
