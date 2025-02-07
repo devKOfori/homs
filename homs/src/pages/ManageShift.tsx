@@ -139,7 +139,7 @@ const ManageShift = () => {
             {getDatesInPeriod(shiftPeriod2.from, endDate).map((date) => (
               <ShiftWorkingDay
                 key={date.toISOString()}
-                date={date}
+                shiftDate={date}
                 department={department}
               />
             ))}

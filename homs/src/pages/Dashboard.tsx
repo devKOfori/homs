@@ -7,6 +7,7 @@ import { CanceledError } from "axios";
 import amenityService from "../services/amenity-service";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import authService from "../services/auth-service";
+import hotelService from "../services/hotel-service";
 
 const Dashboard = () => {
   const { setRoomCategories } = useRoomSetup();
@@ -103,6 +104,18 @@ const Dashboard = () => {
     const { request, cancel } = roomService.getRooms();
     request.then((response) => {
       localStorage.setItem("rooms", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const {request, cancel} = hotelService.getShifts();
+    request.then((response) => {
+      localStorage.setItem("shifts", JSON.stringify(response.data));
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;

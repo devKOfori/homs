@@ -1,5 +1,5 @@
 import { DialogTitle, Heading, HStack, List } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
   DialogBody,
@@ -10,20 +10,47 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { useAuth } from "../contexts/AuthProvider";
-import ShiftStaffListItem from "./ShiftStaffListItem";
+import ShiftStaffListItem, { Shift } from "./ShiftStaffListItem";
 import { Staff } from "./StaffList";
 import ShiftStaffList from "./ShiftStaffList";
+import dayjs from "dayjs";
+import hotelService from "../services/hotel-service";
 
 interface Props {
   department: string;
-  date: Date;
-  shift: string;
+  shiftDate: Date;
+  shift: Shift;
 }
 
-const ChooseShiftStaff = ({ date, shift }: Props) => {
-  const [selectedStaff, setSelectedStaff] = useState<Staff[]>([]);
+export type ShiftStaff = {
+  id: string;
+  profile: string;
+  shift: string;
+  employee_name: string;
+};
+
+const ChooseShiftStaff = ({ shiftDate, shift }: Props) => {
+  const [selectedStaff, setSelectedStaff] = useState<ShiftStaff[]>([]);
   const [open, setOpen] = useState(false);
   const { myDepartmentStaffList } = useAuth();
+
+  useEffect(() => {
+    const { request, cancel } = hotelService.getShiftStaff(
+      shiftDate.toISOString().split("T")[0],
+      shift.id
+    );
+    request.then((res) => {
+      const staffForThisShift = res.data.filter(
+        (staff: ShiftStaff) => staff.shift === shift.id
+      );
+      setSelectedStaff(staffForThisShift);
+    });
+    request.catch((err) => {
+      console.log(err);
+    });
+    return () => cancel();
+  }, [shiftDate, shift]);
+
   return (
     <>
       <ShiftStaffList
@@ -44,7 +71,7 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
             px="10px"
             py="5px"
           >
-            Choose Staff
+            Add Staff
           </Button>
         </DialogTrigger>
         <DialogContent bg="white" p="20px 40px">
@@ -53,7 +80,7 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
               <HStack>
                 <Heading>Select Shift Staff</Heading>
                 <Heading color="var(--header-bg)">
-                  [{`${date.toDateString()} - ${shift}`}]
+                  [{`${shiftDate.toDateString()} - ${shift.name}`}]
                 </Heading>
               </HStack>
             </DialogTitle>
@@ -77,6 +104,8 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
                       staff={staff}
                       selectedStaff={selectedStaff}
                       setSelectedStaff={setSelectedStaff}
+                      shift={shift}
+                      shiftDate={shiftDate}
                     />
                   </>
                 );
@@ -85,18 +114,29 @@ const ChooseShiftStaff = ({ date, shift }: Props) => {
           </DialogBody>
         </DialogContent>
       </DialogRoot>
-      {selectedStaff.length > 0 && (
+      {/* {selectedStaff.length > 0 && (
         <Button
           size="xs"
           color="red.500"
           variant="plain"
           px="10px"
           py="5px"
-          onClick={() => setSelectedStaff([])}
+          onClick={() => {
+            const request = hotelService.clearShiftStaff(
+              shiftDate.toISOString().split("T")[0],
+              shift.id
+            );
+            request.then((_) => {
+              setSelectedStaff([]);
+            });
+            request.catch((err) => {
+              console.log(err);
+            });
+          }}
         >
           Clear List
         </Button>
-      )}
+      )} */}
     </>
   );
 };

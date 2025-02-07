@@ -8,7 +8,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -19,7 +19,7 @@ class RoomService {
     const request = apiClient.post("/room-categories/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -32,7 +32,7 @@ class RoomService {
     const request = apiClient.put(`/room-categories/${category.id}/`, payload, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -43,7 +43,7 @@ class RoomService {
     const request = apiClient.delete(`/room-categories/${categoryId}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -56,7 +56,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -67,7 +67,7 @@ class RoomService {
     const request = apiClient.post("/room-types/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -78,7 +78,7 @@ class RoomService {
     const request = apiClient.put(`/room-types/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -89,7 +89,7 @@ class RoomService {
     const request = apiClient.delete(`/room-types/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -102,7 +102,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -113,7 +113,7 @@ class RoomService {
     const request = apiClient.post("/floors/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -124,7 +124,7 @@ class RoomService {
     const request = apiClient.put(`/floors/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -135,7 +135,7 @@ class RoomService {
     const request = apiClient.delete(`/floors/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -148,7 +148,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -159,7 +159,7 @@ class RoomService {
     const request = apiClient.post("/bed-types/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -170,7 +170,7 @@ class RoomService {
     const request = apiClient.put(`/bed-types/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -181,7 +181,7 @@ class RoomService {
     const request = apiClient.delete(`/bed-types/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -194,7 +194,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -205,7 +205,7 @@ class RoomService {
     const request = apiClient.post("/hotel-views/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -216,7 +216,7 @@ class RoomService {
     const request = apiClient.put(`/hotel-views/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -227,7 +227,7 @@ class RoomService {
     const request = apiClient.delete(`/hotel-views/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -240,7 +240,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -251,7 +251,7 @@ class RoomService {
     const request = apiClient.post("/amenities/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -262,7 +262,7 @@ class RoomService {
     const request = apiClient.put(`/amenities/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -273,7 +273,7 @@ class RoomService {
     const request = apiClient.delete(`/amenities/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -286,7 +286,7 @@ class RoomService {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -297,7 +297,7 @@ class RoomService {
     const request = apiClient.post("/rooms/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -308,7 +308,7 @@ class RoomService {
     const request = apiClient.put(`/rooms/${id}/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
@@ -319,7 +319,7 @@ class RoomService {
     const request = apiClient.delete(`/rooms/${id}/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ?? ""
         )}`,
       },
     });
