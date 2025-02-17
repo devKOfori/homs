@@ -61,8 +61,6 @@ const MyShifts = () => {
 
   const updateShiftStatus = (
     id: string,
-    shift: string,
-    date: string,
     newStatus: string
   ) => {
     setError("");
@@ -159,7 +157,7 @@ const MyShifts = () => {
                 {shift.end_time}
               </Table.Cell> */}
               <Table.Cell px="30px" py="5px">
-                {editStatusId === shift.id ? (
+                {/* {editStatusId === shift.id ? (
                   <NativeSelectRoot>
                     <NativeSelectField
                       onChange={(e) => {
@@ -194,7 +192,8 @@ const MyShifts = () => {
                       </IconButton>
                     </Tooltip>
                   </HStack>
-                )}
+                )} */}
+                {shift.status}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">
                 <HStack>
@@ -209,6 +208,7 @@ const MyShifts = () => {
                       bg: "var(--header-bg)",
                       color: "white",
                     }}
+                    onClick={() => updateShiftStatus(shift.id, "Started")}
                   >
                     {/* <FaPlay /> */}
                     Start Shift
@@ -224,6 +224,7 @@ const MyShifts = () => {
                       bg: "red.500",
                       color: "white",
                     }}
+                    onClick={() => updateShiftStatus(shift.id, "Ended")}
                   >
                     {/* <FaStop size='xz' /> */}
                     End Shift
