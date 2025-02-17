@@ -1,10 +1,9 @@
-import { Box, Container, Flex, HStack, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useAuth } from '../contexts/AuthProvider'
 import './Navbar.css'
 
 const Navbar = () => {
-    const {username} = useAuth();
+    const {auth: {username}} = useAuth();
   return (
     <Box h='100%' className='navbar'>
         <Flex justify={'space-between'} align='center' h='100%' px='50px' wrap='wrap'>

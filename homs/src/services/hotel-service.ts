@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import apiClient from "../api-client";
+import { ShiftNote } from "../components/ShiftNoteDialog";
 
 class HotelService {
   getShifts() {
@@ -19,6 +20,7 @@ class HotelService {
       profile: employeeId,
       shift: shiftId,
       date: date,
+      status: "Pending",
     };
     const request = apiClient.post("shift-management/", payload, {
       headers: {
@@ -38,6 +40,38 @@ class HotelService {
         )}`,
       },
     });
+    return request;
+  }
+
+  updateShiftAssignment(
+    assignmentId: string,
+    data: { profile: string; shift: string; date: string; status: string }
+  ) {
+    const request = apiClient.put(`shift-management/${assignmentId}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
+  }
+
+
+  updateAssignedShiftStatus(assignedShiftId: string, status: string) {
+    console.log(assignedShiftId, status);
+    const request = apiClient.post(
+      `shift-management/${assignedShiftId}/change-status/`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return request;
   }
 
@@ -64,9 +98,74 @@ class HotelService {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
         )}`,
-      }
+      },
     });
     return request;
+  }
+
+  getMyShifts() {
+    const controller = new AbortController();
+    const request = apiClient.get("my-shifts/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  addShiftNote(data: ShiftNote) {
+    const request = apiClient.post(
+      `shifts/${data.assigned_shift}/notes/`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+        },
+      }
+    );
+    return request;
+  }
+
+  getShiftNote(shiftId: string) {
+    const controller = new AbortController();
+    const request = apiClient.get(`shifts/${shiftId}/notes/`, {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  updateShiftNote(noteId: string, data: ShiftNote) {
+    const request = apiClient.put(`shifts/notes/${noteId}/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  getShiftStatuses() {
+    const controller = new AbortController();
+    const request = apiClient.get("shift-statuses/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
   }
 }
 

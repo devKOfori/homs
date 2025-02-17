@@ -1,34 +1,14 @@
 import {
-  Box,
   Button,
-  Container,
   Flex,
   Heading,
-  HStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { Category } from "./RoomCategoriesList";
-import { FaEye, FaPlus } from "react-icons/fa";
-import {
-  DialogActionTrigger,
-  DialogBackdrop,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
-import CustomDialogHeader from "./CustomDialogHeader";
-import CreateRecordDialog from "./CreateRecordDialog";
+import { FaPlus } from "react-icons/fa";
 import "./ActionPageHeader.css";
 import RoomTypeForm from "./RoomTypeForm";
 import RoomCategoriesForm from "./RoomCategoriesForm";
 import CrudDialog from "./CrudDialog";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
-import { set } from "react-hook-form";
 import FloorForm from "./FloorForm";
 import HotelViewForm from "./HotelViewForm";
 import BedTypeForm from "./BedTypeForm";

@@ -5,14 +5,27 @@ export interface AuthContextProps {
   auth: {
     accessToken: string | null;
     username: string | null;
-    department: string;
+    userId: string | null;
+    profileId: string | null;
+    department: string | null;
     roles: string | null;
   };
   updateAuth: () => void;
   myDepartmentStaffList: Staff[];
 }
 
-const AuthContext = createContext<AuthContextProps>();
+const AuthContext = createContext<AuthContextProps>({
+  auth: {
+    accessToken: null,
+    username: null,
+    userId: null,
+    profileId: null,
+    department: "",
+    roles: null,
+  },
+  updateAuth: () => {},
+  myDepartmentStaffList: [],
+});
 
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState({
@@ -20,6 +33,8 @@ export function AuthProvider({ children }) {
     username: localStorage.getItem("username"),
     department: localStorage.getItem("department"),
     roles: localStorage.getItem("roles"),
+    userId: localStorage.getItem("userId"),
+    profileId: localStorage.getItem("profileId"),
   });
 
   const updateAuth = () => {
@@ -27,11 +42,13 @@ export function AuthProvider({ children }) {
     const username = localStorage.getItem("username");
     const department = localStorage.getItem("department");
     const roles = localStorage.getItem("roles");
-    setAuth({ accessToken, department, roles, username });
+    const userId = localStorage.getItem("userId");
+    const profileId = localStorage.getItem("profileId");
+    setAuth({ accessToken, department, roles, username, userId, profileId });
   };
 
   const myDepartmentStaffList = JSON.parse(
-    localStorage.getItem("myDepartmentStaffList")
+    localStorage.getItem("myDepartmentStaffList") ?? "[]"
   );
 
   useEffect(() => {
@@ -40,7 +57,7 @@ export function AuthProvider({ children }) {
   // console.log(auth)
   return (
     <AuthContext.Provider
-      value={{ ...auth, updateAuth, myDepartmentStaffList }}
+      value={{ auth, updateAuth, myDepartmentStaffList }}
     >
       {children}
     </AuthContext.Provider>

@@ -124,7 +124,19 @@ const Dashboard = () => {
     return () => cancel();
   }, []);
 
-  const { department } = useAuth();
+  useEffect(() => {
+    const {request, cancel} = hotelService.getShiftStatuses();
+    request.then((response) => {
+      localStorage.setItem("shiftStatuses", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  })
+
+  const { auth: {department} } = useAuth();
   // console.log(`Department: ${department}`)
   switch (department) {
     case "Frontdesk":

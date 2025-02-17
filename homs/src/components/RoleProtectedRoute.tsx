@@ -6,7 +6,7 @@ const RoleProtectedRoute = ({ children }) => {
     const userDepartment = localStorage.getItem('department')
 
     
-    const { department } = useAuth();
+    const { auth: {department} } = useAuth();
 
     if (!token) {
         return <Navigate to='/login' />
