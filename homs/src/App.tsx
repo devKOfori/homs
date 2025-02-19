@@ -21,6 +21,7 @@ import Views from './pages/Views'
 import Amenities from './pages/Amenities'
 import BedTypes from './pages/BedTypes'
 import DepartmentRoster from './pages/DepartmentRoster'
+import ShiftDetails from './pages/ShiftDetails'
 
 function App() {
 
@@ -52,6 +53,11 @@ function App() {
           <Route path='/dashboard/my-shifts' element={
             <RoleProtectedRoute>
               <MyShifts />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/shift-details/:shiftId' element={
+            <RoleProtectedRoute>
+              <ShiftDetails />
             </RoleProtectedRoute>
             } />
           <Route path='/dashboard/rooms' element={

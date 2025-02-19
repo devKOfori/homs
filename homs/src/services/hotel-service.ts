@@ -74,6 +74,19 @@ class HotelService {
     return request;
   }
 
+  getShiftDetails(assignmentId: string) {
+    const controller = new AbortController();
+    const request = apiClient.get(`shift-management/${assignmentId}/`, {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
   getShiftStaff(shiftDate: string, shiftId: string, excludeInactive: boolean = false) {
     const controller = new AbortController();
     const request = apiClient.get("shift-assignments/", {

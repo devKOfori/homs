@@ -37,12 +37,14 @@ const ChooseShiftStaff = ({ shiftDate, shift }: Props) => {
   useEffect(() => {
     const { request, cancel } = hotelService.getShiftStaff(
       shiftDate.toISOString().split("T")[0],
-      shift.id
+      shift.name
     );
     request.then((res) => {
+      console.log(res.data);
       const staffForThisShift = res.data.filter(
         (staff: ShiftStaff) => staff.shift === shift.id
       );
+      console.log(staffForThisShift);
       setSelectedStaff(staffForThisShift);
     });
     request.catch((err) => {

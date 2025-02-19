@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
-import {
-  Heading,
-  HStack,
-  Table,
-  Text,
-} from "@chakra-ui/react";
+import { Heading, HStack, Table, Text } from "@chakra-ui/react";
 import hotelService from "../services/hotel-service";
 import { CanceledError } from "axios";
 import ShiftNoteDialog from "../components/ShiftNoteDialog";
 import { useAuth } from "../contexts/AuthProvider";
 import dayjs from "dayjs";
 import { Button } from "../components/ui/button";
+import MyShiftRow from "../components/MyShiftRow";
 
 export type AssignedShift = {
   id: string;
   shift: string;
   date: string;
+  shift_start_time: string;
+  shift_end_time: string;
   start_time: string;
   end_time: string;
   status: string;
@@ -52,10 +50,7 @@ const MyShifts = () => {
     localStorage.getItem("shiftStatuses") || "[]"
   );
 
-  const updateShiftStatus = (
-    id: string,
-    newStatus: string
-  ) => {
+  const updateShiftStatus = (id: string, newStatus: string) => {
     setError("");
     const request = hotelService.updateAssignedShiftStatus(id, newStatus);
     request.then((_) => {
@@ -113,54 +108,62 @@ const MyShifts = () => {
         </Table.Header>
         <Table.Body>
           {shifts.map((shift) => (
-            <Table.Row bg="white" key={shift.id}>
-              <Table.Cell px="30px" py="5px">
-                {dayjs(shift.date).format("ddd, MMMM DD YYYY")}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                {shift.shift}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                {shift.status}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                <HStack>
-                  <Button
-                    variant="plain"
-                    fontSize="10px"
-                    color="var(--header-bg)"
-                    px="2.5px"
-                    py="2px"
-                    _hover={{
-                      border: "1px solid black",
-                      bg: "var(--header-bg)",
-                      color: "white",
-                    }}
-                    onClick={() => updateShiftStatus(shift.id, "Started")}
-                  >
-                    {/* <FaPlay /> */}
-                    Start Shift
-                  </Button>
-                  <Button
-                    variant="plain"
-                    fontSize="10px"
-                    color="red.500"
-                    px="2.5px"
-                    py="2px"
-                    _hover={{
-                      border: "1px solid black",
-                      bg: "red.500",
-                      color: "white",
-                    }}
-                    onClick={() => updateShiftStatus(shift.id, "Ended")}
-                  >
-                    {/* <FaStop size='xz' /> */}
-                    End Shift
-                  </Button>
-                  <ShiftNoteDialog assignedShift={shift} />
-                </HStack>
-              </Table.Cell>
-            </Table.Row>
+            <MyShiftRow shift={shift} updateShiftStatus={updateShiftStatus} />
+
+            // <Table.Row bg="white" key={shift.id}>
+            //   <Table.Cell px="30px" py="5px">
+            //     {dayjs(shift.date).format("ddd, MMMM DD YYYY")}
+            //   </Table.Cell>
+            //   <Table.Cell px="30px" py="5px">
+            //     {shift.shift}
+            //   </Table.Cell>
+            //   <Table.Cell px="30px" py="5px">
+            //     {shift.status}
+            //   </Table.Cell>
+            //   <Table.Cell px="30px" py="5px">
+            //     <HStack>
+            //       <Button
+            //         variant="plain"
+            //         fontSize="10px"
+            //         color="var(--header-bg)"
+            //         px="2.5px"
+            //         py="2px"
+            //         _hover={{
+            //           border: "1px solid black",
+            //           bg: "var(--header-bg)",
+            //           color: "white",
+            //         }}
+            //         disabled={
+            //           (shift.shift_end_time &&
+            //             dayjs(shift.shift_end_time).isBefore(dayjs())) ||
+            //           dayjs(shift.date).isBefore(dayjs(), "day") ||
+            //           shift.status === "Ended"
+            //         }
+            //         onClick={() => updateShiftStatus(shift.id, "Started")}
+            //       >
+            //         {/* <FaPlay /> */}
+            //         Start Shift
+            //       </Button>
+            //       <Button
+            //         variant="plain"
+            //         fontSize="10px"
+            //         color="red.500"
+            //         px="2.5px"
+            //         py="2px"
+            //         _hover={{
+            //           border: "1px solid black",
+            //           bg: "red.500",
+            //           color: "white",
+            //         }}
+            //         onClick={() => updateShiftStatus(shift.id, "Ended")}
+            //       >
+            //         {/* <FaStop size='xz' /> */}
+            //         End Shift
+            //       </Button>
+            //       <ShiftNoteDialog assignedShift={shift} />
+            //     </HStack>
+            //   </Table.Cell>
+            // </Table.Row>
           ))}
         </Table.Body>
       </Table.Root>
