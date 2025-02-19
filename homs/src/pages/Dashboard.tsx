@@ -134,7 +134,19 @@ const Dashboard = () => {
       console.log(error.message);
     });
     return () => cancel();
-  })
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = hotelService.getPriorities();
+    request.then((response) => {
+      localStorage.setItem("priorities", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      if (error instanceof CanceledError) return;
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
 
   const { auth: {department} } = useAuth();
   // console.log(`Department: ${department}`)

@@ -3,25 +3,15 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import {
   Heading,
   HStack,
-  IconButton,
-  NativeSelect,
   Table,
   Text,
 } from "@chakra-ui/react";
 import hotelService from "../services/hotel-service";
 import { CanceledError } from "axios";
-import { MdEdit } from "react-icons/md";
 import ShiftNoteDialog from "../components/ShiftNoteDialog";
-import { Tooltip } from "../components/ui/tooltip";
 import { useAuth } from "../contexts/AuthProvider";
-import {
-  NativeSelectField,
-  NativeSelectRoot,
-} from "../components/ui/native-select";
-import { Shift } from "../components/ShiftStaffListItem";
 import dayjs from "dayjs";
 import { Button } from "../components/ui/button";
-import { FaPlay, FaStop } from "react-icons/fa";
 
 export type AssignedShift = {
   id: string;
@@ -30,6 +20,9 @@ export type AssignedShift = {
   start_time: string;
   end_time: string;
   status: string;
+  profile: string;
+  employee_name: string;
+  shift_name: string;
 };
 
 const MyShifts = () => {
@@ -64,13 +57,6 @@ const MyShifts = () => {
     newStatus: string
   ) => {
     setError("");
-    //   setShifts((prev) =>
-    //     prev.map((shift) =>
-    //       shift.id === id ? { ...shift, status: newStatus } : shift
-    //     )
-    //   );
-    //   setEditStatusId(null);
-    // console.log(id, shift, date, newStatus);
     const request = hotelService.updateAssignedShiftStatus(id, newStatus);
     request.then((_) => {
       setShifts((prev) =>
@@ -109,22 +95,6 @@ const MyShifts = () => {
             >
               Shift
             </Table.ColumnHeader>
-            {/* <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
-            >
-              Start Time
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
-            >
-              End Time
-            </Table.ColumnHeader> */}
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
@@ -150,49 +120,7 @@ const MyShifts = () => {
               <Table.Cell px="30px" py="5px">
                 {shift.shift}
               </Table.Cell>
-              {/* <Table.Cell px="30px" py="5px">
-                {shift.start_time}
-              </Table.Cell>
               <Table.Cell px="30px" py="5px">
-                {shift.end_time}
-              </Table.Cell> */}
-              <Table.Cell px="30px" py="5px">
-                {/* {editStatusId === shift.id ? (
-                  <NativeSelectRoot>
-                    <NativeSelectField
-                      onChange={(e) => {
-                        const newStatus = e.target.value;
-                        updateShiftStatus(
-                          shift.id,
-                          shift.shift,
-                          shift.date,
-                          newStatus
-                        );
-                        setEditStatusId(null);
-                      }}
-                    >
-                      {shiftStatuses.map(
-                        (status: { id: string; name: string }) => (
-                          <option key={status.id} value={status.name}>
-                            {status.name}
-                          </option>
-                        )
-                      )}
-                    </NativeSelectField>
-                  </NativeSelectRoot>
-                ) : (
-                  <HStack gap={0}>
-                    <Text>{shift.status}</Text>
-                    <Tooltip content="Change Status">
-                      <IconButton
-                        size="xs"
-                        onClick={() => setEditStatusId(shift.id)}
-                      >
-                        <MdEdit />
-                      </IconButton>
-                    </Tooltip>
-                  </HStack>
-                )} */}
                 {shift.status}
               </Table.Cell>
               <Table.Cell px="30px" py="5px">

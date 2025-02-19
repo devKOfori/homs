@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const HotelSetupContext = createContext({
   shifts: [],
-  setShifts: (shifts: Shift[]) => {}
+  setShifts: (shifts: Shift[]) => {},
 });
 
 import { ReactNode } from "react";
@@ -24,5 +24,5 @@ export function HotelSetupProvider({ children }: HotelSetupProviderProps) {
 }
 
 export const useHotelSetup = () => {
-    return useContext(HotelSetupContext);
-}
+  return useContext(HotelSetupContext);
+};

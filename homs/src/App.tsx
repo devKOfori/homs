@@ -20,6 +20,7 @@ import Floors from './pages/Floors'
 import Views from './pages/Views'
 import Amenities from './pages/Amenities'
 import BedTypes from './pages/BedTypes'
+import DepartmentRoster from './pages/DepartmentRoster'
 
 function App() {
 
@@ -71,6 +72,11 @@ function App() {
           <Route path='/dashboard/assign-shift' element={
             <RoleProtectedRoute>
               <AssignShift />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/department-roster' element={
+            <RoleProtectedRoute>
+              <DepartmentRoster />
             </RoleProtectedRoute>
             } />
           <Route path='/dashboard/manage-shift' element={

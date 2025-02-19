@@ -8,6 +8,7 @@ import TableStatistics from "./TableStatistics";
 import RoomDeleteDialog from "./RoomDeleteDialog";
 import RoomEditDialog from "./RoomEditDialog";
 import RoomViewDialog from "./RoomViewDialog";
+import RoomCleaningTaskDialog from "./RoomCleaningTaskDialog";
 
 export interface Room {
   id: string;
@@ -106,6 +107,7 @@ const RoomList = ({ data, heading }: Props) => {
                   <RoomViewDialog room={room} />
                   <RoomEditDialog room={room} />
                   <RoomDeleteDialog room={room} />
+                  <RoomCleaningTaskDialog room={room} />
                 </Flex>
               </Table.Cell>
             </Table.Row>
