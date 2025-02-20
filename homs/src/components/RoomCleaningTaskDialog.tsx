@@ -106,7 +106,14 @@ const RoomCleaningTaskDialog = ({ room }: Props) => {
   }, [formData.date, formData.shift, room.room_number]);
   const onSubmit = (data: RoomCleaningTaskFormValues) => {
     console.log(data);
-    const request = hotelService.createRoomCleaningTask(data);
+    const request = hotelService.createRoomCleaningTask(
+        data.roomNumber,
+        data.shift,
+        data.date,
+        data.staffProfile,
+        data.priority,
+        data.taskDescription
+    );
     request.then((res) => {
       console.log(res.data);
       setOpen(false);

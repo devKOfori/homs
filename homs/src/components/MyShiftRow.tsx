@@ -8,26 +8,26 @@ import { Link } from "react-router-dom";
 
 interface Props {
   shift: AssignedShift;
-  updateShiftStatus: (id: string, newStatus: string) => void
+  updateShiftStatus: (id: string, newStatus: string) => void;
 }
 
 const MyShiftRow = ({ shift, updateShiftStatus }: Props) => {
-//   const updateShiftStatus = (id: string, newStatus: string) => {
-//     setError("");
-//     const request = hotelService.updateAssignedShiftStatus(id, newStatus);
-//     request.then((_) => {
-//       setShifts((prev) =>
-//         prev.map((shift) =>
-//           shift.id === id ? { ...shift, status: newStatus } : shift
-//         )
-//       );
-//       setEditStatusId(null);
-//     });
-//     request.catch((err) => {
-//       setError(err.message);
-//       console.log(err);
-//     });
-//   };
+  //   const updateShiftStatus = (id: string, newStatus: string) => {
+  //     setError("");
+  //     const request = hotelService.updateAssignedShiftStatus(id, newStatus);
+  //     request.then((_) => {
+  //       setShifts((prev) =>
+  //         prev.map((shift) =>
+  //           shift.id === id ? { ...shift, status: newStatus } : shift
+  //         )
+  //       );
+  //       setEditStatusId(null);
+  //     });
+  //     request.catch((err) => {
+  //       setError(err.message);
+  //       console.log(err);
+  //     });
+  //   };
   return (
     <Table.Row bg="white" key={shift.id}>
       <Table.Cell px="30px" py="5px">
@@ -56,7 +56,8 @@ const MyShiftRow = ({ shift, updateShiftStatus }: Props) => {
               (shift.shift_end_time &&
                 dayjs(shift.shift_end_time).isBefore(dayjs())) ||
               !dayjs(shift.date).isSame(dayjs(), "day") ||
-              shift.status === "Ended"
+              shift.status === "Ended" ||
+              shift.status === "Started"
             }
             onClick={() => updateShiftStatus(shift.id, "Started")}
           >

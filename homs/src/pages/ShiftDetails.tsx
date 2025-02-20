@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import hotelService from "../services/hotel-service";
 import { AssignedShift } from "./MyShifts";
 import dayjs from "dayjs";
+import HouseKeepingTasksList from "../components/HouseKeepingTasksList";
 
 const ShiftDetails = () => {
   const [shift, setShift] = useState<AssignedShift | null>(null);
@@ -98,9 +99,12 @@ const ShiftDetails = () => {
         <Heading fontWeight={300} mt="10px">
           Shift Notes
         </Heading>
-        <Textarea mt="10px" value={shiftNote.note} p="5px" onChange={
-            (e) => setShiftNote({ ...shiftNote, note: e.target.value })
-        } />
+        <Textarea
+          mt="10px"
+          value={shiftNote.note}
+          p="5px"
+          onChange={(e) => setShiftNote({ ...shiftNote, note: e.target.value })}
+        />
         <Button
           mt="10px"
           color="white"
@@ -112,6 +116,9 @@ const ShiftDetails = () => {
         >
           Save
         </Button>
+      </Box>
+      <Box mt="15px" borderBottom={"1px solid #DDDCDD"} pb="15px">
+        <HouseKeepingTasksList shiftId={shiftId ?? ""} />
       </Box>
     </DashboardLayout>
   );

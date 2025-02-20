@@ -87,7 +87,11 @@ class HotelService {
     return { request, cancel: () => controller.abort() };
   }
 
-  getShiftStaff(shiftDate: string, shiftId: string, excludeInactive: boolean = false) {
+  getShiftStaff(
+    shiftDate: string,
+    shiftId: string,
+    excludeInactive: boolean = false
+  ) {
     const controller = new AbortController();
     const request = apiClient.get("shift-assignments/", {
       signal: controller.signal,
@@ -197,6 +201,22 @@ class HotelService {
     return { request, cancel: () => controller.abort() };
   }
 
+  getHouseKeepingTasks(params: { shiftId: string | null; }) {
+    const controller = new AbortController();
+    const request = apiClient.get("house-keeping/assign/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+      params: {
+        ...params,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
   getHouseKeepingTaskStaffList(
     date: string,
     shift: string,
@@ -220,20 +240,20 @@ class HotelService {
   }
 
   createRoomCleaningTask(
-    data: {roomNumber: string,
+    roomNumber: string,
     shift: string,
     date: string,
     staffProfile: string,
     priority: string,
-    taskDescription: string}
+    taskDescription: string,
   ) {
     const payload = {
-      room: data.roomNumber,
-      assignment_date: data.date,
-      shift: data.shift,
-      assigned_to: data.staffProfile,
-      priority: data.priority,
-      description: data.taskDescription,
+      room: roomNumber,
+      assignment_date: date,
+      shift: shift,
+      assigned_to: staffProfile,
+      priority: priority,
+      description: taskDescription,
     };
     const request = apiClient.post("house-keeping/assign/", payload, {
       headers: {
@@ -242,6 +262,21 @@ class HotelService {
         )}`,
       },
     });
+    return request;
+  }
+
+  updateRoomCleaningTaskStatus(id: string, status: string) {
+    const request = apiClient.post(
+      `house-keeping/${id}/change-status/`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+        },
+      }
+    );
     return request;
   }
 
@@ -263,7 +298,7 @@ class HotelService {
       },
     });
     return { request, cancel: () => controller.abort() };
-  } 
+  }
 }
 
 export default new HotelService();
