@@ -246,6 +246,8 @@ class HotelService {
     staffProfile: string,
     priority: string,
     taskDescription: string,
+    status: boolean,
+    taskSupported?: string
   ) {
     const payload = {
       room: roomNumber,
@@ -254,6 +256,8 @@ class HotelService {
       assigned_to: staffProfile,
       priority: priority,
       description: taskDescription,
+      status_2: status,
+      task_supported: taskSupported,
     };
     const request = apiClient.post("house-keeping/assign/", payload, {
       headers: {

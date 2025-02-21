@@ -8,8 +8,6 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { GiVacuumCleaner } from "react-icons/gi";
-import { Tooltip } from "./ui/tooltip";
 import { DialogHeader, HStack, Input, List, Text } from "@chakra-ui/react";
 import { Field } from "./ui/field";
 import { NativeSelectField, NativeSelectRoot } from "./ui/native-select";
@@ -23,20 +21,23 @@ import { z } from "zod";
 import dayjs from "dayjs";
 import CleaningTaskEmployeeListItem from "./CleaningTaskEmployeeListItem";
 import { Room } from "./RoomList";
+import { HouseKeepingTask } from "./HouseKeepingTasksList";
 
 interface Props {
-  room: Room;
+  dialogTrigger: React.ReactNode;
+  room?: Room;
+  task?: HouseKeepingTask;
 }
 
-const RoomCleaningTaskDialog = ({ room }: Props) => {
+const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<RoomCleaningTaskFormValues>({
-    roomNumber: room.room_number,
-    date: dayjs().toISOString().split("T")[0],
-    shift: "",
-    priority: "",
-    taskDescription: "",
-    staffProfile: "",
+    roomNumber: task?.room || room?.room_number || "",
+    date: task?.assignment_date || dayjs().toISOString().split("T")[0],
+    shift: task?.shift || "",
+    priority: task?.priority || "",
+    taskDescription: task?.description || "",
+    staffProfile: task?.assigned_to || "",
   });
   const [dutyList, setDutyList] = useState<AssignedShift[]>([]);
   const [staffMembersWithCleaningTask, setStaffMembersWithCleaningTask] =
@@ -52,6 +53,8 @@ const RoomCleaningTaskDialog = ({ room }: Props) => {
     priority: z.string(),
     taskDescription: z.string(),
     staffProfile: z.string(),
+    status: z.boolean().optional(),
+    taskSupported: z.string().optional(),
   });
   type RoomCleaningTaskFormValues = z.infer<typeof schema>;
   const {
@@ -93,7 +96,7 @@ const RoomCleaningTaskDialog = ({ room }: Props) => {
     const { request, cancel } = hotelService.getHouseKeepingTaskStaffList(
       dayjs(formData.date).toISOString().split("T")[0],
       formData.shift,
-      room.room_number
+      room?.room_number || task?.room || ""
     );
     request.then((res) => {
       setStaffMembersWithCleaningTask(res.data);
@@ -103,16 +106,26 @@ const RoomCleaningTaskDialog = ({ room }: Props) => {
       console.log(err);
     });
     return () => cancel();
-  }, [formData.date, formData.shift, room.room_number]);
+  }, [formData.date, formData.shift, room?.room_number, task?.room]);
+
   const onSubmit = (data: RoomCleaningTaskFormValues) => {
+    if (task) {
+      data.status = false;
+      data.taskSupported = task.id;
+    } else {
+      data.status = true;
+    }
+
     console.log(data);
     const request = hotelService.createRoomCleaningTask(
-        data.roomNumber,
-        data.shift,
-        data.date,
-        data.staffProfile,
-        data.priority,
-        data.taskDescription
+      data.roomNumber,
+      data.shift,
+      data.date,
+      data.staffProfile,
+      data.priority,
+      data.taskDescription,
+      data.status,
+      data.taskSupported
     );
     request.then((res) => {
       console.log(res.data);
@@ -130,21 +143,7 @@ const RoomCleaningTaskDialog = ({ room }: Props) => {
         open={open}
         onOpenChange={(e) => setOpen(e.open)}
       >
-        <DialogTrigger>
-          <Tooltip content="Create cleaning task">
-            <Button
-              size="xs"
-              _hover={{
-                transform: "scale(1.2) translateY(-2px)",
-                transition: "transform 0.3s ease-out",
-                bg: "#DDDCDD",
-                border: "1px solid #473647",
-              }}
-            >
-              <GiVacuumCleaner />
-            </Button>
-          </Tooltip>
-        </DialogTrigger>
+        <DialogTrigger>{dialogTrigger}</DialogTrigger>
         <DialogContent bg="white" p="20px 40px">
           <DialogHeader borderBottom="1px solid #DDDCDD" pb="15px">
             <DialogTitle>Room Cleaning Task</DialogTitle>

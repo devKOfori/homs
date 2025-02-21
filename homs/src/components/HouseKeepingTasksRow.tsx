@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Tooltip } from "./ui/tooltip";
 import utils from "../services/utils";
 import { set } from "react-hook-form";
+import RoomCleaningTaskDialog from "./RoomCleaningTaskDialog";
 
 interface Props {
   task: HouseKeepingTask;
@@ -18,6 +19,7 @@ interface Props {
 
 const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
   const handleTaskUpdate = (status: string) => {
+    console.log(task.id);
     const request = utils.updateTaskStatus(
       "houseKeeping",
       task.id ?? "",
@@ -43,6 +45,8 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
     }
   };
 
+  const roomCleaningDialogTrigger = <Text>Assign Support</Text>;
+
   return (
     <>
       <Table.Row key={task.id} bg="white">
@@ -66,10 +70,17 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
                     <Table.Cell px="30px" py="5px">
                         {task.created_by}
                     </Table.Cell> */}
-        <Table.Cell>
+        <Table.Cell py="5px">
           <MenuRoot>
             <MenuTrigger asChild>
-              <Button size="xs" color="var(--header-bg)" variant="plain">
+              <Button
+                size="xz"
+                color="var(--header-bg)"
+                variant="plain"
+                borderRadius="50%"
+                bg="#f5f5f5"
+                p="5px"
+              >
                 <Tooltip content="View Options">
                   <FaEllipsisV />
                 </Tooltip>
@@ -102,8 +113,20 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
                 }}
               >
                 <Text onClick={() => handleTaskUpdate("Request Help")}>
-                  Request Help
+                  Request Support
                 </Text>
+              </MenuItem>
+              <MenuItem
+                value="assign-support"
+                color="black"
+                p="5px"
+                _hover={{
+                  bg: "var(--header-bg)",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              >
+                <RoomCleaningTaskDialog room={task.room} task={task} dialogTrigger={roomCleaningDialogTrigger} />
               </MenuItem>
               <MenuItem
                 value="view-details"

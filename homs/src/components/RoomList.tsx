@@ -4,6 +4,7 @@ import { MdEdit } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 import { Button } from "../components/ui/button";
 import { FaEye } from "react-icons/fa";
+import { GiVacuumCleaner } from "react-icons/gi";
 import TableStatistics from "./TableStatistics";
 import RoomDeleteDialog from "./RoomDeleteDialog";
 import RoomEditDialog from "./RoomEditDialog";
@@ -31,6 +32,21 @@ interface Props {
 }
 
 const RoomList = ({ data, heading }: Props) => {
+  const roomCleaningDialogTrigger = (
+    <Tooltip content="Create cleaning task">
+      <Button
+        size="xs"
+        _hover={{
+          transform: "scale(1.2) translateY(-2px)",
+          transition: "transform 0.3s ease-out",
+          bg: "#DDDCDD",
+          border: "1px solid #473647",
+        }}
+      >
+        <GiVacuumCleaner />
+      </Button>
+    </Tooltip>
+  );
   return (
     <>
       <Table.Root mt="50px" mb="20px" size="sm" interactive>
@@ -107,7 +123,10 @@ const RoomList = ({ data, heading }: Props) => {
                   <RoomViewDialog room={room} />
                   <RoomEditDialog room={room} />
                   <RoomDeleteDialog room={room} />
-                  <RoomCleaningTaskDialog room={room} />
+                  <RoomCleaningTaskDialog
+                    room={room}
+                    dialogTrigger={roomCleaningDialogTrigger}
+                  />
                 </Flex>
               </Table.Cell>
             </Table.Row>
