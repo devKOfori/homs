@@ -8,5 +8,6 @@ export const housekeepingMenuItems = [
     {item: 'Rooms', url: 'rooms'},
     {item: 'My Shifts', url: 'my-shifts'},
     {item: 'Manage Shift', url: 'manage-shift'},
+    {item: 'Tasks Updates', url: 'task-updates'},
     {item: 'Department Rollster', url: 'department-roster'},
 ]

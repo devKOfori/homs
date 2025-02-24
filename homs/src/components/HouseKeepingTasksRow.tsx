@@ -7,6 +7,9 @@ import { Tooltip } from "./ui/tooltip";
 import utils from "../services/utils";
 import { set } from "react-hook-form";
 import RoomCleaningTaskDialog from "./RoomCleaningTaskDialog";
+import TaskDetailDialog from "./TaskDetailDialog";
+import { useState } from "react";
+import dayjs from "dayjs";
 
 interface Props {
   task: HouseKeepingTask;
@@ -18,6 +21,7 @@ interface Props {
 }
 
 const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
+    const [open, setOpen] = useState(false);
   const handleTaskUpdate = (status: string) => {
     console.log(task.id);
     const request = utils.updateTaskStatus(
@@ -54,6 +58,20 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
           {task.room}
         </Table.Cell>
         <Table.Cell px="30px" py="5px">
+          {task.title || ""}
+        </Table.Cell>
+        <Table.Cell px="30px" py="5px">
+            {task.profile_name}
+        </Table.Cell>
+        <Table.Cell px="30px" py="5px">
+            {
+                dayjs(task.assignment_date).format("ddd, MMMM DD YYYY")
+            }
+        </Table.Cell>
+        <Table.Cell px="30px" py="5px">
+            {task.shift}
+        </Table.Cell>
+        <Table.Cell px="30px" py="5px">
           {task.priority}
         </Table.Cell>
         {/* <Table.Cell px="30px" py="5px">
@@ -74,7 +92,7 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
           <MenuRoot>
             <MenuTrigger asChild>
               <Button
-                size="xz"
+                size="xs"
                 color="var(--header-bg)"
                 variant="plain"
                 borderRadius="50%"
@@ -126,7 +144,11 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
                   cursor: "pointer",
                 }}
               >
-                <RoomCleaningTaskDialog room={task.room} task={task} dialogTrigger={roomCleaningDialogTrigger} />
+                <RoomCleaningTaskDialog
+                  room={task.room}
+                  task={task}
+                  dialogTrigger={roomCleaningDialogTrigger}
+                />
               </MenuItem>
               <MenuItem
                 value="view-details"
@@ -138,7 +160,7 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
                   cursor: "pointer",
                 }}
               >
-                <Text>View Task Details</Text>
+                <TaskDetailDialog task={task} open={open} setOpen={setOpen} />
               </MenuItem>
               <MenuItem
                 value="finish-task"

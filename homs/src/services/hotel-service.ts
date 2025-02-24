@@ -201,7 +201,7 @@ class HotelService {
     return { request, cancel: () => controller.abort() };
   }
 
-  getHouseKeepingTasks(params: { shiftId: string | null; }) {
+  getHouseKeepingTasks(shiftId?: string, employeeName?: string) {
     const controller = new AbortController();
     const request = apiClient.get("house-keeping/assign/", {
       signal: controller.signal,
@@ -211,7 +211,8 @@ class HotelService {
         )}`,
       },
       params: {
-        ...params,
+        shiftId,
+        employeeName,
       },
     });
     return { request, cancel: () => controller.abort() };

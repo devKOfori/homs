@@ -22,6 +22,7 @@ import Amenities from './pages/Amenities'
 import BedTypes from './pages/BedTypes'
 import DepartmentRoster from './pages/DepartmentRoster'
 import ShiftDetails from './pages/ShiftDetails'
+import TaskUpdates from './pages/TaskUpdates'
 
 function App() {
 
@@ -93,6 +94,11 @@ function App() {
           <Route path='/dashboard/amenities' element={
             <RoleProtectedRoute>
               <Amenities />
+            </RoleProtectedRoute>
+            } />
+          <Route path='/dashboard/task-updates' element={
+            <RoleProtectedRoute>
+              <TaskUpdates />
             </RoleProtectedRoute>
             } />
           <Route path='/dashboard/bed-types' element={

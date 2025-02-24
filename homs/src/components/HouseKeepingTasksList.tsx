@@ -6,6 +6,7 @@ import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "./ui/menu";
 import { Button } from "./ui/button";
 import { Tooltip } from "./ui/tooltip";
 import HouseKeepingTasksRow from "./HouseKeepingTasksRow";
+import HouseKeepingTaskFilters from "./HouseKeepingTaskFilters";
 
 export type HouseKeepingTask = {
   id?: string;
@@ -14,10 +15,12 @@ export type HouseKeepingTask = {
   member_shift: string;
   assignment_date: string;
   assigned_to: string;
+  title?: string;
   description: string;
   priority: string;
   status: string;
   created_by: string;
+  profile_name: string;
 };
 
 interface Props {
@@ -29,7 +32,7 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
     HouseKeepingTask[]
   >([]);
   useEffect(() => {
-    const { request, cancel } = hotelService.getHouseKeepingTasks({ shiftId });
+    const { request, cancel } = hotelService.getHouseKeepingTasks(shiftId);
     request.then((res) => {
       setHouseKeepingTasks(res.data);
       console.log(res.data);
@@ -42,7 +45,8 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
   return (
     <>
       <Heading fontWeight={300}>House Keeping Tasks</Heading>
-      <Table.Root mt="10px" mb="20px" size="sm" interactive>
+      <HouseKeepingTaskFilters setHouseKeepingTasks={setHouseKeepingTasks} />
+      <Table.Root mt="10px" mb="20px" size="sm" interactive overflow={"scroll"}>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
@@ -52,6 +56,38 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
               py="5px"
             >
               Room #
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Title
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Assigned To
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Assigned On
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg="var(--darkened-bg-2)"
+              color="black"
+              px="30px"
+              py="5px"
+            >
+              Shift
             </Table.ColumnHeader>
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"

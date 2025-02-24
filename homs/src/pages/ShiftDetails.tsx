@@ -47,12 +47,19 @@ const ShiftDetails = () => {
   }, [shiftId]);
 
   const handleUpdateShiftNote = () => {
-    const request = hotelService.updateShiftNote(shiftNote.id, {
+    let request;
+    const shiftNoteData = {
       id: shiftNote.id,
       note_date: dayjs().toISOString().split("T")[0],
       note: shiftNote.note,
       assigned_shift: shiftId ?? "",
-    });
+    };
+    if (shiftNote.id) {
+      console.log(shiftNote);
+      request = hotelService.updateShiftNote(shiftNote.id, shiftNoteData);
+    } else {
+        request = hotelService.addShiftNote(shiftNoteData);
+    }
     request.then((res) => {
       setShiftNote({ id: res.data.id, note: res.data.note });
       console.log(res.data);
