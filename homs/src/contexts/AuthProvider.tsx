@@ -27,7 +27,11 @@ const AuthContext = createContext<AuthContextProps>({
   myDepartmentStaffList: [],
 });
 
-export function AuthProvider({ children }) {
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [auth, setAuth] = useState({
     accessToken: localStorage.getItem("accessToken"),
     username: localStorage.getItem("username"),
