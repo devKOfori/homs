@@ -24,10 +24,13 @@ export type HouseKeepingTask = {
 };
 
 interface Props {
-  shiftId: string;
+  shiftId?: string;
+  showFilters?: boolean;
+  fetchMyTasksOnly?: boolean;
+  displayManagerColumns?: boolean;
 }
 
-const HouseKeepingTasksList = ({ shiftId }: Props) => {
+const HouseKeepingTasksList = ({ shiftId, showFilters, fetchMyTasksOnly, displayManagerColumns }: Props) => {
   const [houseKeepingTasks, setHouseKeepingTasks] = useState<
     HouseKeepingTask[]
   >([]);
@@ -45,7 +48,9 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
   return (
     <>
       <Heading fontWeight={300}>House Keeping Tasks</Heading>
-      <HouseKeepingTaskFilters setHouseKeepingTasks={setHouseKeepingTasks} />
+      {showFilters && (
+        <HouseKeepingTaskFilters setHouseKeepingTasks={setHouseKeepingTasks} />
+      )}
       <Table.Root mt="10px" mb="20px" size="sm" interactive overflow={"scroll"}>
         <Table.Header>
           <Table.Row>
@@ -65,30 +70,35 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
             >
               Title
             </Table.ColumnHeader>
-            <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
-            >
-              Assigned To
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
-            >
-              Assigned On
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
-            >
-              Shift
-            </Table.ColumnHeader>
+            {displayManagerColumns && (
+              <>
+              <Table.ColumnHeader
+                bg="var(--darkened-bg-2)"
+                color="black"
+                px="30px"
+                py="5px"
+              >
+                Assigned To
+              </Table.ColumnHeader>
+              
+              <Table.ColumnHeader
+                bg="var(--darkened-bg-2)"
+                color="black"
+                px="30px"
+                py="5px"
+              >
+                Assigned On
+              </Table.ColumnHeader>
+              <Table.ColumnHeader
+                bg="var(--darkened-bg-2)"
+                color="black"
+                px="30px"
+                py="5px"
+              >
+                Shift
+              </Table.ColumnHeader>
+              </>
+            )}
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
@@ -138,13 +148,24 @@ const HouseKeepingTasksList = ({ shiftId }: Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {houseKeepingTasks.map((task) => (
-            <HouseKeepingTasksRow
-              key={task.id}
-              task={task}
-              setHouseKeepingTasks={setHouseKeepingTasks}
-            />
-          ))}
+          {houseKeepingTasks.length > 0 ? (
+            houseKeepingTasks.map((task) => (
+              <HouseKeepingTasksRow
+                key={task.id}
+                task={task}
+                setHouseKeepingTasks={setHouseKeepingTasks}
+                displayManagerColumns={displayManagerColumns}
+              />
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell colSpan={8} bg="white" color="black">
+                <Text py="5px" px="30px">
+                  No tasks found
+                </Text>
+              </Table.Cell>
+            </Table.Row>
+          )}
         </Table.Body>
       </Table.Root>
     </>

@@ -7,7 +7,7 @@ const TaskUpdates = () => {
   return (
     <DashboardLayout>
         <Heading fontWeight={300}>Task Updates</Heading>
-        <HouseKeepingTasksList />
+        <HouseKeepingTasksList showFilters={true} displayManagerColumns={true}/>
     </DashboardLayout>
   )
 }

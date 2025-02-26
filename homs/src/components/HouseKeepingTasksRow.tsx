@@ -18,9 +18,10 @@ interface Props {
       | HouseKeepingTask[]
       | ((prev: HouseKeepingTask[]) => HouseKeepingTask[])
   ) => void;
+  displayManagerColumns?: boolean;
 }
 
-const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
+const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks, displayManagerColumns }: Props) => {
     const [open, setOpen] = useState(false);
   const handleTaskUpdate = (status: string) => {
     console.log(task.id);
@@ -60,17 +61,19 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks }: Props) => {
         <Table.Cell px="30px" py="5px">
           {task.title || ""}
         </Table.Cell>
-        <Table.Cell px="30px" py="5px">
-            {task.profile_name}
-        </Table.Cell>
-        <Table.Cell px="30px" py="5px">
-            {
-                dayjs(task.assignment_date).format("ddd, MMMM DD YYYY")
-            }
-        </Table.Cell>
-        <Table.Cell px="30px" py="5px">
-            {task.shift}
-        </Table.Cell>
+        {displayManagerColumns && (
+          <>
+            <Table.Cell px="30px" py="5px">
+              {task.profile_name}
+            </Table.Cell>
+            <Table.Cell px="30px" py="5px">
+              {dayjs(task.assignment_date).format("ddd, MMMM DD YYYY")}
+            </Table.Cell>
+            <Table.Cell px="30px" py="5px">
+              {task.shift}
+            </Table.Cell>
+          </>
+        )}
         <Table.Cell px="30px" py="5px">
           {task.priority}
         </Table.Cell>

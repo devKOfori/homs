@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Tooltip } from "./ui/tooltip";
 import hotelService from "../services/hotel-service";
@@ -26,7 +26,7 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
     shiftId: "",
     roomNumber: "",
     staffName: "",
-    assignedOn: dayjs().toISOString().split("T")[0],
+    assignedOn: "",
     status: "",
     priority: "",
   });
@@ -36,9 +36,8 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
     priorities: [],
   };
 
-  const handleSearch = () => {
-    console.log("searching...");
-    const { request } = hotelService.getHouseKeepingTasks(
+  useEffect(() => {
+    const { request, cancel } = hotelService.getHouseKeepingTasks(
       searchfilters.shiftId,
       searchfilters.staffName,
       searchfilters.roomNumber,
@@ -53,7 +52,29 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
     request.catch((err) => {
       console.log(err);
     });
-  };
+    return () => cancel();
+  }
+  , [searchfilters.shiftId, searchfilters.staffName, searchfilters.roomNumber, searchfilters.status, searchfilters.priority, searchfilters.assignedOn]);
+
+
+  // const handleSearch = () => {
+  //   console.log("searching...");
+  //   const { request, cancel } = hotelService.getHouseKeepingTasks(
+  //     searchfilters.shiftId,
+  //     searchfilters.staffName,
+  //     searchfilters.roomNumber,
+  //     searchfilters.status,
+  //     searchfilters.priority,
+  //     searchfilters.assignedOn
+  //   );
+  //   request.then((res) => {
+  //     console.log(res.data);
+  //     setHouseKeepingTasks(res.data);
+  //   });
+  //   request.catch((err) => {
+  //     console.log(err);
+  //   });
+  // };
   return (
     <>
       <Stack>
@@ -152,7 +173,7 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
           </NativeSelect.Root>
         </HStack>
       </Stack>
-      <Button
+      {/* <Button
         size="sm"
         bg="var(--header-bg)"
         color="white"
@@ -160,7 +181,7 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
         onClick={handleSearch}
       >
         Search
-      </Button>
+      </Button> */}
       <Button
         size="sm"
         bg="gray"
@@ -171,7 +192,7 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
             shiftId: "",
             roomNumber: "",
             staffName: "",
-            assignedOn: dayjs().toISOString().split("T")[0],
+            assignedOn: "",
             status: "",
             priority: "",
           });

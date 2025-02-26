@@ -58,7 +58,7 @@ const ShiftDetails = () => {
       console.log(shiftNote);
       request = hotelService.updateShiftNote(shiftNote.id, shiftNoteData);
     } else {
-        request = hotelService.addShiftNote(shiftNoteData);
+      request = hotelService.addShiftNote(shiftNoteData);
     }
     request.then((res) => {
       setShiftNote({ id: res.data.id, note: res.data.note });
@@ -125,7 +125,11 @@ const ShiftDetails = () => {
         </Button>
       </Box>
       <Box mt="15px" borderBottom={"1px solid #DDDCDD"} pb="15px">
-        <HouseKeepingTasksList shiftId={shiftId ?? ""} />
+        <HouseKeepingTasksList
+          shiftId={shiftId ?? ""}
+          displayManagerColumns={false}
+          fetchMyTasksOnly={true}
+        />
       </Box>
     </DashboardLayout>
   );
