@@ -15,22 +15,36 @@ import hotelService from "../services/hotel-service";
 import { HouseKeepingTask } from "./HouseKeepingTasksList";
 import { useHotelSetup } from "../contexts/HotelSetupProvider";
 import { Button } from "./ui/button";
+import dayjs from "dayjs";
 
 interface Props {
   setHouseKeepingTasks: (tasks: HouseKeepingTask[]) => void;
 }
 
 const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
-  const [employeeName, setEmployeeName] = useState<string>("");
+  const [searchfilters, setSearchFilters] = useState({
+    shiftId: "",
+    roomNumber: "",
+    staffName: "",
+    assignedOn: dayjs().toISOString().split("T")[0],
+    status: "",
+    priority: "",
+  });
   const { shifts, shiftStatuses, priorities } = useHotelSetup() || {
     shifts: [],
+    shiftStatuses: [],
+    priorities: [],
   };
 
   const handleSearch = () => {
     console.log("searching...");
-    const { request, cancel } = hotelService.getHouseKeepingTasks(
-      undefined,
-      employeeName
+    const { request } = hotelService.getHouseKeepingTasks(
+      searchfilters.shiftId,
+      searchfilters.staffName,
+      searchfilters.roomNumber,
+      searchfilters.status,
+      searchfilters.priority,
+      searchfilters.assignedOn
     );
     request.then((res) => {
       console.log(res.data);
@@ -42,30 +56,53 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
   };
   return (
     <>
-      <Stack spacing="20px">
+      <Stack>
         <HStack>
           <Input
             placeholder="Room #"
             p="5px"
-            value={employeeName}
-            onChange={(e) => setEmployeeName(e.target.value)}
+            value={searchfilters.roomNumber}
+            onChange={(e) =>
+              setSearchFilters({ ...searchfilters, roomNumber: e.target.value })
+            }
           />
           <Input
             placeholder="Staff Name"
             p="5px"
-            value={employeeName}
-            onChange={(e) => setEmployeeName(e.target.value)}
+            value={searchfilters.staffName}
+            onChange={(e) =>
+              setSearchFilters({ ...searchfilters, staffName: e.target.value })
+            }
           />
         </HStack>
         <HStack>
           <HStack>
             <Text>Assigned On</Text>
-            <Input type="date" p="5px" />
+            <Input
+              type="date"
+              p="5px"
+              value={searchfilters.assignedOn}
+              onChange={(e) =>
+                setSearchFilters({
+                  ...searchfilters,
+                  assignedOn: e.target.value,
+                })
+              }
+            />
           </HStack>
           <HStack>
             <Text>Shift:</Text>
             <NativeSelect.Root size="sm" width="240px">
-              <NativeSelect.Field placeholder="Select option">
+              <NativeSelect.Field
+                placeholder="Select option"
+                value={searchfilters.shiftId}
+                onChange={(e) =>
+                  setSearchFilters({
+                    ...searchfilters,
+                    shiftId: e.target.value,
+                  })
+                }
+              >
                 {shifts.map((shift) => (
                   <option key={shift.id} value={shift.id}>
                     {shift.name}
@@ -78,9 +115,15 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
           <HStack>
             <Text>Status:</Text>
             <NativeSelect.Root size="sm" width="240px">
-              <NativeSelect.Field placeholder="Select option">
+              <NativeSelect.Field
+                placeholder="Select option"
+                value={searchfilters.status}
+                onChange={(e) =>
+                  setSearchFilters({ ...searchfilters, status: e.target.value })
+                }
+              >
                 {shiftStatuses.map((shiftStatus) => (
-                  <option key={shiftStatus.id} value={shiftStatus.id}>
+                  <option key={shiftStatus.id} value={shiftStatus.name}>
                     {shiftStatus.name}
                   </option>
                 ))}
@@ -92,9 +135,15 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
         <HStack>
           <Text>Priority:</Text>
           <NativeSelect.Root size="sm" width="240px">
-            <NativeSelect.Field placeholder="Select option">
+            <NativeSelect.Field
+              placeholder="Select option"
+              value={searchfilters.priority}
+              onChange={(e) =>
+                setSearchFilters({ ...searchfilters, priority: e.target.value })
+              }
+            >
               {priorities.map((priority) => (
-                <option key={priority.id} value={priority.id}>
+                <option key={priority.id} value={priority.name}>
                   {priority.name}
                 </option>
               ))}
@@ -103,8 +152,32 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
           </NativeSelect.Root>
         </HStack>
       </Stack>
-      <Button size="sm" bg="var(--header-bg)" color="white" p="10px 20px">
+      <Button
+        size="sm"
+        bg="var(--header-bg)"
+        color="white"
+        p="10px 20px"
+        onClick={handleSearch}
+      >
         Search
+      </Button>
+      <Button
+        size="sm"
+        bg="gray"
+        color="black"
+        p="10px 20px"
+        onClick={() => {
+          setSearchFilters({
+            shiftId: "",
+            roomNumber: "",
+            staffName: "",
+            assignedOn: dayjs().toISOString().split("T")[0],
+            status: "",
+            priority: "",
+          });
+        }}
+      >
+        Reset Filters
       </Button>
     </>
   );
