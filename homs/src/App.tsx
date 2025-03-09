@@ -29,6 +29,9 @@ import DepartmentRoster from "./pages/DepartmentRoster";
 import ShiftDetails from "./pages/ShiftDetails";
 import TaskUpdates from "./pages/TaskUpdates";
 import { HotelSetupProvider } from "./contexts/HotelSetupProvider";
+import MyTasks from "./pages/MyTasks";
+import Bookings from "./pages/Bookings";
+import { BookingProvider } from "./contexts/BookingProvider";
 
 function App() {
   return (
@@ -36,6 +39,7 @@ function App() {
       <AuthProvider>
         <HotelSetupProvider>
           <RoomSetupProvider>
+            <BookingProvider>
             <Router>
               <Routes>
                 <Route index element={<Home />} />
@@ -55,6 +59,14 @@ function App() {
                   element={
                     <RoleProtectedRoute>
                       <RoomCategories />
+                    </RoleProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/my-tasks"
+                  element={
+                    <RoleProtectedRoute>
+                      <MyTasks />
                     </RoleProtectedRoute>
                   }
                 />
@@ -154,8 +166,18 @@ function App() {
                     </RoleProtectedRoute>
                   }
                 />
+
+                <Route
+                  path="/dashboard/bookings"
+                  element={
+                    <RoleProtectedRoute>
+                      <Bookings />
+                    </RoleProtectedRoute>
+                  }
+                />
               </Routes>
             </Router>
+            </BookingProvider>
           </RoomSetupProvider>
         </HotelSetupProvider>
       </AuthProvider>

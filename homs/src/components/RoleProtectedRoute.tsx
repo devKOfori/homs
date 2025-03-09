@@ -1,7 +1,11 @@
 import { useAuth } from '../contexts/AuthProvider'
 import { Navigate } from "react-router-dom"
 
-const RoleProtectedRoute = ({ children }) => {
+interface Props {
+    children: React.ReactNode
+}
+
+const RoleProtectedRoute = ({ children }: Props) => {
     const token = localStorage.getItem('accessToken')
     const userDepartment = localStorage.getItem('department')
 

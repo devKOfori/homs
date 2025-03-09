@@ -8,6 +8,7 @@ import amenityService from "../services/amenity-service";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import authService from "../services/auth-service";
 import hotelService from "../services/hotel-service";
+import bookingServices from "../services/booking-services";
 
 const Dashboard = () => {
   const { setRoomCategories } = useRoomSetup();
@@ -144,6 +145,18 @@ const Dashboard = () => {
     request.catch((error) => {
       if (error instanceof CanceledError) return;
       console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getTitles();
+    request.then((res) => {
+      localStorage.setItem("titles", JSON.stringify(res.data));
+    });
+    request.catch((err) => {
+      if (err instanceof CanceledError) return;
+      console.log(err.message);
     });
     return () => cancel();
   }, []);

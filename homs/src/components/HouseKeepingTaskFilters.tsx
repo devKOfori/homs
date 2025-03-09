@@ -23,9 +23,9 @@ interface Props {
 
 const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
   const [searchfilters, setSearchFilters] = useState({
-    shiftId: "",
     roomNumber: "",
     staffName: "",
+    shiftName: "",
     assignedOn: "",
     status: "",
     priority: "",
@@ -38,9 +38,10 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
 
   useEffect(() => {
     const { request, cancel } = hotelService.getHouseKeepingTasks(
-      searchfilters.shiftId,
+      undefined,
       searchfilters.staffName,
       searchfilters.roomNumber,
+      searchfilters.shiftName,
       searchfilters.status,
       searchfilters.priority,
       searchfilters.assignedOn
@@ -54,7 +55,7 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
     });
     return () => cancel();
   }
-  , [searchfilters.shiftId, searchfilters.staffName, searchfilters.roomNumber, searchfilters.status, searchfilters.priority, searchfilters.assignedOn]);
+  , [searchfilters.shiftName, searchfilters.staffName, searchfilters.roomNumber, searchfilters.status, searchfilters.priority, searchfilters.assignedOn]);
 
 
   // const handleSearch = () => {
@@ -116,16 +117,16 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
             <NativeSelect.Root size="sm" width="240px">
               <NativeSelect.Field
                 placeholder="Select option"
-                value={searchfilters.shiftId}
+                value={searchfilters.shiftName}
                 onChange={(e) =>
                   setSearchFilters({
                     ...searchfilters,
-                    shiftId: e.target.value,
+                    shiftName: e.target.value,
                   })
                 }
               >
                 {shifts.map((shift) => (
-                  <option key={shift.id} value={shift.id}>
+                  <option key={shift.id} value={shift.name}>
                     {shift.name}
                   </option>
                 ))}
@@ -189,9 +190,9 @@ const HouseKeepingTaskFilters = ({ setHouseKeepingTasks }: Props) => {
         p="10px 20px"
         onClick={() => {
           setSearchFilters({
-            shiftId: "",
             roomNumber: "",
             staffName: "",
+            shiftName: "",
             assignedOn: "",
             status: "",
             priority: "",

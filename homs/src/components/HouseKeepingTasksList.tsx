@@ -30,12 +30,26 @@ interface Props {
   displayManagerColumns?: boolean;
 }
 
-const HouseKeepingTasksList = ({ shiftId, showFilters, fetchMyTasksOnly, displayManagerColumns }: Props) => {
+const HouseKeepingTasksList = ({
+  shiftId,
+  showFilters,
+  fetchMyTasksOnly,
+  displayManagerColumns,
+}: Props) => {
   const [houseKeepingTasks, setHouseKeepingTasks] = useState<
     HouseKeepingTask[]
   >([]);
   useEffect(() => {
-    const { request, cancel } = hotelService.getHouseKeepingTasks(shiftId);
+    const { request, cancel } = hotelService.getHouseKeepingTasks(
+      shiftId,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      fetchMyTasksOnly
+    );
     request.then((res) => {
       setHouseKeepingTasks(res.data);
       console.log(res.data);
@@ -72,31 +86,31 @@ const HouseKeepingTasksList = ({ shiftId, showFilters, fetchMyTasksOnly, display
             </Table.ColumnHeader>
             {displayManagerColumns && (
               <>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
-              >
-                Assigned To
-              </Table.ColumnHeader>
-              
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
-              >
-                Assigned On
-              </Table.ColumnHeader>
-              <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
-              >
-                Shift
-              </Table.ColumnHeader>
+                <Table.ColumnHeader
+                  bg="var(--darkened-bg-2)"
+                  color="black"
+                  px="30px"
+                  py="5px"
+                >
+                  Assigned To
+                </Table.ColumnHeader>
+
+                <Table.ColumnHeader
+                  bg="var(--darkened-bg-2)"
+                  color="black"
+                  px="30px"
+                  py="5px"
+                >
+                  Assigned On
+                </Table.ColumnHeader>
+                <Table.ColumnHeader
+                  bg="var(--darkened-bg-2)"
+                  color="black"
+                  px="30px"
+                  py="5px"
+                >
+                  Shift
+                </Table.ColumnHeader>
               </>
             )}
             <Table.ColumnHeader

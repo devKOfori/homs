@@ -205,9 +205,11 @@ class HotelService {
     shiftId?: string,
     employeeName?: string,
     roomNumber?: string,
+    shiftName?: string,
     status?: string,
     priority?: string,
-    assignedOn?: string
+    assignedOn?: string,
+    userTasksOnly?: boolean
   ) {
     const controller = new AbortController();
     const request = apiClient.get("house-keeping/assign/", {
@@ -221,9 +223,11 @@ class HotelService {
         shiftId,
         employeeName,
         roomNumber,
+        shiftName,
         status,
         priority,
         assignedOn,
+        userTasksOnly,
       },
     });
     return { request, cancel: () => controller.abort() };
@@ -315,6 +319,8 @@ class HotelService {
     });
     return { request, cancel: () => controller.abort() };
   }
+
+
 }
 
 export default new HotelService();
