@@ -1,14 +1,45 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Category } from "../components/RoomCategoriesList";
-import { RoomType } from "../components/RoomTypeList";
 import { HotelFloor } from "../pages/Floors";
-import { Amenity } from "../hooks/useAmenities";
-import { View } from "../pages/Views";
-import { BedType } from "../components/BedTypeList";
 import { Room } from "../components/RoomList";
 
+export type Amenity ={ 
+  id: string;
+  name: string;
+}
+
+export interface BedType {
+  id: string;
+  name: string;
+}
+
+export type RoomCategory = {
+  id?: string;
+  name: string;
+  amenities?: Amenity[];
+}
+
+export type View = {
+  id: string;
+  name: string;
+}
+
+
+export type RoomType = {
+  id?: string;
+  name: string;
+  room_category?: RoomCategory;
+  area_in_metres?: number;
+  area_in_feet?: number;
+  max_guests?: number;
+  bed_types?: BedType[];
+  view?: View;
+  amenities?: Amenity[];
+  rate?: number;
+}
+
 export interface RoomSetupContextProps {
-  roomCategories: Category[];
+  roomCategories: RoomCategory[];
   roomTypes: RoomType[];
   floors: HotelFloor[];
   bedTypes: any[];

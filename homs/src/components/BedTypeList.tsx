@@ -3,11 +3,8 @@ import TableStatistics from "./TableStatistics";
 import BedTypeViewDialog from "./BedTypeViewDialog";
 import BedTypeEditDialog from "./BedTypeEditDialog";
 import BedTypeDeleteDialog from "./BedTypeDeleteDialog";
+import { BedType } from "../contexts/RoomSetupProvider";
 
-export interface BedType {
-  id: string;
-  name: string;
-}
 
 interface Props {
   data: BedType[];

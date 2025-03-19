@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import apiClient from '../api-client'
 import { CanceledError } from 'axios'
+import { Amenity } from '../contexts/RoomSetupProvider'
 
-type UUID = string
-
-export interface Amenity{
-    id: UUID,
-    name: string,
-}
 
 export interface AmenityList {
     amenities: Amenity[]
@@ -17,7 +12,7 @@ interface Props {
     roomNumber: string
 }
 
-const useAmenities = (roomNumber: string) => {
+const useAmenities = ({roomNumber}: Props) => {
     // console.log(`use amenities room #: ${roomNumber}`)
     const [clientName, setClientName] = useState<string>('')
     const [amenities, setAmenities] = useState<AmenityList['amenities']>([])

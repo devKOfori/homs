@@ -1,19 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import BookingsGuestInfoForm from "./BookingsGuestInfoForm";
-import { Box, Fieldset, Stack } from "@chakra-ui/react";
+import { Box, Fieldset, Heading, HStack, Stack, Tabs } from "@chakra-ui/react";
 import { Button } from "./ui/button";
+import BookingsRoomInfoForm from "./BookingsRoomInfoForm";
+import BookingsPaymentInfoForm from "./BookingsPaymentInfoForm";
 
 const BookingsForm = () => {
+  const [value, setValue] = useState("userInfo");
+  const [currentValueIndex, setCurrentValueIndex] = useState(0);
+  const tabValues = ["userInfo", "bookingInfo", "paymentInfo"];
+  console.log(value);
+  const handleBookingFormNavigation = (index: number) => {
+    setValue(tabValues[index]);
+    setCurrentValueIndex(index);
+  };
   return (
-    <Box px='15px'>
+    <Box px="15px">
       <form method="post">
-        <Fieldset.Root size="lg" px="20px" gap="3px" maxW="90%">
-          <Stack>
-            <Fieldset.Legend color="black">Guest Information</Fieldset.Legend>
-            <BookingsGuestInfoForm />
-          </Stack>
-        </Fieldset.Root>
-        <Button type='submit' p='10px 20px' bg='var(--header-bg)' color='white'>Save</Button>
+        <Tabs.Root
+          value={value}
+          onValueChange={(e) => setValue(e.value)}
+          defaultValue="userInfo"
+        >
+          <Tabs.List gap="10px">
+            <Tabs.Trigger color="black" value="userInfo">
+              Guest Information
+            </Tabs.Trigger>
+            <Tabs.Trigger color="black" value="bookingInfo">
+              Booking Information
+            </Tabs.Trigger>
+            <Tabs.Trigger color="black" value="paymentInfo">
+              Payment Information
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="userInfo">
+            <Fieldset.Root size="lg" px="20px" gap="3px" maxW="90%">
+              <Stack>
+                {/* <Fieldset.Legend color="black">
+                  Guest Information
+                </Fieldset.Legend> */}
+                <BookingsGuestInfoForm />
+              </Stack>
+            </Fieldset.Root>
+          </Tabs.Content>
+          <Tabs.Content value="bookingInfo">
+            <BookingsRoomInfoForm />
+          </Tabs.Content>
+          <Tabs.Content value="paymentInfo">
+            <BookingsPaymentInfoForm />
+          </Tabs.Content>
+        </Tabs.Root>
+        <HStack>
+          <Button
+            type="submit"
+            p="10px 20px"
+            bg="var(--header-bg)"
+            color="white"
+            disabled={currentValueIndex === 0}
+            onClick={() => {
+              handleBookingFormNavigation(currentValueIndex - 1);
+            }}
+          >
+            Back
+          </Button>
+          <Button
+            type="submit"
+            p="10px 20px"
+            bg="var(--header-bg)"
+            color="white"
+            disabled={currentValueIndex === 2}
+            onClick={() => {
+              handleBookingFormNavigation(currentValueIndex + 1);
+            }}
+          >
+            Next
+          </Button>
+          {currentValueIndex === 2 && (
+            <Button
+              type="submit"
+              p="10px 20px"
+              bg="var(--header-bg)"
+              color="white"
+            >
+              Save
+            </Button>
+          )}
+        </HStack>
       </form>
     </Box>
   );
