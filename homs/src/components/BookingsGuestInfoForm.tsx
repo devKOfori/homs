@@ -11,6 +11,7 @@ import { Field } from "./ui/field";
 import React from "react";
 import {
   BookingContextProps,
+  Country,
   Gender,
   Title,
   useBooking,
@@ -21,7 +22,7 @@ import { z } from "zod";
 // import { Field } from './ui/field'
 
 const BookingsGuestInfoForm = () => {
-  const { titles, genders } = useBooking();
+  const { titles, genders, countries } = useBooking();
 
   const schema = z.object({
     title: z.string(),
@@ -67,19 +68,32 @@ const BookingsGuestInfoForm = () => {
           <Input name="phone" />
         </Field>
       </HStack>
-
-      <Field label="Gender" mb="5px">
-        <NativeSelectRoot>
-          <NativeSelectField px="10px" {...register("gender")}>
-            <option value="">Select Gender</option>
-            {genders.map((gender: Gender) => (
-              <option key={gender.id} value={gender.name}>
-                {gender.name}
-              </option>
-            ))}
-          </NativeSelectField>
-        </NativeSelectRoot>
-      </Field>
+      <HStack>
+        <Field label="Gender" mb="5px">
+          <NativeSelectRoot>
+            <NativeSelectField px="10px" {...register("gender")}>
+              <option value="">Select Gender</option>
+              {genders.map((gender: Gender) => (
+                <option key={gender.id} value={gender.name}>
+                  {gender.name}
+                </option>
+              ))}
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Field>
+        <Field label="Country" mb="5px">
+          <NativeSelectRoot>
+            <NativeSelectField px="10px" {...register("gender")}>
+              <option value="">Select Country</option>
+              {countries.map((country: Country) => (
+                <option key={country.id} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Field>
+      </HStack>
       {/* <HStack>
         <Field label="Gender" mb="5px">
           <NativeSelect.Root>

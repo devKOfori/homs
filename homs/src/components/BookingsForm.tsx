@@ -8,8 +8,30 @@ import BookingsPaymentInfoForm from "./BookingsPaymentInfoForm";
 const BookingsForm = () => {
   const [value, setValue] = useState("userInfo");
   const [currentValueIndex, setCurrentValueIndex] = useState(0);
+  const [userInfo, setUserInfo] = useState({
+    title: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    gender: "",
+    country: "",
+    address: "",
+    identification_type: "",
+    identification_number: "",
+    emergency_contact_name: "",
+    emergency_contact_number: "",
+  });
   const tabValues = ["userInfo", "bookingInfo", "paymentInfo"];
   console.log(value);
+  
+  const handleOnValueChange = (tabValue: string) => {
+    // const tabValue = e.value;
+    setValue(tabValue);
+    console.log(tabValues.indexOf(tabValue));
+    setCurrentValueIndex(tabValues.indexOf(tabValue));
+  }
+  
   const handleBookingFormNavigation = (index: number) => {
     setValue(tabValues[index]);
     setCurrentValueIndex(index);
@@ -19,7 +41,7 @@ const BookingsForm = () => {
       <form method="post">
         <Tabs.Root
           value={value}
-          onValueChange={(e) => setValue(e.value)}
+          onValueChange={(e) => handleOnValueChange(e.value)}
           defaultValue="userInfo"
         >
           <Tabs.List gap="10px">

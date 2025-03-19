@@ -109,6 +109,8 @@ export function BookingProvider({ children }: BookingProviderProps) {
 
   const [genders, setGenders] = useState<Gender[]>([]);
 
+  const [countries, setCountries] = useState<Country[]>([]);
+
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings") ?? "[]");
     if (storedBookings.length > 0) {
@@ -144,6 +146,23 @@ export function BookingProvider({ children }: BookingProviderProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const storedCountries = JSON.parse(localStorage.getItem("countries") ?? "[]");
+    if (storedCountries.length > 0) {
+      setCountries(storedCountries);
+    } else {
+      const { request } = bookingServices.getCountries();
+      request.then((response) => {
+        setCountries(response.data);
+        console.log(response.data);
+        localStorage.setItem("countries", JSON.stringify(response.data));
+      });
+      request.catch((error) => {
+        console.log(error.message);
+      });
+    }
+  }, []);
+
   return (
     <BookingContext.Provider
       value={{
@@ -155,6 +174,8 @@ export function BookingProvider({ children }: BookingProviderProps) {
         setBookingsFetchError,
         genders,
         setGenders,
+        countries,
+        setCountries,
       }}
     >
       {children}
