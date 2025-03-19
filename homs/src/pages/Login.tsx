@@ -34,7 +34,7 @@ const Login = () => {
         const request = authService.login(data);
         request.then(response=>{
             const {refresh, access, username, user_id, profile_id, department, roles} = response.data
-            localStorage.setItem('refresh', JSON.stringify(refresh))
+            localStorage.setItem('refreshToken', JSON.stringify(refresh))
             localStorage.setItem('accessToken', JSON.stringify(access))
             localStorage.setItem('username', username)
             localStorage.setItem('userId', user_id)

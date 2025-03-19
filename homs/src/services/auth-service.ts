@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import apiClient from "../api-client";
 import { Inputs } from "../pages/Login";
 
@@ -15,11 +16,15 @@ class AuthService {
         return request
     }
 
-    logout() {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('department')
-        localStorage.removeItem('roles')
+    logout(accessToken: string, refreshToken: string) {
+        console.log(`Access token: ${accessToken}`)
+        const request = apiClient.post("/accounts/logout/", 
+            {refresh: refreshToken}, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken')??'')}`
+            }
+        })
+        return request;
     }
 
     getMyDepartmentStaffList() {

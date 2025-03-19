@@ -4,6 +4,7 @@ import { Staff } from "../components/StaffList";
 export interface AuthContextProps {
   auth: {
     accessToken: string | null;
+    refreshToken: string | null;
     username: string | null;
     userId: string | null;
     profileId: string | null;
@@ -17,6 +18,7 @@ export interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps>({
   auth: {
     accessToken: null,
+    refreshToken: null,
     username: null,
     userId: null,
     profileId: null,
@@ -34,6 +36,7 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [auth, setAuth] = useState({
     accessToken: localStorage.getItem("accessToken"),
+    refreshToken: localStorage.getItem("refreshToken"),
     username: localStorage.getItem("username"),
     department: localStorage.getItem("department"),
     roles: localStorage.getItem("roles"),
@@ -43,12 +46,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const updateAuth = () => {
     const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
     const username = localStorage.getItem("username");
     const department = localStorage.getItem("department");
     const roles = localStorage.getItem("roles");
     const userId = localStorage.getItem("userId");
     const profileId = localStorage.getItem("profileId");
-    setAuth({ accessToken, department, roles, username, userId, profileId });
+    setAuth({ accessToken, refreshToken, department, roles, username, userId, profileId });
   };
 
   const myDepartmentStaffList = JSON.parse(

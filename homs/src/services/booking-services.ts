@@ -3,7 +3,7 @@ import apiClient from "../api-client";
 class BookingService {
   getBookings() {
     const controller = new AbortController();
-    const request  = apiClient.get("/bookings/", {
+    const request = apiClient.get("/bookings/", {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
@@ -22,6 +22,30 @@ class BookingService {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
         )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  getGenders() {
+    const controller = new AbortController();
+    const request = apiClient.get("/genders/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  getCountries() {
+    const controller = new AbortController();
+    const request = apiClient.get("/countries/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken") ?? "")}`,
       },
     });
     return { request, cancel: () => controller.abort() };

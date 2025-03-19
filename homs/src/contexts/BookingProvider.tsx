@@ -54,6 +54,18 @@ export type Booking = {
   created_by?: string;
 };
 
+export type Gender = {
+  id: string;
+  name: string;
+};
+
+export type Country = {
+  id: string;
+  name: string;
+  country_code: string;
+  abbr: string;
+}
+
 export interface BookingContextProps {
   titles: Title[];
   setTitles: Dispatch<SetStateAction<Title[]>>;
@@ -61,6 +73,11 @@ export interface BookingContextProps {
   setBookings: Dispatch<SetStateAction<Booking[]>>;
   bookingsFetchError?: string;
   setBookingsFetchError?: Dispatch<SetStateAction<string>>;
+  genders: Gender[];
+  setGenders: Dispatch<SetStateAction<Gender[]>>;
+  countries: Country[];
+  setCountries: Dispatch<SetStateAction<Country[]>>;
+
 }
 
 const BookingContext = createContext<BookingContextProps>({
@@ -70,6 +87,10 @@ const BookingContext = createContext<BookingContextProps>({
   setBookings: () => {},
   bookingsFetchError: "",
   setBookingsFetchError: () => {},
+  genders: [],
+  setGenders: () => {},
+  countries: [],
+  setCountries: () => {},
 });
 
 interface BookingProviderProps {
@@ -85,6 +106,8 @@ export function BookingProvider({ children }: BookingProviderProps) {
   const [bookingsFetchError, setBookingsFetchError] = useState("");
 
   const [bookings, setBookings] = useState<Booking[]>([]);
+
+  const [genders, setGenders] = useState<Gender[]>([]);
 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings") ?? "[]");
@@ -104,6 +127,23 @@ export function BookingProvider({ children }: BookingProviderProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const storedGenders = JSON.parse(localStorage.getItem("genders") ?? "[]");
+    if (storedGenders.length > 0) {
+      setGenders(storedGenders);
+    } else {
+      const { request } = bookingServices.getGenders();
+      request.then((response) => {
+        setGenders(response.data);
+        console.log(response.data);
+        localStorage.setItem("genders", JSON.stringify(response.data));
+      });
+      request.catch((error) => {
+        console.log(error.message);
+      });
+    }
+  }, []);
+
   return (
     <BookingContext.Provider
       value={{
@@ -113,6 +153,8 @@ export function BookingProvider({ children }: BookingProviderProps) {
         setBookings,
         bookingsFetchError,
         setBookingsFetchError,
+        genders,
+        setGenders,
       }}
     >
       {children}
