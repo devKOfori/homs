@@ -8,9 +8,9 @@ interface Props {
 
 const BookingsListRow = ({ booking }: Props) => {
   return (
-    <Table.Row key={booking.id}>
+    <Table.Row key={booking.booking_code} bg='white'>
       <Table.Cell px="30px" py="15px">
-        {booking.id}
+        {booking.booking_code}
       </Table.Cell>
       <Table.Cell px="30px" py="15px">
         {booking.guest_name}

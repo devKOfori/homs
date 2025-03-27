@@ -4,6 +4,9 @@ import { Box, Fieldset, Heading, HStack, Stack, Tabs } from "@chakra-ui/react";
 import { Button } from "./ui/button";
 import BookingsRoomInfoForm from "./BookingsRoomInfoForm";
 import BookingsPaymentInfoForm from "./BookingsPaymentInfoForm";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const BookingsForm = () => {
   const [value, setValue] = useState("userInfo");
@@ -22,23 +25,55 @@ const BookingsForm = () => {
     emergency_contact_name: "",
     emergency_contact_number: "",
   });
+
+  // const schema = z.object({
+  //   title: z.string(),
+  //   first_name: z.string(),
+  //   last_name: z.string(),
+  //   email: z.string().email(),
+  //   phone_number: z.string(),
+  // });
+
+  const { register, handleSubmit, trigger } = useForm({
+    shouldUnregister: false,
+  });
+
   const tabValues = ["userInfo", "bookingInfo", "paymentInfo"];
   console.log(value);
-  
+
   const handleOnValueChange = (tabValue: string) => {
     // const tabValue = e.value;
     setValue(tabValue);
     console.log(tabValues.indexOf(tabValue));
     setCurrentValueIndex(tabValues.indexOf(tabValue));
-  }
-  
+  };
+
   const handleBookingFormNavigation = (index: number) => {
     setValue(tabValues[index]);
     setCurrentValueIndex(index);
   };
+
+  const nextTab = async () => {
+    const isValid = await trigger();
+    if (isValid) {
+      console.log("is valid");
+      setCurrentValueIndex((prev) => prev + 1);
+      setValue(tabValues[currentValueIndex + 1]);
+    }
+  };
+
+  const prevTab = () => {
+    setCurrentValueIndex((prev) => prev - 1);
+    setValue(tabValues[currentValueIndex - 1]);
+  };
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <Box px="15px">
-      <form method="post">
+      <form method="post" onSubmit={handleSubmit(onSubmit)}>
         <Tabs.Root
           value={value}
           onValueChange={(e) => handleOnValueChange(e.value)}
@@ -73,30 +108,33 @@ const BookingsForm = () => {
           </Tabs.Content>
         </Tabs.Root>
         <HStack>
-          <Button
-            type="submit"
-            p="10px 20px"
-            bg="var(--header-bg)"
-            color="white"
-            disabled={currentValueIndex === 0}
-            onClick={() => {
-              handleBookingFormNavigation(currentValueIndex - 1);
-            }}
-          >
-            Back
-          </Button>
-          <Button
-            type="submit"
-            p="10px 20px"
-            bg="var(--header-bg)"
-            color="white"
-            disabled={currentValueIndex === 2}
-            onClick={() => {
-              handleBookingFormNavigation(currentValueIndex + 1);
-            }}
-          >
-            Next
-          </Button>
+          {
+            currentValueIndex > 0 && (
+              <Button
+                p="10px 20px"
+                bg="var(--header-bg)"
+                color="white"
+                onClick={() => {
+                  prevTab();
+                }}
+              >
+                Back
+              </Button>
+            )
+          }
+          {currentValueIndex < 2 && (
+            <Button
+              p="10px 20px"
+              bg="var(--header-bg)"
+              color="white"
+              disabled={currentValueIndex === 2}
+              onClick={() => {
+                nextTab();
+              }}
+            >
+              Next
+            </Button>
+          )}
           {currentValueIndex === 2 && (
             <Button
               type="submit"

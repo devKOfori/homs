@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { Heading } from "@chakra-ui/react";
 import { DataListItem, DataListRoot } from "./ui/data-list";
 import BookingsForm from "./BookingsForm";
+import BookingsForm2 from "./BookingsForm2";
 
 interface Props {
   open: boolean;
@@ -41,14 +42,16 @@ const BookingCreateDialog = ({ open, setOpen, dialogTriggerBtn }: Props) => {
             {dialogTriggerBtn}
           </Button>
         </DialogTrigger>
-        <DialogContent color="#473647">
+        <DialogContent color="#473647" height="99vh" overflowY="auto">
           <DialogHeader
             bg="var(--header-bg)"
             borderBottom="1px solid #DDDCDD"
             pb="15px"
           >
-            <DialogTitle p='10px 20px'>
-              <Heading fontWeight={300} color='white'>Create Booking Form</Heading>
+            <DialogTitle p="10px 20px">
+              <Heading fontWeight={300} color="white">
+                Create Booking Form
+              </Heading>
             </DialogTitle>
             <DialogCloseTrigger
               color="red.500"
@@ -61,8 +64,8 @@ const BookingCreateDialog = ({ open, setOpen, dialogTriggerBtn }: Props) => {
               }}
             />
           </DialogHeader>
-          <DialogBody bg="white" py='20px' overflow='scroll' height='70%'>
-            <BookingsForm />
+          <DialogBody bg="white" py="20px">
+            <BookingsForm2 setDialogOpened={setOpen}/>
           </DialogBody>
         </DialogContent>
       </DialogRoot>

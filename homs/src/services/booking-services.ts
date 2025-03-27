@@ -1,4 +1,6 @@
 import apiClient from "../api-client";
+import { Booking } from "../contexts/BookingProvider";
+import RequestService from "../pages/RequestService";
 
 class BookingService {
   getBookings() {
@@ -12,6 +14,17 @@ class BookingService {
       },
     });
     return { request, cancel: () => controller.abort() };
+  }
+
+  createBooking(booking: Booking) {
+    const request = apiClient.post("/bookings/", booking, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
   }
 
   getTitles() {
@@ -43,6 +56,17 @@ class BookingService {
   getCountries() {
     const controller = new AbortController();
     const request = apiClient.get("/countries/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken") ?? "")}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  getIdentificationTypes() {
+    const controller = new AbortController();
+    const request = apiClient.get("/identification-types/", {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken") ?? "")}`,
