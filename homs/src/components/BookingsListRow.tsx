@@ -1,6 +1,10 @@
 import { Table } from "@chakra-ui/react";
 import React from "react";
 import { Booking } from "../contexts/BookingProvider";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 interface Props {
     booking: Booking;
@@ -15,33 +19,38 @@ const BookingsListRow = ({ booking }: Props) => {
       <Table.Cell px="30px" py="15px">
         {booking.guest_name}
       </Table.Cell>
-      <Table.Cell px="30px" py="15px">
+      {/* <Table.Cell px="30px" py="15px">
         {booking.room_number}
-      </Table.Cell>
+      </Table.Cell> */}
       <Table.Cell px="30px" py="15px">
-        {booking.check_in_date}
+        {
+          booking.check_in_date
+            ? dayjs(booking.check_in_date).format("DD/MM/YYYY")
+            // ? dayjs(booking.check_in_date).fromNow()
+            : "N/A"
+        }
       </Table.Cell>
-      <Table.Cell px="30px" py="15px">
+      {/* <Table.Cell px="30px" py="15px">
         {booking.check_out_date}
-      </Table.Cell>
+      </Table.Cell> */}
       <Table.Cell px="30px" py="15px">
         {booking.room_type}
       </Table.Cell>
-      <Table.Cell px="30px" py="15px">
+      {/* <Table.Cell px="30px" py="15px">
         {booking.payment_status}
-      </Table.Cell>
-      <Table.Cell px="30px" py="15px">
+      </Table.Cell> */}
+      {/* <Table.Cell px="30px" py="15px">
         {booking.number_of_guests}
-      </Table.Cell>
+      </Table.Cell> */}
       <Table.Cell px="30px" py="15px">
         {booking.phone_number}
       </Table.Cell>
-      <Table.Cell px="30px" py="15px">
+      {/* <Table.Cell px="30px" py="15px">
         {booking.email}
       </Table.Cell>
       <Table.Cell px="30px" py="15px">
         {booking.vip_status}
-      </Table.Cell>
+      </Table.Cell> */}
     </Table.Row>
   );
 };

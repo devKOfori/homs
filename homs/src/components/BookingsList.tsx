@@ -32,7 +32,7 @@ const BookingsList = () => {
             >
               Guest Name
             </Table.ColumnHeader>
-            <Table.ColumnHeader
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -41,7 +41,7 @@ const BookingsList = () => {
               minW="150px"
             >
               Room #
-            </Table.ColumnHeader>
+            </Table.ColumnHeader> */}
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
@@ -52,7 +52,7 @@ const BookingsList = () => {
             >
               Check-in Date
             </Table.ColumnHeader>
-            <Table.ColumnHeader
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -61,7 +61,7 @@ const BookingsList = () => {
               minW="150px"
             >
               Check-out Date
-            </Table.ColumnHeader>
+            </Table.ColumnHeader> */}
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
@@ -72,7 +72,7 @@ const BookingsList = () => {
             >
               Room Type
             </Table.ColumnHeader>
-            <Table.ColumnHeader
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -81,8 +81,8 @@ const BookingsList = () => {
               minW="150px"
             >
               Payment Status
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
+            </Table.ColumnHeader> */}
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -91,7 +91,7 @@ const BookingsList = () => {
               minW="150px"
             >
               Number of Guests
-            </Table.ColumnHeader>
+            </Table.ColumnHeader> */}
             <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
@@ -102,7 +102,7 @@ const BookingsList = () => {
             >
               Phone Number
             </Table.ColumnHeader>
-            <Table.ColumnHeader
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -111,8 +111,8 @@ const BookingsList = () => {
               minW="150px"
             >
               Email
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
+            </Table.ColumnHeader> */}
+            {/* <Table.ColumnHeader
               bg="var(--darkened-bg-2)"
               color="black"
               px="30px"
@@ -121,7 +121,7 @@ const BookingsList = () => {
               minW="150px"
             >
               VIP Status
-            </Table.ColumnHeader>
+            </Table.ColumnHeader> */}
           </Table.Row>
         </Table.Header>
         <Table.Body>

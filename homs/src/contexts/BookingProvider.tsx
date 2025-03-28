@@ -77,6 +77,7 @@ export interface BookingContextProps {
   setTitles: Dispatch<SetStateAction<Title[]>>;
   bookings: Booking[];
   setBookings: Dispatch<SetStateAction<Booking[]>>;
+  addNewBooking: (booking: Booking) => void;
   bookingsFetchError?: string;
   setBookingsFetchError?: Dispatch<SetStateAction<string>>;
   genders: Gender[];
@@ -92,6 +93,7 @@ const BookingContext = createContext<BookingContextProps>({
   setTitles: () => {},
   bookings: [],
   setBookings: () => {},
+  addNewBooking: () => {},
   bookingsFetchError: "",
   setBookingsFetchError: () => {},
   genders: [],
@@ -198,6 +200,12 @@ export function BookingProvider({ children }: BookingProviderProps) {
     }
   }, []);
 
+  const addNewBooking = (booking: Booking) => {
+    const newBookings = [...bookings, booking];
+    setBookings(newBookings);
+    localStorage.setItem("bookings", JSON.stringify(newBookings));
+  } 
+
   return (
     <BookingContext.Provider
       value={{
@@ -205,6 +213,7 @@ export function BookingProvider({ children }: BookingProviderProps) {
         setTitles,
         bookings,
         setBookings,
+        addNewBooking,
         bookingsFetchError,
         setBookingsFetchError,
         genders,

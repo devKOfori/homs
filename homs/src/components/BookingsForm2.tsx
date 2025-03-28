@@ -17,7 +17,7 @@ interface Props {
 const BookingsForm2 = ({ setDialogOpened }: Props) => {
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
-  const { setBookings } = useBooking();
+  const { bookings, setBookings, addNewBooking } = useBooking();
 
   const guestInfoSchema = z.object({
     title: z.string(),
@@ -133,7 +133,9 @@ const BookingsForm2 = ({ setDialogOpened }: Props) => {
     };
     const request = bookingService.createBooking(booking);
     request.then((response) => {
-      setBookings((prev) => [response.data, ...prev]);
+      // setBookings((prev) => [response.data, ...prev]);
+      addNewBooking(response.data);
+      localStorage.setItem("bookings", JSON.stringify([response.data, ...bookings]));
       console.log("booking created successfully");
       setDialogOpened(false);
     });
