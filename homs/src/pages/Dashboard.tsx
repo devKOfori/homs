@@ -161,6 +161,42 @@ const Dashboard = () => {
     return () => cancel();
   }, []);
 
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getGenders();
+    request.then((res) => {
+      localStorage.setItem("genders", JSON.stringify(res.data));
+    });
+    request.catch((err) => {
+      if (err instanceof CanceledError) return;
+      console.log(err.message);
+    });
+    return () => cancel();
+    }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getCountries();
+    request.then((res) => {
+      localStorage.setItem("countries", JSON.stringify(res.data));
+    });
+    request.catch((err) => {
+      if (err instanceof CanceledError) return;
+      console.log(err.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getIdentificationTypes();
+    request.then((res) => {
+      localStorage.setItem("identificationTypes", JSON.stringify(res.data));
+    });
+    request.catch((err) => {
+      if (err instanceof CanceledError) return;
+      console.log(err.message);
+    });
+    return () => cancel();
+  }, []);
+
   const { auth: {department} } = useAuth();
   // console.log(`Department: ${department}`)
   switch (department) {

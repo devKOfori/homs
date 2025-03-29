@@ -1,6 +1,5 @@
 import apiClient from "../api-client";
 import { Booking } from "../contexts/BookingProvider";
-import RequestService from "../pages/RequestService";
 
 class BookingService {
   getBookings() {
@@ -58,7 +57,9 @@ class BookingService {
     const request = apiClient.get("/countries/", {
       signal: controller.signal,
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken") ?? "")}`,
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
       },
     });
     return { request, cancel: () => controller.abort() };
@@ -69,7 +70,9 @@ class BookingService {
     const request = apiClient.get("/identification-types/", {
       signal: controller.signal,
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken") ?? "")}`,
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
       },
     });
     return { request, cancel: () => controller.abort() };

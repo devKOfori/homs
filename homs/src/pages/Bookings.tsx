@@ -8,6 +8,12 @@ import BookingCreateDialog from "../components/BookingCreateDialog";
 
 const Bookings = () => {
   const [open, setOpen] = useState(false);
+  const [bookingFilters, setBookingFilters] = useState({
+    bookingCode: "",
+    guestName: "",
+    roomType: "",
+    checkInDate: "",
+  });
   return (
     <DashboardLayout>
       <Flex justifyContent={"space-between"}>
@@ -30,8 +36,14 @@ const Bookings = () => {
           }
         />
       </Flex>
-      <BookingsFilter />
-      <BookingsList />
+      <BookingsFilter
+        bookingFilters={bookingFilters}
+        setBookingFilters={setBookingFilters}
+      />
+      <BookingsList
+        bookingFilters={bookingFilters}
+        setBookingFilters={setBookingFilters}
+      />
     </DashboardLayout>
   );
 };

@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import bookingServices from "../services/booking-services";
+import { useAuth } from "./AuthProvider";
 
 export type Title = {
   id: string;
@@ -73,35 +74,20 @@ export type IdentificationType = {
 };
 
 export interface BookingContextProps {
-  titles: Title[];
-  setTitles: Dispatch<SetStateAction<Title[]>>;
   bookings: Booking[];
   setBookings: Dispatch<SetStateAction<Booking[]>>;
   addNewBooking: (booking: Booking) => void;
   bookingsFetchError?: string;
   setBookingsFetchError?: Dispatch<SetStateAction<string>>;
-  genders: Gender[];
-  setGenders: Dispatch<SetStateAction<Gender[]>>;
-  countries: Country[];
-  setCountries: Dispatch<SetStateAction<Country[]>>;
-  identificationTypes?: IdentificationType[];
-  setIdentificationTypes?: Dispatch<SetStateAction<IdentificationType[]>>;
+  
 }
 
 const BookingContext = createContext<BookingContextProps>({
-  titles: [],
-  setTitles: () => {},
   bookings: [],
   setBookings: () => {},
   addNewBooking: () => {},
   bookingsFetchError: "",
   setBookingsFetchError: () => {},
-  genders: [],
-  setGenders: () => {},
-  countries: [],
-  setCountries: () => {},
-  identificationTypes: [],
-  setIdentificationTypes: () => {},
 });
 
 interface BookingProviderProps {
@@ -109,119 +95,39 @@ interface BookingProviderProps {
 }
 
 export function BookingProvider({ children }: BookingProviderProps) {
-  const [titles, setTitles] = useState(
-    localStorage.getItem("titles")
-      ? JSON.parse(localStorage.getItem("titles") ?? "[]")
-      : []
-  );
   const [bookingsFetchError, setBookingsFetchError] = useState("");
 
   const [bookings, setBookings] = useState<Booking[]>([]);
 
-  const [genders, setGenders] = useState<Gender[]>([]);
-
-  const [countries, setCountries] = useState<Country[]>([]);
-
-  const [identificationTypes, setIdentificationTypes] = useState<
-    IdentificationType[]
-  >([]);
 
   useEffect(() => {
-    const storedBookings = JSON.parse(localStorage.getItem("bookings") ?? "[]");
-    if (storedBookings.length > 0) {
-      setBookings(storedBookings);
-    } else {
-      const { request } = bookingServices.getBookings();
-      request.then((response) => {
-        setBookings(response.data);
-        console.log(response.data);
-        localStorage.setItem("bookings", JSON.stringify(response.data));
-      });
-      request.catch((error) => {
-        setBookingsFetchError(error.message);
-        console.log(error.message);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedGenders = JSON.parse(localStorage.getItem("genders") ?? "[]");
-    if (storedGenders.length > 0) {
-      setGenders(storedGenders);
-    } else {
-      const { request } = bookingServices.getGenders();
-      request.then((response) => {
-        setGenders(response.data);
-        console.log(response.data);
-        localStorage.setItem("genders", JSON.stringify(response.data));
-      });
-      request.catch((error) => {
-        console.log(error.message);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedCountries = JSON.parse(
-      localStorage.getItem("countries") ?? "[]"
-    );
-    if (storedCountries.length > 0) {
-      setCountries(storedCountries);
-    } else {
-      const { request } = bookingServices.getCountries();
-      request.then((response) => {
-        setCountries(response.data);
-        console.log(response.data);
-        localStorage.setItem("countries", JSON.stringify(response.data));
-      });
-      request.catch((error) => {
-        console.log(error.message);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedIdentificationTypes = JSON.parse(
-      localStorage.getItem("identificationTypes") ?? "[]"
-    );
-    console.log(storedIdentificationTypes);
-    if (storedIdentificationTypes.length === 0) {
-      const { request } = bookingServices.getIdentificationTypes();
-      request.then((response) => {
-        setIdentificationTypes(response.data);
-        console.log(response.data);
-        localStorage.setItem(
-          "identificationTypes",
-          JSON.stringify(response.data)
-        );
-      });
-    } else {
-      setIdentificationTypes(storedIdentificationTypes);
-    }
+    const { request, cancel } = bookingServices.getBookings();
+    request.then((response) => {
+      setBookings(response.data);
+      console.log(response.data);
+      localStorage.setItem("bookings", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      setBookingsFetchError(error.message);
+      console.log(error.message);
+    });
+    return () => cancel();
   }, []);
 
   const addNewBooking = (booking: Booking) => {
     const newBookings = [...bookings, booking];
     setBookings(newBookings);
     localStorage.setItem("bookings", JSON.stringify(newBookings));
-  } 
+  };
 
   return (
     <BookingContext.Provider
       value={{
-        titles,
-        setTitles,
         bookings,
         setBookings,
         addNewBooking,
         bookingsFetchError,
         setBookingsFetchError,
-        genders,
-        setGenders,
-        countries,
-        setCountries,
-        identificationTypes,
-        setIdentificationTypes,
       }}
     >
       {children}

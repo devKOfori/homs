@@ -3,16 +3,17 @@ import React from "react";
 import { Booking } from "../contexts/BookingProvider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { VscSignIn } from "react-icons/vsc";
 
 dayjs.extend(relativeTime);
 
 interface Props {
-    booking: Booking;
+  booking: Booking;
 }
 
 const BookingsListRow = ({ booking }: Props) => {
   return (
-    <Table.Row key={booking.booking_code} bg='white'>
+    <Table.Row key={booking.booking_code} bg="white">
       <Table.Cell px="30px" py="15px">
         {booking.booking_code}
       </Table.Cell>
@@ -23,12 +24,10 @@ const BookingsListRow = ({ booking }: Props) => {
         {booking.room_number}
       </Table.Cell> */}
       <Table.Cell px="30px" py="15px">
-        {
-          booking.check_in_date
-            ? dayjs(booking.check_in_date).format("DD/MM/YYYY")
-            // ? dayjs(booking.check_in_date).fromNow()
-            : "N/A"
-        }
+        {booking.check_in_date
+          ? dayjs(booking.check_in_date).format("DD/MM/YYYY")
+          : // ? dayjs(booking.check_in_date).fromNow()
+            "N/A"}
       </Table.Cell>
       {/* <Table.Cell px="30px" py="15px">
         {booking.check_out_date}
@@ -44,6 +43,9 @@ const BookingsListRow = ({ booking }: Props) => {
       </Table.Cell> */}
       <Table.Cell px="30px" py="15px">
         {booking.phone_number}
+      </Table.Cell>
+      <Table.Cell px="30px" py="15px">
+        <VscSignIn size={20} color="green" />
       </Table.Cell>
       {/* <Table.Cell px="30px" py="15px">
         {booking.email}

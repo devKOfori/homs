@@ -40,143 +40,143 @@ function App() {
         <HotelSetupProvider>
           <RoomSetupProvider>
             <BookingProvider>
-            <Router>
-              <Routes>
-                <Route index element={<Home />} />
-                <Route path="/report-issue" element={<ReportIssue />} />
-                <Route path="/request-service" element={<RequestService />} />
-                <Route path="/login" element={<Login />} />
-                <Route
-                  path="/dashboard"
-                  element={
-                    <RoleProtectedRoute>
-                      <Dashboard />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/room-categories"
-                  element={
-                    <RoleProtectedRoute>
-                      <RoomCategories />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/my-tasks"
-                  element={
-                    <RoleProtectedRoute>
-                      <MyTasks />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/room-types"
-                  element={
-                    <RoleProtectedRoute>
-                      <RoomTypes />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/my-shifts"
-                  element={
-                    <RoleProtectedRoute>
-                      <MyShifts />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/shift-details/:shiftId"
-                  element={
-                    <RoleProtectedRoute>
-                      <ShiftDetails />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/rooms"
-                  element={
-                    <RoleProtectedRoute>
-                      <Rooms />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/floors"
-                  element={
-                    <RoleProtectedRoute>
-                      <Floors />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/hotel-views"
-                  element={
-                    <RoleProtectedRoute>
-                      <Views />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/assign-shift"
-                  element={
-                    <RoleProtectedRoute>
-                      <AssignShift />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/department-roster"
-                  element={
-                    <RoleProtectedRoute>
-                      <DepartmentRoster />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/manage-shift"
-                  element={
-                    <RoleProtectedRoute>
-                      <ManageShift />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/amenities"
-                  element={
-                    <RoleProtectedRoute>
-                      <Amenities />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/task-updates"
-                  element={
-                    <RoleProtectedRoute>
-                      <TaskUpdates />
-                    </RoleProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/bed-types"
-                  element={
-                    <RoleProtectedRoute>
-                      <BedTypes />
-                    </RoleProtectedRoute>
-                  }
-                />
+              <Router>
+                <Routes>
+                  <Route index element={<Home />} />
+                  <Route path="/report-issue" element={<ReportIssue />} />
+                  <Route path="/request-service" element={<RequestService />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <RoleProtectedRoute>
+                        <Dashboard />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/room-categories"
+                    element={
+                      <RoleProtectedRoute>
+                        <RoomCategories />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/my-tasks"
+                    element={
+                      <RoleProtectedRoute>
+                        <MyTasks />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/room-types"
+                    element={
+                      <RoleProtectedRoute>
+                        <RoomTypes />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/my-shifts"
+                    element={
+                      <RoleProtectedRoute>
+                        <MyShifts />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/shift-details/:shiftId"
+                    element={
+                      <RoleProtectedRoute>
+                        <ShiftDetails />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/rooms"
+                    element={
+                      <RoleProtectedRoute>
+                        <Rooms />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/floors"
+                    element={
+                      <RoleProtectedRoute>
+                        <Floors />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/hotel-views"
+                    element={
+                      <RoleProtectedRoute>
+                        <Views />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/assign-shift"
+                    element={
+                      <RoleProtectedRoute>
+                        <AssignShift />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/department-roster"
+                    element={
+                      <RoleProtectedRoute>
+                        <DepartmentRoster />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/manage-shift"
+                    element={
+                      <RoleProtectedRoute>
+                        <ManageShift />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/amenities"
+                    element={
+                      <RoleProtectedRoute>
+                        <Amenities />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/task-updates"
+                    element={
+                      <RoleProtectedRoute>
+                        <TaskUpdates />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/bed-types"
+                    element={
+                      <RoleProtectedRoute>
+                        <BedTypes />
+                      </RoleProtectedRoute>
+                    }
+                  />
 
-                <Route
-                  path="/dashboard/bookings"
-                  element={
-                    <RoleProtectedRoute>
-                      <Bookings />
-                    </RoleProtectedRoute>
-                  }
-                />
-              </Routes>
-            </Router>
+                  <Route
+                    path="/dashboard/bookings"
+                    element={
+                      <RoleProtectedRoute>
+                        <Bookings />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                </Routes>
+              </Router>
             </BookingProvider>
           </RoomSetupProvider>
         </HotelSetupProvider>
