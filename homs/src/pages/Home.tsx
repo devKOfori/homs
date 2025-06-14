@@ -6,7 +6,7 @@ import { BsClipboardFill } from 'react-icons/bs'
 
 const Home = () => {
   return (
-    <Container maxW={"10xl"}  bg={"white"} marginInline={"auto"} color={"black"} borderRadius={"5px"} textAlign={"center"} padding={"30px"}>
+    <Container maxW={"10xl"}  bg={"#fdf3e7"} marginInline={"auto"} color={"black"} borderRadius={"5px"} textAlign={"center"} padding={"30px"}>
         <Text marginBottom={"50px"}>Home</Text>
         {/* <Flex
         // flexDirection="column"

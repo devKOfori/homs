@@ -4,6 +4,8 @@ import { Booking } from "../contexts/BookingProvider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { VscSignIn } from "react-icons/vsc";
+import CustomDialog from "./CustomDialog";
+import CheckinForm from "./CheckinForm";
 
 dayjs.extend(relativeTime);
 
@@ -45,7 +47,7 @@ const BookingsListRow = ({ booking }: Props) => {
         {booking.phone_number}
       </Table.Cell>
       <Table.Cell px="30px" py="15px">
-        <VscSignIn size={20} color="green" />
+        <CustomDialog dialogTitle='Check-In Form' dialogTriggerIcon={<VscSignIn />} dialogBody={<CheckinForm />} />
       </Table.Cell>
       {/* <Table.Cell px="30px" py="15px">
         {booking.email}

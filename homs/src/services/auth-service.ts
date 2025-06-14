@@ -12,7 +12,7 @@ import { Inputs } from "../pages/Login";
 
 class AuthService {
     login(authData: Inputs) {
-        const request = apiClient.post('/token/', authData)
+        const request = apiClient.post('/accounts/login/', authData)
         return request
     }
 

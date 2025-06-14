@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  BrowserRouter,
 } from "react-router-dom";
 import { Provider } from "./components/ui/provider";
 import "./App.css";
@@ -28,6 +27,7 @@ import BedTypes from "./pages/BedTypes";
 import DepartmentRoster from "./pages/DepartmentRoster";
 import ShiftDetails from "./pages/ShiftDetails";
 import TaskUpdates from "./pages/TaskUpdates";
+import ResetPassword from "./pages/ResetPassword";
 import { HotelSetupProvider } from "./contexts/HotelSetupProvider";
 import MyTasks from "./pages/MyTasks";
 import Bookings from "./pages/Bookings";
@@ -46,6 +46,7 @@ function App() {
                   <Route path="/report-issue" element={<ReportIssue />} />
                   <Route path="/request-service" element={<RequestService />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
                   <Route
                     path="/dashboard"
                     element={

@@ -15,7 +15,7 @@
 }
 
 body {
-  background-color: white;
+  /* background: linear-gradient(to bottom, var(--darkened-bg), var(--darkened-bg-2)); */
+  background: white;
   color: black;
 }
-
