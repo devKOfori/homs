@@ -26,7 +26,6 @@ const Navbar = () => {
       console.log(error.response.data.detail);
       // Add a toast message here
     });
-
   };
   return (
     <Box h="100%" className="navbar">
@@ -34,10 +33,13 @@ const Navbar = () => {
         justify={"space-between"}
         align="center"
         h="100%"
-        px="50px"
+        px="100px"
         wrap="wrap"
       >
-        <Box className="search" fontWeight={300}>
+        <Box
+          className="logo"
+          fontWeight={600}
+        >
           HOMS
         </Box>
         <Flex
