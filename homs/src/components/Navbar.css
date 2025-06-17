@@ -1,7 +1,8 @@
 .navbar {
-    background-color: var(--header-bg);
+    background-color: white;
     height: 100%;
     align-items: center;
+    border-bottom: 1px solid #dedede
   }
 
 .logo {

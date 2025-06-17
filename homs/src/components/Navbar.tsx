@@ -37,8 +37,8 @@ const Navbar = () => {
         px="50px"
         wrap="wrap"
       >
-        <Box className="logo" fontWeight={300}>
-          Homs Dashboard
+        <Box className="search" fontWeight={300}>
+          HOMS
         </Box>
         <Flex
           align="center"
