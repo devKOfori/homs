@@ -1,13 +1,17 @@
 :root {
   --header-bg: #417690;
   --breadcrumb-bg: #264b5d;
-  --primary-text-color: #045983;
+  --primary-text-color: rgb(0, 0, 208);
   --accent: #f5dd5d;
   --link-fg: #417893;
   --hairline-color: #e8e8e8;
   --header-color: #ffc;
   --darkened-bg: #f8f8f8;
+  --logo-color: rgb(97, 97, 246);
+  --logo-color-deep: rgb(1, 1, 54);
   --darkened-bg-2: #e4e4e4;
+  --hairline-background: rgb(214, 232, 251);
+  --hairline-background-faint: rgb(230, 239, 248);
 }
 * {
   box-sizing: border-box;
