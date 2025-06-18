@@ -1,5 +1,6 @@
 import { Box, Flex, Icon, Menu, Portal } from "@chakra-ui/react";
 import { useAuth } from "../contexts/AuthProvider";
+import React, { useState } from "react";
 import "./Navbar.css";
 import authService from "../services/auth-service";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +8,13 @@ import { Button } from "./ui/button";
 import { CiUser } from "react-icons/ci";
 import { IconButton } from "@chakra-ui/react";
 import { CiBellOn } from "react-icons/ci";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import {
+  RiArrowDropDownLine,
+  RiArrowDropUpLine
+} from "react-icons/ri";
 
 const Navbar = () => {
+  const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const navigate = useNavigate();
   const {
     auth: { username, accessToken, refreshToken },
@@ -44,27 +49,6 @@ const Navbar = () => {
         <Box className="logo" fontWeight={600}>
           HOMS
         </Box>
-        {/* <Flex
-          align="center"
-          wrap={"wrap"}
-          gap="10px"
-          fontWeight={300}
-          fontSize="0.8875rem"
-        >
-          <Text color="var(--accent)">
-            Welcome, <strong>@{`${username}`}</strong>
-          </Text>
-          <Text>View Profile</Text>
-          <Text>Change Password</Text>
-          <Text
-            onClick={logout}
-            _hover={{
-              cursor: "pointer",
-            }}
-          >
-            Logout
-          </Text>
-        </Flex> */}
         <Box className="user-info">
           <Flex>
             <Box>
@@ -78,7 +62,7 @@ const Navbar = () => {
             <Box>
               <Menu.Root>
                 <Menu.Trigger className="user-info-trigger" asChild>
-                  <IconButton className="user-profile-icon">
+                  <IconButton className="user-profile-icon" onClick={() => setIsUserInfoOpen(!isUserInfoOpen)}>
                     <Flex>
                       <CiUser />
                     </Flex>
@@ -123,7 +107,11 @@ const Navbar = () => {
                 </Portal>
               </Menu.Root>
               <Icon>
-                <RiArrowDropDownLine className="dropdown-icon" />
+                {isUserInfoOpen ? (
+                  <RiArrowDropUpLine className="dropdown-icon" />
+                ) : (
+                  <RiArrowDropDownLine className="dropdown-icon" />
+                )}
               </Icon>
             </Box>
           </Flex>
