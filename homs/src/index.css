@@ -12,6 +12,8 @@
   --darkened-bg-2: #e4e4e4;
   --hairline-background: rgb(214, 232, 251);
   --hairline-background-faint: rgb(230, 239, 248);
+  --text-color: rgb(0, 0, 0);
+  --normal-bg: rgb(255, 255, 255);
 }
 * {
   box-sizing: border-box;

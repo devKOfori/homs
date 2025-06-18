@@ -22,14 +22,12 @@ import SidebarMenuList from "./SidebarMenuList";
 
 interface SidebarProps {
   setHideSidebar: (value: boolean) => void;
-  setSelectedMenu?: (value: string) => void;
   hideSidebar: boolean;
 }
 
 const Sidebar = ({
   setHideSidebar,
   hideSidebar,
-  setSelectedMenu,
 }: SidebarProps) => {
   return (
     <Box className="sidebar-container">
@@ -65,7 +63,13 @@ const Sidebar = ({
             {!hideSidebar && "Hide Menu"}
           </IconButton>
         </Box>
-        {!hideSidebar && <SidebarMenuList data={menuItems} />}
+        {!hideSidebar && (
+          <SidebarMenuList
+            data={menuItems}
+            // setSelectedMenuIndex={setSelectedMenuIndex}
+            // selectedMenuIndex={selectedMenuIndex}
+          />
+        )}
       </Box>
       {/* </Flex> */}
     </Box>
