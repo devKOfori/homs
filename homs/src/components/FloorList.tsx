@@ -18,43 +18,49 @@ const FloorList = ({ data, heading }: Props) => {
   console.log(data);
   return (
     <>
-      <Table.Root mt="50px" mb="20px" size="sm" interactive>
-        <Table.Header>
+      <Table.Root my={"3.5rem"} size="sm" interactive>
+        <Table.Header className="table-header">
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Floor
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((hotelFloor: HotelFloor) => (
-            <Table.Row key={hotelFloor.id} bg="white">
-              <Table.Cell px="30px" py="5px">
-                {hotelFloor.name}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                <Flex justifyContent={"end"} w={"100%"}>
-                  <FloorViewDialog hotelFloor={hotelFloor} />
-                  <FloorEditDialog hotelFloor={hotelFloor} />
-                  <FloorDeleteDialog hotelFloor={hotelFloor} />
-                </Flex>
+          {data.length === 0 ? (
+            <Table.Row>
+              <Table.Cell colSpan={2} py="0.6rem" bg={"white"}>
+                No {heading} found.
               </Table.Cell>
             </Table.Row>
-          ))}
+          ) : (
+            data.map((hotelFloor: HotelFloor) => (
+              <Table.Row key={hotelFloor.id} bg="white">
+                <Table.Cell className="table-row-cell">
+                  {hotelFloor.name}
+                </Table.Cell>
+                <Table.Cell className="table-row-cell">
+                  <Flex justifyContent={"end"} w={"100%"}>
+                    <FloorViewDialog hotelFloor={hotelFloor} />
+                    <FloorEditDialog hotelFloor={hotelFloor} />
+                    <FloorDeleteDialog hotelFloor={hotelFloor} />
+                  </Flex>
+                </Table.Cell>
+              </Table.Row>
+            ))
+          )}
         </Table.Body>
+        {/* <TableStatistics data={data} heading={heading} /> */}
       </Table.Root>
-      <TableStatistics data={data} heading={heading} />
     </>
   );
 };
