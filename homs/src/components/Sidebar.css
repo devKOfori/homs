@@ -1,3 +1,23 @@
-.sidebar-menu-item {
-    font-size: 1rem;
+.hide-menu-button {
+  /* padding-left: 1.5rem; */
+  color: var(--logo-color);
+    font-size: 0.5rem;
 }
+.sidebar-menu-item {
+  font-size: 1rem;
+}
+
+.sidebar {
+  height: calc(100vh - 3.8rem);
+  overflow-y: auto;
+  /* border-bottom: 1px solid red; */
+}
+
+/* .sidebar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f0f0f0; /* track color */
+  border-radius: 5px;
+} */
