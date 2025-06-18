@@ -37,13 +37,14 @@ const Navbar = () => {
       // Add a toast message here
     });
   };
+  const navbarPadding = { base: "0.5rem", lg: "6.25rem" };
   return (
     <Box h="100%" className="navbar">
       <Flex
         justify={"space-between"}
         align="center"
         h="100%"
-        px="100px"
+        px={navbarPadding}
         wrap="wrap"
       >
         <Box className="logo" fontWeight={600}>
