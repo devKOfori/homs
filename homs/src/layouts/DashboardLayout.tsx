@@ -8,14 +8,14 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [hideSidebar, setHideSidebar] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("");
 
   const templateAreas = {
     base: `"nav" "main"`,
     lg: `"nav nav" "aside main"`,
   };
-  const asideWidth = isSidebarOpen ? "300px" : "33px";
+  const asideWidth = hideSidebar ? "3.5rem" : "18.75rem";
   const gridTemplateColumns = { lg: `${asideWidth} 1fr` };
   const asideDisplay = { base: "none", lg: "block" };
   return (
@@ -23,22 +23,21 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       <Grid
         templateAreas={templateAreas}
         gridTemplateColumns={gridTemplateColumns}
-        columnGap="30px"
+        columnGap="0"
       >
-        <GridItem area="nav" minH="60px">
+        <GridItem area="nav" height="3.8rem">
           <Navbar />
         </GridItem>
         <GridItem
           area="aside"
           display={asideDisplay}
-          h="calc(100vh - 60px)"
+          // h="calc(100vh - 45px)"
           overflow="hidden"
           borderRight="1px solid var(--hairline-color)"
         >
           <Sidebar
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-            selectedMenu={selectedMenu}
+            setHideSidebar={setHideSidebar}
+            hideSidebar={hideSidebar}
             setSelectedMenu={setSelectedMenu}
           />
         </GridItem>
