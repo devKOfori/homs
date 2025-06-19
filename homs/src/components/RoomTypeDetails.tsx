@@ -14,36 +14,12 @@ const RoomTypeDetails = ({ roomType }: Props) => {
         <DataList.ItemValue>{roomType.name}</DataList.ItemValue>
       </DataList.Item>
       <DataList.Item>
-        <DataList.ItemLabel>Room Category</DataList.ItemLabel>
-        <DataList.ItemValue>
-          {roomType.room_category || "N/A"}
-        </DataList.ItemValue>
+        <DataList.ItemLabel>Max Occupancy</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.max_occupancy}</DataList.ItemValue>
       </DataList.Item>
       <DataList.Item>
-        <DataList.ItemLabel>Rate</DataList.ItemLabel>
-        <DataList.ItemValue>{roomType.rate || "N/A"}</DataList.ItemValue>
-      </DataList.Item>
-      <DataList.Item>
-        <DataList.ItemLabel>Max Guests</DataList.ItemLabel>
-        <DataList.ItemValue>{roomType.max_guests}</DataList.ItemValue>
-      </DataList.Item>
-      <DataList.Item>
-        <DataList.ItemLabel>Area in Meters</DataList.ItemLabel>
-        <DataList.ItemValue>{roomType.area_in_meters}</DataList.ItemValue>
-      </DataList.Item>
-      <DataList.Item>
-        <DataList.ItemLabel>Area in Feet</DataList.ItemLabel>
-        <DataList.ItemValue>{roomType.area_in_feet}</DataList.ItemValue>
-      </DataList.Item>
-      <DataList.Item>
-        <DataList.ItemLabel>View</DataList.ItemLabel>
-        <DataList.ItemValue>{roomType.view}</DataList.ItemValue>
-      </DataList.Item>
-      <DataList.Item>
-        <DataList.ItemLabel>Bed Types</DataList.ItemLabel>
-        <DataList.ItemValue>
-          {roomType.bed_types ? roomType.bed_types?.join(", ") : "N/A"}
-        </DataList.ItemValue>
+        <DataList.ItemLabel>Base Price</DataList.ItemLabel>
+        <DataList.ItemValue>{roomType.base_price || "N/A"}</DataList.ItemValue>
       </DataList.Item>
       <DataList.Item>
         <DataList.ItemLabel>Amenities</DataList.ItemLabel>

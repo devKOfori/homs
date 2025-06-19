@@ -11,16 +11,11 @@ import RoomTypeEditDialog from "./RoomTypeEditDialog";
 import RoomTypeDeleteDialog from "./RoomTypeDeleteDialog";
 
 export interface RoomType {
-  id: string;
+  id?: string;
   name: string;
-  amenities: string[] | null;
-  bed_types: string[] | null;
-  view: string | null;
-  area_in_meters: number;
-  area_in_feet: number;
-  max_guests: number;
-  rate: number;
-  room_category: string | null;
+  max_occupancy: number;
+  base_price: number;
+  amenities?: string[] | null;
 }
 
 interface Props {
