@@ -30,16 +30,16 @@ const MyShiftRow = ({ shift, updateShiftStatus }: Props) => {
   //   };
   return (
     <Table.Row bg="white" key={shift.id}>
-      <Table.Cell px="30px" py="5px">
+      <Table.Cell className="table-row-cell">
         {dayjs(shift.date).format("ddd, MMMM DD YYYY")}
       </Table.Cell>
-      <Table.Cell px="30px" py="5px">
+      <Table.Cell className="table-row-cell">
         {shift.shift}
       </Table.Cell>
-      <Table.Cell px="30px" py="5px">
+      <Table.Cell className="table-row-cell">
         {shift.status}
       </Table.Cell>
-      <Table.Cell px="30px" py="5px">
+      <Table.Cell className="table-row-cell">
         <HStack>
           <Button
             variant="plain"

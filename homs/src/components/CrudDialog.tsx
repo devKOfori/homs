@@ -34,17 +34,17 @@ const CrudDialog = ({
   return (
     <>
       <DialogRoot
-        size="lg"
+        size={{"lg": "lg", "base": "xs"}}
         placement="center"
         open={open}
         onOpenChange={(e) => setDialogOpened(e.open)}
       >
-        <DialogBackdrop />
+        <DialogBackdrop/>
         <DialogTrigger>{triggerButton}</DialogTrigger>
         <DialogContent
           bg="white"
           color="#473647"
-          p="20px 40px"
+          p={{base: "1rem 0.5rem", lg: "20px 40px"}}
           display="flex"
           flexDirection="column"
           justifyContent="center"
@@ -53,7 +53,6 @@ const CrudDialog = ({
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          // boxShadow="lg"
           rounded="md"
         >
           <DialogHeader borderBottom="1px solid #DDDCDD" pb="15px">
@@ -71,7 +70,7 @@ const CrudDialog = ({
               }}
             />
           </DialogHeader>
-          <DialogBody p="20px">{dialogContentBody}</DialogBody>
+          <DialogBody p={{base: "0.5rem", lg: "20px"}}>{dialogContentBody}</DialogBody>
         </DialogContent>
       </DialogRoot>
     </>

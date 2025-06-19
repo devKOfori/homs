@@ -2,3 +2,15 @@
     font-weight: 300;
     font-size: 1.25rem;
 }
+
+.create-record-btn {
+    font-size: 0.775rem;
+    font-weight: 500;
+    color: var(--logo-color);
+    /* background-color: var(--hairline-background); */
+    /* border: 1px solid var(--hairline-background); */
+    /* padding: 1rem; */
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}

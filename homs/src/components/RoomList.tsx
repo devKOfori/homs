@@ -53,72 +53,60 @@ const RoomList = ({ data, heading }: Props) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Room Number
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Room Type
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Floor
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Maintenance
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Booking{" "}
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {data.map((room) => (
             <Table.Row key={room.id} bg="white">
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {room.room_number}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {room.room_type}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {room.floor}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {room.room_maintenance_status}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {room.room_booking_status}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 <Flex justifyContent={"center"} w={"100%"}>
                   <RoomViewDialog room={room} />
                   <RoomEditDialog room={room} />

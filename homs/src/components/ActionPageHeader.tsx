@@ -2,6 +2,8 @@ import {
   Button,
   Flex,
   Heading,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import "./ActionPageHeader.css";
@@ -14,6 +16,7 @@ import HotelViewForm from "./HotelViewForm";
 import BedTypeForm from "./BedTypeForm";
 import AmenityForm from "./AmenityForm";
 import RoomForm from "./RoomForm";
+import { RiAddLine } from "react-icons/ri";
 
 interface Props {
   heading: string;
@@ -23,21 +26,15 @@ interface Props {
 const ActionPageHeader = ({ heading, table }: Props) => {
   const { createDialogOpened, setCreateDialogOpened } = useRoomSetup();
   const createRecordDialogTriggerBtn = (
-    <Button
-      px="10px"
-      bg="#747474"
-      color="white"
-      rounded="25px"
-      p="10px"
-      size="xs"
-      fontSize="xs"
-      _hover={{
-        transform: "scale(1.05) translateY(-2px)",
-        transition: "transform 0.3s ease-out",
-      }}
+    <IconButton
+      className="create-record-btn"
+      p={"0.5rem  1rem"}
+      border={"1px solid var(--logo-color);"}
+      _hover={{bg: "var(--hairline-background)"}}
     >
-      {`Add ${heading}`} <FaPlus />
-    </Button>
+      {`Add ${heading}`}
+      <RiAddLine />
+    </IconButton>
   );
 
   let dialogContentBody = null;
@@ -85,7 +82,7 @@ const ActionPageHeader = ({ heading, table }: Props) => {
   }
   return (
     <Flex justify="space-between" align="center" wrap="wrap">
-      <Heading fontWeight={300}>{`${
+      <Heading fontWeight={500} color={"var(--logo-color)"}>{`${
         heading.endsWith("y") ? heading.slice(0, -1) + "ies" : heading + "s"
       }`}</Heading>
 

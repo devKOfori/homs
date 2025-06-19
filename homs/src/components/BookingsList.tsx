@@ -37,22 +37,14 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Booking ID
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Guest Name
             </Table.ColumnHeader>
@@ -67,12 +59,8 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
               Room #
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Check-in Date
             </Table.ColumnHeader>
@@ -87,12 +75,8 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
               Check-out Date
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Room Type
             </Table.ColumnHeader>
@@ -117,12 +101,8 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
               Number of Guests
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Phone Number
             </Table.ColumnHeader>
@@ -147,12 +127,8 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
               VIP Status
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="15px"
-              whiteSpace={"nowrap"}
-              minW="150px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
@@ -169,6 +145,7 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
                 py="15px"
                 bg="white"
                 color="black"
+                className="table-row-cell"
               >
                 {bookingsFetchError || "No bookings found"}
               </Table.Cell>

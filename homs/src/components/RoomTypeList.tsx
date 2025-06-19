@@ -35,47 +35,49 @@ const RoomTypeList = ({ data, heading }: Props) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="10px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Roomtype
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="10px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Rate (GHC)
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="10px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((roomType) => (
-            <Table.Row key={roomType.id} bg="white">
-              <Table.Cell px="30px" py="5px">
-                {roomType.name}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                {roomType.rate}
-              </Table.Cell>
-              <Table.Cell px="30px" py="5px">
-                <Flex justifyContent={"flex-end"} w={"100%"}>
-                  <RoomTypeViewDialog roomType={roomType} />
-                  <RoomTypeEditDialog roomType={roomType} />
-                  <RoomTypeDeleteDialog roomType={roomType} />
-                </Flex>
+          {data.length === 0 ? (
+            <Table.Row>
+              <Table.Cell colSpan={3} py="0.6rem" bg={"white"}>
+                No {heading} found.
               </Table.Cell>
             </Table.Row>
-          ))}
+          ) : (
+            data.map((roomType) => (
+              <Table.Row key={roomType.id} bg="white">
+                <Table.Cell className="table-row-cell">
+                  {roomType.name}
+                </Table.Cell>
+                <Table.Cell className="table-row-cell">
+                  {roomType.rate}
+                </Table.Cell>
+                <Table.Cell className="table-row-cell">
+                  <Flex justifyContent={"flex-end"} w={"100%"}>
+                    <RoomTypeViewDialog roomType={roomType} />
+                    <RoomTypeEditDialog roomType={roomType} />
+                    <RoomTypeDeleteDialog roomType={roomType} />
+                  </Flex>
+                </Table.Cell>
+              </Table.Row>
+            ))
+          )}
         </Table.Body>
       </Table.Root>
       <TableStatistics heading={heading} data={data} />

@@ -69,55 +69,43 @@ const HouseKeepingTasksList = ({
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Room #
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Title
             </Table.ColumnHeader>
             {displayManagerColumns && (
               <>
                 <Table.ColumnHeader
-                  bg="var(--darkened-bg-2)"
-                  color="black"
-                  px="30px"
-                  py="5px"
+                  bg={"var(--hairline-background-faint)"}
+                  className="table-column-header"
                 >
                   Assigned To
                 </Table.ColumnHeader>
 
                 <Table.ColumnHeader
-                  bg="var(--darkened-bg-2)"
-                  color="black"
-                  px="30px"
-                  py="5px"
+                  bg={"var(--hairline-background-faint)"}
+                  className="table-column-header"
                 >
                   Assigned On
                 </Table.ColumnHeader>
                 <Table.ColumnHeader
-                  bg="var(--darkened-bg-2)"
-                  color="black"
-                  px="30px"
-                  py="5px"
+                  bg={"var(--hairline-background-faint)"}
+                  className="table-column-header"
                 >
                   Shift
                 </Table.ColumnHeader>
               </>
             )}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Priority
             </Table.ColumnHeader>
@@ -130,10 +118,8 @@ const HouseKeepingTasksList = ({
               Instruction
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Status
             </Table.ColumnHeader>
@@ -154,10 +140,8 @@ const HouseKeepingTasksList = ({
               Assigned By
             </Table.ColumnHeader> */}
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
@@ -173,10 +157,13 @@ const HouseKeepingTasksList = ({
             ))
           ) : (
             <Table.Row>
-              <Table.Cell colSpan={8} bg="white" color="black">
-                <Text py="5px" px="30px">
-                  No tasks found
-                </Text>
+              <Table.Cell
+                colSpan={8}
+                bg="white"
+                color="black"
+                className="table-row-cell"
+              >
+                No tasks found
               </Table.Cell>
             </Table.Row>
           )}

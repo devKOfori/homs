@@ -54,40 +54,40 @@ const HouseKeepingTasksRow = ({ task, setHouseKeepingTasks, displayManagerColumn
   return (
     <>
       <Table.Row key={task.id} bg="white">
-        <Table.Cell px="30px" py="5px">
+        <Table.Cell className="table-row-cell">
           {task.room}
         </Table.Cell>
-        <Table.Cell px="30px" py="5px">
+        <Table.Cell className="table-row-cell">
           {task.title || ""}
         </Table.Cell>
         {displayManagerColumns && (
           <>
-            <Table.Cell px="30px" py="5px">
+            <Table.Cell className="table-row-cell">
               {task.profile_name}
             </Table.Cell>
-            <Table.Cell px="30px" py="5px">
+            <Table.Cell className="table-row-cell">
               {dayjs(task.assignment_date).format("ddd, MMMM DD YYYY")}
             </Table.Cell>
-            <Table.Cell px="30px" py="5px">
+            <Table.Cell className="table-row-cell">
               {task.shift}
             </Table.Cell>
           </>
         )}
-        <Table.Cell px="30px" py="5px">
+        <Table.Cell className="table-row-cell">
           {task.priority}
         </Table.Cell>
-        {/* <Table.Cell px="30px" py="5px">
+        {/* <Table.Cell className="table-row-cell">
                         {task.description}
                     </Table.Cell> */}
-        <Table.Cell px="30px" py="5px">
+        <Table.Cell className="table-row-cell">
           {task.status}
         </Table.Cell>
-        {/* <Table.Cell px="30px" py="5px">
+        {/* <Table.Cell className="table-row-cell">
                         {
                             dayjs(task.assignment_date).format("ddd, MMMM DD YYYY")
                         }
                     </Table.Cell>
-                    <Table.Cell px="30px" py="5px">
+                    <Table.Cell className="table-row-cell">
                         {task.created_by}
                     </Table.Cell> */}
         <Table.Cell py="5px">
