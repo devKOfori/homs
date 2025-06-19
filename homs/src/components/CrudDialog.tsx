@@ -13,6 +13,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import RoomCategoriesForm from "./RoomCategoriesForm";
+import CustomDialogHeader from "./CustomDialogHeader";
 
 interface Props {
   heading: string;
@@ -38,13 +39,14 @@ const CrudDialog = ({
         placement="center"
         open={open}
         onOpenChange={(e) => setDialogOpened(e.open)}
+        scrollBehavior={"inside"}
       >
         <DialogBackdrop/>
         <DialogTrigger>{triggerButton}</DialogTrigger>
         <DialogContent
           bg="white"
           color="#473647"
-          p={{base: "1rem 0.5rem", lg: "20px 40px"}}
+          // p={{base: "1rem 0.5rem", lg: "20px 40px"}}
           display="flex"
           flexDirection="column"
           justifyContent="center"
@@ -55,7 +57,7 @@ const CrudDialog = ({
           transform="translate(-50%, -50%)"
           rounded="md"
         >
-          <DialogHeader borderBottom="1px solid #DDDCDD" pb="15px">
+          {/* <DialogHeader borderBottom="1px solid #DDDCDD" pb="15px">
             <DialogTitle>
               <Heading>{heading}</Heading>
             </DialogTitle>
@@ -69,7 +71,8 @@ const CrudDialog = ({
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-          </DialogHeader>
+          </DialogHeader> */}
+          <CustomDialogHeader heading={"Create Record"} />
           <DialogBody p={{base: "0.5rem", lg: "20px"}}>{dialogContentBody}</DialogBody>
         </DialogContent>
       </DialogRoot>

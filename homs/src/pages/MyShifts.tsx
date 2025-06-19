@@ -75,34 +75,26 @@ const MyShifts = () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Date
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Shift
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Status
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>

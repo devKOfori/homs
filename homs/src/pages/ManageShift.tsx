@@ -48,12 +48,17 @@ const ManageShift = () => {
   return (
     <DashboardLayout>
       <HStack mb="5">
-        <Heading fontWeight={300}>Shift Management</Heading>
-        <Heading color="var(--header-bg)">
+        <Heading color={"var(--logo-color)"}>Shift Management</Heading>
+        <Heading color="var(--logo-color)">
           [{localStorage.getItem("department")}]
         </Heading>
       </HStack>
-      <Box bg="var(--hairline-color)" borderRadius="5px" px="10" pt="5" pb="7">
+      <Box
+        bg="var(--hairline-background-faint)"
+        borderRadius="0.5rem"
+        py="1.5rem"
+        px="1rem"
+      >
         <HStack gap="10" width="full" mb={2}>
           <Field label="From">
             <Input
@@ -102,34 +107,26 @@ const ManageShift = () => {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
+                bg={"var(--hairline-background-faint)"}
+                className="table-column-header"
               >
                 Date
               </Table.ColumnHeader>
               <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
+                bg={"var(--hairline-background-faint)"}
+                className="table-column-header"
               >
                 Morning
               </Table.ColumnHeader>
               <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
+                bg={"var(--hairline-background-faint)"}
+                className="table-column-header"
               >
                 Afternoon
               </Table.ColumnHeader>
               <Table.ColumnHeader
-                bg="var(--darkened-bg-2)"
-                color="black"
-                px="30px"
-                py="5px"
+                bg={"var(--hairline-background-faint)"}
+                className="table-column-header"
               >
                 Night
               </Table.ColumnHeader>

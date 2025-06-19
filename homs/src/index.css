@@ -8,6 +8,7 @@
   --header-color: #ffc;
   --darkened-bg: #f8f8f8;
   --logo-color: rgb(97, 97, 246);
+  --logo-color-deep-2: rgb(74, 74, 192);
   --logo-color-deep: rgb(1, 1, 54);
   --darkened-bg-2: #e4e4e4;
   --hairline-background: rgb(214, 232, 251);
@@ -15,6 +16,7 @@
   --text-color: rgb(0, 0, 0);
   --normal-bg: rgb(255, 255, 255);
   --user-profile-icon-bg: rgb(0, 28, 57);
+  --border-bottom-color: #dedede
 }
 * {
   box-sizing: border-box;

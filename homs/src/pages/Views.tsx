@@ -34,7 +34,7 @@ const Views = () => {
   }, []);
   return (
     <DashboardLayout>
-      <ActionPageHeader heading="Hotel View" table="hotelView" />
+      <ActionPageHeader heading="View" table="hotelView" />
       <Box>
         <HotelViewList data={hotelViews} heading="Hotel View" />
       </Box>

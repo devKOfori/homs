@@ -3,10 +3,10 @@ import { Category } from "../components/RoomCategoriesList";
 import { HotelFloor } from "../pages/Floors";
 import { Room } from "../components/RoomList";
 
-export type Amenity ={ 
+export type Amenity = {
   id: string;
   name: string;
-}
+};
 
 export interface BedType {
   id: string;
@@ -17,13 +17,12 @@ export type RoomCategory = {
   id?: string;
   name: string;
   amenities?: Amenity[];
-}
+};
 
 export type View = {
   id: string;
   name: string;
-}
-
+};
 
 export type RoomType = {
   id?: string;
@@ -36,7 +35,7 @@ export type RoomType = {
   view?: View;
   amenities?: Amenity[];
   rate?: number;
-}
+};
 
 export interface RoomSetupContextProps {
   roomCategories: RoomCategory[];
@@ -133,7 +132,9 @@ export function RoomSetupProvider({ children }) {
 
   const updateRoomTypes = (data: RoomType, action: string) => {
     console.log(data);
-    const rt: RoomType[] = JSON.parse(localStorage.getItem("roomTypes"));
+    const rt: RoomType[] = JSON.parse(
+      localStorage.getItem("roomTypes") ?? "[]"
+    );
     if (action === "edit") {
       const updatedRoomType = rt.map((rt) => (rt.id === data.id ? data : rt));
       setRoomTypes(updatedRoomType);

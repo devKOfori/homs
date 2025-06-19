@@ -64,24 +64,42 @@ class RoomService {
   }
 
   createRoomType(data: any) {
-    const request = apiClient.post("/room-types/", data, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken") ?? ""
-        )}`,
+    const request = apiClient.post(
+      "/room-types/add/",
+      {
+        name: data.name,
+        max_occupancy: data.maxOccupancy,
+        base_price: data.basePrice,
       },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+        },
+      }
+    );
     return request;
   }
 
   updateRoomType(id: string, data: any) {
-    const request = apiClient.put(`/room-types/${id}/`, data, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken") ?? ""
-        )}`,
+    console.log("Updating room type with ID:", id);
+    console.log("Data to update:", data);
+    const request = apiClient.put(
+      `/room-types/${id}/edit/`,
+      {
+        name: data.name,
+        max_occupancy: data.maxOccupancy,
+        base_price: data.basePrice,
       },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+        },
+      }
+    );
     return request;
   }
 
@@ -294,7 +312,7 @@ class RoomService {
   }
 
   createRoom(data: any) {
-    const request = apiClient.post("/rooms/", data, {
+    const request = apiClient.post("/rooms/add/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""

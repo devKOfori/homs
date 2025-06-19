@@ -36,59 +36,49 @@ const DepartmentRoster = () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Date
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Shift
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Staff
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             >
               Status
             </Table.ColumnHeader>
             <Table.ColumnHeader
-              bg="var(--darkened-bg-2)"
-              color="black"
-              px="30px"
-              py="5px"
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
             ></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {assignedShifts.map((shift) => (
             <Table.Row bg="white" key={shift.id}>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {dayjs(shift.date).format("ddd, MMMM DD YYYY")}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {shift.shift_name}
               </Table.Cell>
-              <Table.Cell px="30px" py="5px">
+              <Table.Cell className="table-row-cell">
                 {shift.employee_name}
               </Table.Cell>
-              <Table.Cell>{shift.status}</Table.Cell>
-              <Table.Cell></Table.Cell>
+              <Table.Cell className="table-row-cell">{shift.status}</Table.Cell>
+              <Table.Cell className="table-row-cell"></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

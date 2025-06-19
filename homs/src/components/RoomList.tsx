@@ -12,18 +12,24 @@ import RoomViewDialog from "./RoomViewDialog";
 import RoomCleaningTaskDialog from "./RoomCleaningTaskDialog";
 
 export interface Room {
-  id: string;
+  id?: string;
   room_number: string;
-  room_category: string;
   room_type: string;
-  floor: string;
-  bed_type: string;
-  rate: number;
-  max_guests: number;
-  is_occupied: boolean;
-  room_maintenance_status: string;
-  room_booking_status: string;
-  amenities: string[];
+  room_category?: string;
+  room_view?: string;
+  floor?: string;
+  bed_type?: string;
+  max_occupancy?: number;
+  is_available?: boolean;
+  is_cleaned?: boolean;
+  is_occupied?: boolean;
+  room_maintenance_status?: string;
+  room_booking_status?: string;
+  amenities?: string[];
+  current_guest?: string;
+  current_price?: number;
+  date_created?: string;
+  created_by?: string;
 }
 
 interface Props {
