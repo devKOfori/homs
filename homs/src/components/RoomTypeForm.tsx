@@ -1,13 +1,10 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field } from "./ui/field";
-import { HStack, Input, Text, createListCollection } from "@chakra-ui/react";
-import { NativeSelectRoot, NativeSelectField } from "./ui/native-select";
+import { Box, Input, Text } from "@chakra-ui/react";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import { RoomType } from "./RoomTypeList";
-import AmenitiesLoad from "./AmenitiesLoad";
 import { DialogActionTrigger, DialogFooter } from "./ui/dialog";
 import { Button } from "./ui/button";
 import roomService from "../services/room-service";
@@ -19,18 +16,10 @@ interface Props {
 }
 
 const RoomTypeForm = ({ roomType, setDialogOpened }: Props) => {
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-
   const schema = z.object({
     name: z.string().nonempty("Room Type Name is required"),
-    amenities: z.array(z.string()),
-    bedTypes: z.array(z.string()),
-    view: z.string(),
-    areaInMeters: z.coerce.number(),
-    areaInFeet: z.coerce.number(),
-    maxGuests: z.coerce.number(),
-    rate: z.coerce.number(),
-    roomCategory: z.string(),
+    maxOccupancy: z.coerce.number(),
+    basePrice: z.coerce.number(),
   });
 
   const {
@@ -41,50 +30,38 @@ const RoomTypeForm = ({ roomType, setDialogOpened }: Props) => {
     resolver: zodResolver(schema),
     defaultValues: {
       name: roomType?.name || "",
-      amenities: roomType?.amenities || [],
-      bedTypes: roomType?.bedTypes || [],
-      view: roomType?.view || "",
-      areaInMeters: roomType?.areaInMeters || 0,
-      areaInFeet: roomType?.areaInFeet || 0,
-      maxGuests: roomType?.maxGuests || 0,
-      rate: roomType?.rate || 0.0,
-      roomCategory: roomType?.roomCategory || "",
+      maxOccupancy: roomType?.max_occupancy || 1,
+      basePrice: roomType?.base_price || 0.0,
+      // amenities: roomType?.amenities || [],
     },
   });
 
-  const {
-    bedTypes,
-    amenities,
-    roomCategories,
-    floors,
-    hotelViews,
-    updateRoomTypes,
-  } = useRoomSetup();
+  const { updateRoomTypes } = useRoomSetup();
 
   const onSubmit = (data: RoomType) => {
+    // console.log(data);
     let action = null;
     let request = null;
-    data.amenities = selectedAmenities;
-    let payload = {
+    // data.amenities = selectedAmenities;
+    let payload: RoomType = {
       name: data.name,
-      amenities: data.amenities,
-      room_category: data.roomCategory,
-      area_in_meters: data.areaInMeters,
-      area_in_feet: data.areaInFeet,
-      bed_types: [],
-      rate: data.rate,
-      view: data.view,
-      max_guests: data.maxGuests,
+      // amenities: data.amenities,
+      base_price: data.base_price,
+      max_occupancy: data.max_occupancy,
     };
+    // console.log("Submitting room type form", payload);
     if (roomType) {
       action = "edit";
-      request = roomService.updateRoomType(roomType.id, payload);
+      console.log("Updating room type", roomType.id);
+      console.log(data);
+      request = roomService.updateRoomType(roomType.id ?? "", data);
     } else {
       action = "create";
-      request = roomService.createRoomType(payload);
+      request = roomService.createRoomType(data);
     }
+    console.log(action);
     request.then((response) => {
-      updateRoomTypes(response.data, (action = "create"));
+      updateRoomTypes(response.data, (action = action));
       setDialogOpened(false);
     });
     request.catch((error) => {
@@ -93,98 +70,55 @@ const RoomTypeForm = ({ roomType, setDialogOpened }: Props) => {
     });
   };
 
-  const categoriesCollection = createListCollection({
-    items: roomCategories,
-  });
-
-
   return (
     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
-      <Field label="Room Type Name" mb="20px">
-        <Input
-          type="text"
-          px="10px"
-          placeholder="Room Type Name"
-          {...register("name")}
-        />
-        {errors.name && <Text color="red">{errors.name.message}</Text>}
-      </Field>
-      <HStack gap="50px">
-        <Field label="Category" mb="20px">
-          <NativeSelectRoot>
-            <NativeSelectField px="10px" {...register("roomCategory")}>
-              <option value="">Select Room Category</option>
-              {roomCategories.map((roomCategory) => (
-                <option key={roomCategory.id} value={roomCategory.name}>
-                  {roomCategory.name}
-                </option>
-              ))}
-            </NativeSelectField>
-          </NativeSelectRoot>
-          {errors.roomCategory && (
-            <Text color="red">{errors.roomCategory.message}</Text>
-          )}
-        </Field>
-        {errors.roomCategory && (
-          <Text color="red">{errors.roomCategory.message}</Text>
-        )}
-        <Field label="View" mb="20px">
-          <NativeSelectRoot>
-            <NativeSelectField px="10px" {...register("view")}>
-              <option value="">Select View</option>
-              {hotelViews.map((view) => (
-                <option key={view.id} value={view.name}>
-                  {view.name}
-                </option>
-              ))}
-            </NativeSelectField>
-          </NativeSelectRoot>
-          {errors.view && <Text color="red">{errors.view.message}</Text>}
-        </Field>
-      </HStack>
-      <HStack gap="50px">
-        <Field label="Area (m)" mb="20px">
+      <Box>
+        <Field label="Name" mb="20px">
           <Input
-            type="number"
+            type="text"
             px="10px"
-            placeholder="Area in Meters"
-            {...register("areaInMeters")}
+            placeholder="Room Type Name"
+            {...register("name")}
           />
+          {errors.name && <Text color="red">{errors.name.message}</Text>}
         </Field>
-        <Field label="Area (ft)" mb="20px">
-          <Input
-            type="number"
-            px="10px"
-            placeholder="Area in Feet"
-            {...register("areaInFeet")}
-          />
-        </Field>
-      </HStack>
-      <HStack gap="50px">
-        <Field label="Rate" mb="20px">
-          <Input
-            type="number"
-            px="10px"
-            placeholder="Rate"
-            {...register("rate")}
-          />
-        </Field>
-        <Field label="Max Guests" mb="20px">
-          <Input
-            type="number"
-            px="10px"
-            placeholder="Max Guests"
-            {...register("maxGuests")}
-          />
-        </Field>
-      </HStack>
-      <Field label="Amenities" mb="20px">
+      </Box>
+      <Box>
+        <Box>
+          <Field label="Max Occupancy" mb="20px">
+            <Input
+              type="number"
+              min="1"
+              px="10px"
+              placeholder="Max Occupancy"
+              {...register("maxOccupancy", { valueAsNumber: true })}
+            />
+            {errors.maxGuests && (
+              <Text color="red">{errors.maxGuests.message}</Text>
+            )}
+          </Field>
+        </Box>
+        <Box>
+          <Field label="Base Price" mb="20px">
+            <Input
+              type="number"
+              step="0.01"
+              min="0"
+              px="10px"
+              placeholder="Rate"
+              {...register("basePrice", { valueAsNumber: true })}
+            />
+            {errors.rate && <Text color="red">{errors.rate.message}</Text>}
+          </Field>
+        </Box>
+      </Box>
+      {/* <Field label="Amenities" mb="20px">
         <AmenitiesLoad
           data={amenities}
           selectedAmenities={selectedAmenities}
           setSelectedAmenities={setSelectedAmenities}
         />
-      </Field>
+      </Field> */}
       <DialogFooter>
         <DialogActionTrigger asChild>
           <Button variant="outline" px="25px" bg="red.500">

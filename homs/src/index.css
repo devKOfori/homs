@@ -14,6 +14,7 @@
   --hairline-background-faint: rgb(230, 239, 248);
   --text-color: rgb(0, 0, 0);
   --normal-bg: rgb(255, 255, 255);
+  --user-profile-icon-bg: rgb(0, 28, 57);
 }
 * {
   box-sizing: border-box;
@@ -25,4 +26,21 @@ body {
   /* background: linear-gradient(to bottom, var(--darkened-bg), var(--darkened-bg-2)); */
   background: white;
   color: black;
+}
+
+.table-header {
+  background-color: var(--hairline-background-faint);
+}
+
+.table-column-header {
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.6rem 0.5rem;
+  color: var(--text-color);
+}
+
+.table-row-cell {
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-color);
 }

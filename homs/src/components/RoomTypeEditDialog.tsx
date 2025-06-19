@@ -20,6 +20,7 @@ import { NativeSelectField, NativeSelectRoot } from "./ui/native-select";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import { RoomType } from "./RoomTypeList";
 import roomService from "../services/room-service";
+import RoomTypeForm from "./RoomTypeForm";
 
 interface Props {
   roomType: RoomType;
@@ -31,65 +32,65 @@ const RoomTypeEditDialog = ({ roomType }: Props) => {
 
   // console.log(roomType);
 
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(
-    roomType.amenities || []
-  );
+  // const [selectedAmenities, setSelectedAmenities] = useState<string[]>(
+  //   roomType.amenities || []
+  // );
 
-  const { roomCategories, hotelViews, updateRoomTypes } = useRoomSetup();
+  // const { roomCategories, hotelViews, updateRoomTypes } = useRoomSetup();
 
-  const schema = z.object({
-    name: z.string().nonempty("Room Type Name is required"),
-    amenities: z.array(z.string()),
-    bedTypes: z.array(z.string()),
-    view: z.string(),
-    areaInMeters: z.coerce.number(),
-    areaInFeet: z.coerce.number(),
-    maxGuests: z.coerce.number(),
-    rate: z.coerce.number(),
-    roomCategory: z.string(),
-  });
+  // const schema = z.object({
+  //   name: z.string().nonempty("Room Type Name is required"),
+  //   amenities: z.array(z.string()),
+  //   bedTypes: z.array(z.string()),
+  //   view: z.string(),
+  //   areaInMeters: z.coerce.number(),
+  //   areaInFeet: z.coerce.number(),
+  //   maxGuests: z.coerce.number(),
+  //   rate: z.coerce.number(),
+  //   roomCategory: z.string(),
+  // });
 
-  type RoomtypeInput = z.infer<typeof schema>;
+  // type RoomtypeInput = z.infer<typeof schema>;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      name: roomType?.name || "",
-      amenities: roomType?.amenities || [],
-      bedTypes: roomType?.bed_types || [],
-      view: roomType?.view || "",
-      areaInMeters: roomType?.area_in_meters || 0,
-      areaInFeet: roomType?.area_in_feet || 0,
-      maxGuests: roomType?.max_guests || 0,
-      rate: roomType?.rate || 0.0,
-      roomCategory: roomType?.room_category || "",
-    },
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: zodResolver(schema),
+  //   defaultValues: {
+  //     name: roomType?.name || "",
+  //     amenities: roomType?.amenities || [],
+  //     bedTypes: roomType?.bed_types || [],
+  //     view: roomType?.view || "",
+  //     areaInMeters: roomType?.area_in_meters || 0,
+  //     areaInFeet: roomType?.area_in_feet || 0,
+  //     maxGuests: roomType?.max_guests || 0,
+  //     rate: roomType?.rate || 0.0,
+  //     roomCategory: roomType?.room_category || "",
+  //   },
+  // });
 
-  const onSubmit = (data: RoomtypeInput) => {
-    let payload = {
-      name: data.name,
-      amenities: selectedAmenities,
-      room_category: data.roomCategory,
-      area_in_meters: data.areaInMeters,
-      area_in_feet: data.areaInFeet,
-      bed_types: [],
-      rate: data.rate,
-      view: data.view,
-      max_guests: data.maxGuests,
-    };
+  // const onSubmit = (data: RoomtypeInput) => {
+  //   let payload = {
+  //     name: data.name,
+  //     amenities: selectedAmenities,
+  //     room_category: data.roomCategory,
+  //     area_in_meters: data.areaInMeters,
+  //     area_in_feet: data.areaInFeet,
+  //     bed_types: [],
+  //     rate: data.rate,
+  //     view: data.view,
+  //     max_guests: data.maxGuests,
+  //   };
 
-    const request = roomService.updateRoomType(roomType.id, payload);
-    request.then((response) => {
-      console.log(response.data);
-      updateRoomTypes(response.data, "edit");
-      setOpen(false);
-    });
-  };
+  //   const request = roomService.updateRoomType(roomType.id, payload);
+  //   request.then((response) => {
+  //     console.log(response.data);
+  //     updateRoomTypes(response.data, "edit");
+  //     setOpen(false);
+  //   });
+  // };
 
   return (
     <>
@@ -117,7 +118,8 @@ const RoomTypeEditDialog = ({ roomType }: Props) => {
           <DialogBody>
             <div>
               {error && <Text color="red">{error}</Text>}
-              <form method="post" onSubmit={handleSubmit(onSubmit)}>
+              <RoomTypeForm roomType={roomType} setDialogOpened={setOpen} />
+              {/* <form method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Field label="Room Type Name" mb="20px">
                   <Input
                     type="text"
@@ -222,7 +224,7 @@ const RoomTypeEditDialog = ({ roomType }: Props) => {
                     Save
                   </Button>
                 </DialogFooter>
-              </form>
+              </form> */}
             </div>
           </DialogBody>
         </DialogContent>
