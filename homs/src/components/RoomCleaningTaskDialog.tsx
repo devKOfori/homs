@@ -70,7 +70,7 @@ const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
     },
   });
 
-  console.log(formData);
+  // console.log(formData);
 
   useEffect(() => {
     const { request, cancel } = hotelService.getShiftStaff(
@@ -87,7 +87,7 @@ const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
       setDutyList(res.data);
     });
     request.catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
     return () => cancel();
   }, [formData.date, formData.shift]);
@@ -100,10 +100,10 @@ const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
     );
     request.then((res) => {
       setStaffMembersWithCleaningTask(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     });
     request.catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
     return () => cancel();
   }, [formData.date, formData.shift, room?.room_number, task?.room]);
@@ -116,7 +116,7 @@ const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
       data.status = true;
     }
 
-    console.log(data);
+    // console.log(data);
     const request = hotelService.createRoomCleaningTask(
       data.roomNumber,
       data.shift,
@@ -128,7 +128,7 @@ const RoomCleaningTaskDialog = ({ room, task, dialogTrigger }: Props) => {
       data.taskSupported
     );
     request.then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setOpen(false);
     });
     request.catch((err) => {

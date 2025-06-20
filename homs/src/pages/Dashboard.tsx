@@ -11,7 +11,7 @@ import hotelService from "../services/hotel-service";
 import bookingServices from "../services/booking-services";
 
 const Dashboard = () => {
-  const { setRoomCategories } = useRoomSetup();
+  const { setRoomCategories, setBedTypes, setRooms, setFloors, setAmenities } = useRoomSetup();
 
   useEffect(() => {
     const { request, cancel } = authService.getMyDepartmentStaffList();
@@ -20,7 +20,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -33,7 +33,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -47,7 +47,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -60,7 +60,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -68,11 +68,12 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = roomService.getFloors();
     request.then((response) => {
+      setFloors(response.data);
       localStorage.setItem("floors", JSON.stringify(response.data));
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -80,11 +81,13 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = roomService.getBedTypes();
     request.then((response) => {
+      // console.log(response.data);
+      setBedTypes(response.data);
       localStorage.setItem("bedTypes", JSON.stringify(response.data));
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -96,7 +99,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -104,11 +107,12 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = roomService.getRooms();
     request.then((response) => {
+      setRooms(response.data);
       localStorage.setItem("rooms", JSON.stringify(response.data));
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -120,7 +124,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -132,7 +136,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -144,7 +148,7 @@ const Dashboard = () => {
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
-      console.log(error.message);
+      // console.log(error.message);
     });
     return () => cancel();
   }, []);
@@ -156,7 +160,7 @@ const Dashboard = () => {
     });
     request.catch((err) => {
       if (err instanceof CanceledError) return;
-      console.log(err.message);
+      // console.log(err.message);
     });
     return () => cancel();
   }, []);
@@ -168,7 +172,7 @@ const Dashboard = () => {
     });
     request.catch((err) => {
       if (err instanceof CanceledError) return;
-      console.log(err.message);
+      // console.log(err.message);
     });
     return () => cancel();
     }, []);
@@ -180,7 +184,7 @@ const Dashboard = () => {
     });
     request.catch((err) => {
       if (err instanceof CanceledError) return;
-      console.log(err.message);
+      // console.log(err.message);
     });
     return () => cancel();
   }, []);
@@ -192,7 +196,7 @@ const Dashboard = () => {
     });
     request.catch((err) => {
       if (err instanceof CanceledError) return;
-      console.log(err.message);
+      // console.log(err.message);
     });
     return () => cancel();
   }, []);

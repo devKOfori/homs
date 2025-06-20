@@ -162,7 +162,7 @@ class RoomService {
 
   getBedTypes() {
     const controller = new AbortController();
-    const request = apiClient.get("/bed-types/", {
+    const request = apiClient.get("/bedtypes/", {
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${JSON.parse(
@@ -174,7 +174,7 @@ class RoomService {
   }
 
   createBedType(data: any) {
-    const request = apiClient.post("/bed-types/", data, {
+    const request = apiClient.post("/bedtypes/add/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -323,7 +323,7 @@ class RoomService {
   }
 
   updateRoom(id: string, data: any) {
-    const request = apiClient.put(`/rooms/${id}/`, data, {
+    const request = apiClient.put(`/rooms/${id}/edit/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -334,7 +334,7 @@ class RoomService {
   }
 
   deleteRoom(id: string) {
-    const request = apiClient.delete(`/rooms/${id}/`, {
+    const request = apiClient.delete(`/rooms/${id}/edit/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""

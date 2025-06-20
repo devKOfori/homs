@@ -10,16 +10,18 @@ import { FaEye } from "react-icons/fa";
 import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { Room } from "./RoomList";
+import RecordViewDialog from "./RecordViewDialog";
+import RoomDataList from "./RoomDataList";
 
 interface Props {
-    room : Room;
+  room: Room;
 }
 
 const RoomViewDialog = ({ room }: Props) => {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <DialogRoot
+      {/* <DialogRoot
         size="lg"
         placement="center"
         open={open}
@@ -43,14 +45,23 @@ const RoomViewDialog = ({ room }: Props) => {
           <DialogBody>
             <DataListRoot orientation="horizontal">
               <DataListItem label={"Room #:"} value={room.room_number} />
-              <DataListItem label={"Room Category:"} value={room.room_category} />
+              <DataListItem
+                label={"Room Category:"}
+                value={room.room_category}
+              />
               <DataListItem label={"Room Type:"} value={room.room_type} />
               <DataListItem label={"Floor:"} value={room.floor} />
               <DataListItem label={"Bed Type:"} value={room.bed_type} />
               <DataListItem label={"Rate:"} value={room.rate} />
               <DataListItem label={"Max Guests:"} value={room.max_guests} />
-              <DataListItem label={"Maintenance Status:"} value={room.room_maintenance_status} />
-              <DataListItem label={"Booking Status:"} value={room.room_booking_status} />
+              <DataListItem
+                label={"Maintenance Status:"}
+                value={room.room_maintenance_status}
+              />
+              <DataListItem
+                label={"Booking Status:"}
+                value={room.room_booking_status}
+              />
               <DataListItem
                 label={"Amenities"}
                 value={room.amenities?.join(", ")}
@@ -58,7 +69,31 @@ const RoomViewDialog = ({ room }: Props) => {
             </DataListRoot>
           </DialogBody>
         </DialogContent>
-      </DialogRoot>
+      </DialogRoot> */}
+      <RecordViewDialog record={room}>
+        {/* <DataListRoot orientation="horizontal">
+          <DataListItem label={"Room #:"} value={room.room_number} />
+          <DataListItem label={"Room Category:"} value={room.room_category} />
+          <DataListItem label={"Room Type:"} value={room.room_type} />
+          <DataListItem label={"Floor:"} value={room.floor} />
+          <DataListItem label={"Bed Type:"} value={room.bed_type} />
+          <DataListItem label={"Rate:"} value={room.rate} />
+          <DataListItem label={"Max Guests:"} value={room.max_guests} />
+          <DataListItem
+            label={"Maintenance Status:"}
+            value={room.room_maintenance_status}
+          />
+          <DataListItem
+            label={"Booking Status:"}
+            value={room.room_booking_status}
+          />
+          <DataListItem
+            label={"Amenities"}
+            value={room.amenities?.join(", ")}
+          />
+        </DataListRoot> */}
+        <RoomDataList room={room} />
+      </RecordViewDialog>
     </>
   );
 };

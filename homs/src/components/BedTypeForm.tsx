@@ -10,13 +10,13 @@ import { useForm } from "react-hook-form";
 import roomService from "../services/room-service";
 
 interface Props {
-  bedType: BedType | null;
+  bedType?: BedType;
   setDialogOpened: (value: boolean) => void;
 }
 
 const BedTypeForm = ({ bedType, setDialogOpened }: Props) => {
-  const { bedTypes, setBedTypes, updateBedTypes } = useRoomSetup();
   const [error, setError] = useState<string>("");
+  const { bedTypes, setBedTypes, updateBedTypes } = useRoomSetup();
 
   const schema = z.object({
     name: z.string().nonempty("Bed type name is required"),
@@ -55,9 +55,17 @@ const BedTypeForm = ({ bedType, setDialogOpened }: Props) => {
 
   return (
     <form method="post" onSubmit={handleSubmit(onSubmit)}>
-      <Field label="Name" mb="10px">
+      <Field label="Name" mb="10px" required>
         <Input type="text" {...register("name")} px="10px" required />
         {errors.name && <span>{errors.name.message}</span>}
+      </Field>
+      <Field label="Description" mb="10px">
+        <Input
+          type="text"
+          {...register("description")}
+          placeholder="Optional description"
+          px="10px"
+        />
       </Field>
       <Button
         bg="var(--header-bg)"

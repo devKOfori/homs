@@ -10,6 +10,7 @@ import RoomDeleteDialog from "./RoomDeleteDialog";
 import RoomEditDialog from "./RoomEditDialog";
 import RoomViewDialog from "./RoomViewDialog";
 import RoomCleaningTaskDialog from "./RoomCleaningTaskDialog";
+import RecordEditDialog from "./RecordEditDialog";
 
 export interface Room {
   id?: string;
@@ -115,7 +116,7 @@ const RoomList = ({ data, heading }: Props) => {
               <Table.Cell className="table-row-cell">
                 <Flex justifyContent={"center"} w={"100%"}>
                   <RoomViewDialog room={room} />
-                  <RoomEditDialog room={room} />
+                  <RecordEditDialog room={room} />
                   <RoomDeleteDialog room={room} />
                   <RoomCleaningTaskDialog
                     room={room}

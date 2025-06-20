@@ -9,8 +9,11 @@ export type Amenity = {
 };
 
 export interface BedType {
-  id: string;
+  id?: string;
   name: string;
+  description?: string;
+  created_by?: string;
+  date_created?: string;
 }
 
 export type RoomCategory = {
@@ -90,6 +93,7 @@ export function RoomSetupProvider({ children }) {
       ? JSON.parse(localStorage.getItem("bedTypes"))
       : []
   );
+  console.log("Bed Types", bedTypes);
   const [amenities, setAmenities] = useState(
     localStorage.getItem("amenities")
       ? JSON.parse(localStorage.getItem("amenities"))

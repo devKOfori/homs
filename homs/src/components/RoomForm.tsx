@@ -16,18 +16,26 @@ import { Button } from "./ui/button";
 import roomService from "../services/room-service";
 
 interface Props {
-  room: Room | null;
+  room?: Room;
   setDialogOpened: (value: boolean) => void;
 }
 
 const RoomForm = ({ room, setDialogOpened }: Props) => {
-  console.log(room);
+  // console.log(room);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(
     room?.amenities || []
   );
   const [error, setError] = useState<string>("");
-  const { roomCategories, roomTypes, floors, bedTypes, hotelViews, updateRooms } =
-    useRoomSetup<RoomSetupContextProps>();
+  const {
+    roomCategories,
+    roomTypes,
+    floors,
+    bedTypes,
+    hotelViews,
+    updateRooms,
+  } = useRoomSetup<RoomSetupContextProps>();
+
+  console.log("Bed Types", bedTypes);
 
   const schema = z.object({
     roomNumber: z.string().nonempty({ message: "Room Number is required" }),
@@ -36,7 +44,6 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
     floor: z.string(),
     bedType: z.string(),
     roomView: z.string(),
-
   });
 
   type RoomFormValues = z.infer<typeof schema>;
@@ -45,8 +52,8 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: zodResolver(schema),
+  } = useForm<RoomFormValues>({
+    // resolver: zodResolver(schema),
     defaultValues: {
       roomNumber: room ? room.room_number : "",
       roomType: room ? room.room_type : "",
@@ -57,7 +64,10 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
     },
   });
 
+  let method = "";
+
   const onSubmit = (data: RoomFormValues) => {
+    console.log("Error", error);
     console.log("Submitting room form", data);
     let request = null;
     let action = "";
@@ -68,6 +78,7 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
       room_type: data.roomType,
       floor: data.floor,
       bed_type: data.bedType,
+      room_view: data.roomView,
     };
     if (room) {
       request = roomService.updateRoom(room.id ?? "", payload);
@@ -77,19 +88,28 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
       action = "create";
     }
     request.then((response) => {
-      updateRooms(response.data, action);
+      console.log(`Method: ${method}`);
+      console.log(`Action: ${action}`);
+      // console.log("Room form submitted successfully:", response.data);
       setDialogOpened(false);
+      updateRooms(response.data, action);
     });
     request.catch((error) => {
+      console.error("Error submitting room form:", error);
       setError(error.message);
     });
   };
 
   return (
     <>
-      <form method="post" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Field label="Room Number" mb="20px" required>
-          <Input type="text" {...register("roomNumber")} px="10px" />
+          <Input
+            type="text"
+            {...register("roomNumber")}
+            px="10px"
+            disabled={!!room}
+          />
         </Field>
         <Field label="Room Type" mb="20px" required>
           <NativeSelectRoot>
