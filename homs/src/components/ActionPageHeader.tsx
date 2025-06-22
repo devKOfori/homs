@@ -17,6 +17,7 @@ import BedTypeForm from "./BedTypeForm";
 import AmenityForm from "./AmenityForm";
 import RoomForm from "./RoomForm";
 import { RiAddLine } from "react-icons/ri";
+import BookingsForm2 from "./BookingsForm2";
 
 interface Props {
   heading: string;
@@ -76,6 +77,11 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       dialogContentBody = (
         <RoomForm room={null} setDialogOpened={setCreateDialogOpened} />
       );
+      break;
+    case "booking":
+      dialogContentBody = (
+        <BookingsForm2 setDialogOpened={setCreateDialogOpened} />
+      )
       break;
     default:
       break;

@@ -19,10 +19,10 @@ import RoomForm from "./RoomForm";
 import { Room } from "./RoomList";
 
 interface Props {
-  room: Room;
+    children: React.ReactNode;
 }
 
-const RecordEditDialog = ({ room }: Props) => {
+const RecordEditDialog = ({children }: Props) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string>("");
   return (
@@ -50,7 +50,10 @@ const RecordEditDialog = ({ room }: Props) => {
           <DialogBody p={{ base: "0.5rem", md: "1.3rem 1.5rem" }}>
             <div>
               {error && <Text color="red">{error}</Text>}
-              <RoomForm room={room} setDialogOpened={setOpen} />
+              {/* {children} */}
+              {React.cloneElement(children as React.ReactElement, {
+                setDialogOpened: setOpen,
+              })}
             </div>
           </DialogBody>
         </DialogContent>

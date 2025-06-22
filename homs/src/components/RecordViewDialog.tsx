@@ -18,7 +18,7 @@ import { record } from "zod";
 
 interface Props {
     children?: React.ReactNode;
-    record: any;
+    // record: any;
 }
 
 const RecordViewDialog = ({children}: Props) => {

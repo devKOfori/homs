@@ -11,7 +11,7 @@ import roomService from "../services/room-service";
 
 interface Props {
   bedType?: BedType;
-  setDialogOpened: (value: boolean) => void;
+  setDialogOpened?: (value: boolean) => void;
 }
 
 const BedTypeForm = ({ bedType, setDialogOpened }: Props) => {

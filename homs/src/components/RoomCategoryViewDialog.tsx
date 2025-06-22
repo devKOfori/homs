@@ -10,6 +10,7 @@ import {
 import { FaEye } from "react-icons/fa";
 import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
+import RecordViewDialog from "./RecordViewDialog";
 
 interface Props {
   roomCategory: Category;
@@ -19,7 +20,7 @@ const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <DialogRoot
+      {/* <DialogRoot
         size="lg"
         placement="center"
         open={open}
@@ -50,7 +51,16 @@ const RoomCategoryViewDialog = ({ roomCategory }: Props) => {
             </DataListRoot>
           </DialogBody>
         </DialogContent>
-      </DialogRoot>
+      </DialogRoot> */}
+      <RecordViewDialog>
+        <DataListRoot orientation="horizontal">
+          <DataListItem label={"Name"} value={roomCategory.name} />
+          <DataListItem
+            label={"Amenities"}
+            value={roomCategory.amenities?.join(", ")}
+          />
+        </DataListRoot>
+      </RecordViewDialog>
     </>
   );
 };

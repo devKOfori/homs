@@ -33,27 +33,26 @@ export type Guest = {
 
 export type Booking = {
   id?: string;
-  guest: Guest;
+  guest?: Guest;
   guest_name?: string;
+  gender?: string;
   email?: string;
   phone_number?: string;
-  room_category?: string;
   room_type?: string;
-  room_number?: string;
+  room_category?: string;
+  number_of_guests?: number;
+  number_of_children_guests?: number;
   booking_code?: string;
   check_in_date?: string;
   check_out_date?: string;
-  number_of_older_guests?: number;
-  number_of_younger_guests?: number;
-  number_of_guests?: number;
-  rate?: number;
-  amount_paid?: number;
-  promo_code?: string;
-  vip_status?: string;
-  sponsor?: string;
+  note?: string;
+  booking_source?: string;
+  booking_status?: string;
+  booking_cost?: number;
   payment_status?: string;
+  booking_category?: string;
+  date_created?: string;
   created_by?: string;
-  notes?: string;
 };
 
 export type Gender = {

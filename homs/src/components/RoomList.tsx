@@ -116,7 +116,7 @@ const RoomList = ({ data, heading }: Props) => {
               <Table.Cell className="table-row-cell">
                 <Flex justifyContent={"center"} w={"100%"}>
                   <RoomViewDialog room={room} />
-                  <RecordEditDialog room={room} />
+                  <RoomEditDialog room={room} />
                   <RoomDeleteDialog room={room} />
                   <RoomCleaningTaskDialog
                     room={room}

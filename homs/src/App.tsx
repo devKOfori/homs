@@ -32,6 +32,7 @@ import { HotelSetupProvider } from "./contexts/HotelSetupProvider";
 import MyTasks from "./pages/MyTasks";
 import Bookings from "./pages/Bookings";
 import { BookingProvider } from "./contexts/BookingProvider";
+import Bookings2 from "./pages/Bookings2";
 
 function App() {
   return (
@@ -172,7 +173,7 @@ function App() {
                     path="/dashboard/bookings"
                     element={
                       <RoleProtectedRoute>
-                        <Bookings />
+                        <Bookings2 />
                       </RoleProtectedRoute>
                     }
                   />

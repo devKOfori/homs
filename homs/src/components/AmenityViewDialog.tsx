@@ -11,6 +11,7 @@ import CustomDialogHeader from "./CustomDialogHeader";
 import { useState } from "react";
 
 import { Amenity } from "./AmenityList";
+import RecordViewDialog from "./RecordViewDialog";
 
 interface Props {
   amenity: Amenity;
@@ -20,7 +21,7 @@ const AmenityViewDialog = ({ amenity }: Props) => {
     const [open, setOpen] = useState(false);
   return (
     <>
-      <DialogRoot
+      {/* <DialogRoot
         size="lg"
         placement="center"
         open={open}
@@ -47,7 +48,12 @@ const AmenityViewDialog = ({ amenity }: Props) => {
             </DataListRoot>
           </DialogBody>
         </DialogContent>
-      </DialogRoot>
+      </DialogRoot> */}
+      <RecordViewDialog>
+        <DataListRoot orientation="horizontal">
+          <DataListItem label={"Name"} value={amenity.name} />
+        </DataListRoot>
+      </RecordViewDialog>
     </>
   );
 };

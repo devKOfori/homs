@@ -16,7 +16,7 @@ class RoomService {
   }
 
   createRoomCategory(data: { name: string }) {
-    const request = apiClient.post("/room-categories/", data, {
+    const request = apiClient.post("/room-categories/add/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -26,10 +26,15 @@ class RoomService {
     return request;
   }
 
-  updateRoomCategory(category: Category) {
-    const { name, amenities } = category;
-    const payload = { name, amenities };
-    const request = apiClient.put(`/room-categories/${category.id}/`, payload, {
+  updateRoomCategory(categoryID: string, category: Category) {
+    // const { name, amenities } = category;
+    // const payload = {
+    //   name,
+    //   amenities: amenities || [], // Ensure amenities is an array
+    //   room_area: category.room_area || 0, // Optional field
+    //   description: category.description || "", // Optional field
+    // };
+    const request = apiClient.put(`/room-categories/${category.id}/edit/`, category, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -40,7 +45,7 @@ class RoomService {
   }
 
   deleteRoomCategory(categoryId: string) {
-    const request = apiClient.delete(`/room-categories/${categoryId}/`, {
+    const request = apiClient.delete(`/room-categories/${categoryId}/edit/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -185,7 +190,7 @@ class RoomService {
   }
 
   updateBedType(id: string, data: any) {
-    const request = apiClient.put(`/bed-types/${id}/`, data, {
+    const request = apiClient.put(`/bedtypes/${id}/edit/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -196,7 +201,7 @@ class RoomService {
   }
 
   deleteBedType(id: string) {
-    const request = apiClient.delete(`/bed-types/${id}/`, {
+    const request = apiClient.delete(`/bedtypes/${id}/edit/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -266,7 +271,7 @@ class RoomService {
   }
 
   createAmenity(data: any) {
-    const request = apiClient.post("/amenities/", data, {
+    const request = apiClient.post("/amenities/add/", data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -277,7 +282,7 @@ class RoomService {
   }
 
   updateAmenity(id: string, data: any) {
-    const request = apiClient.put(`/amenities/${id}/`, data, {
+    const request = apiClient.put(`/amenities/${id}/edit/`, data, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -288,7 +293,7 @@ class RoomService {
   }
 
   deleteAmenity(id: string) {
-    const request = apiClient.delete(`/amenities/${id}/`, {
+    const request = apiClient.delete(`/amenities/${id}/edit/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""

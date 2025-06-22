@@ -25,12 +25,20 @@ const BookingsList = ({ bookingFilters }: BookingFilterProps) => {
         .includes(bookingFilters.guestName.toLowerCase()) &&
       booking.room_type
         ?.toLowerCase()
-        .includes(bookingFilters.roomType.toLowerCase())
-      // (booking.check_in_date ? dayjs(booking.check_in_date).isSame(dayjs(bookingFilters.checkInDate, "YYYY-MM-DD"), "day") : )
-      // dayjs(booking.check_in_date).isSame(dayjs(bookingFilters.checkInDate, "YYYY-MM-DD"), "day")
+        .includes(bookingFilters.roomType.toLowerCase()) &&
+      (booking.check_in_date
+        ? dayjs(booking.check_in_date).isSame(
+            dayjs(bookingFilters.checkInDate, "YYYY-MM-DD"),
+            "day"
+          )
+        : dayjs(booking.check_in_date).isSame(
+            dayjs(bookingFilters.checkInDate, "YYYY-MM-DD"),
+            "day"
+          ))
   );
-  console.log("Filtered Bookings: ", filteredBookings.length);
-  console.log("Bookings List: ", bookings);
+
+  // console.log("Filtered Bookings: ", filteredBookings.length);
+  // console.log("Bookings List: ", bookings);
   return (
     <Box overflow="auto">
       <Table.Root>

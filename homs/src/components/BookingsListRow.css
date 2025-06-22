@@ -1,0 +1,30 @@
+.status-confirmed {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .status-cancelled {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .status-checked-in {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .status-checked-out {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .status-no-show {
+    background-color: #fd7e14;
+    color: white;
+  }
+  
+  .status-pending {
+    background-color: #ffc107;
+    color: black;
+  }
+  

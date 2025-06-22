@@ -10,7 +10,7 @@ import { useState } from "react";
 
 interface Props {
   amenity: Amenity | null;
-  setDialogOpened: (value: boolean) => void;
+  setDialogOpened?: (value: boolean) => void;
 }
 
 const AmenityForm = ({ amenity, setDialogOpened }: Props) => {

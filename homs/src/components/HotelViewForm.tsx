@@ -11,7 +11,7 @@ import { useRoomSetup } from "../contexts/RoomSetupProvider";
 
 interface Props {
     hotelView: HotelView | null;
-    setDialogOpened: (value: boolean) => void;
+    setDialogOpened?: (value: boolean) => void;
     }
 
 const HotelViewForm = ({ hotelView, setDialogOpened }: Props) => {

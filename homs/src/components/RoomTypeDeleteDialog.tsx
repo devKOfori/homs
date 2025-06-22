@@ -15,6 +15,7 @@ import { Button } from "./ui/button";
 import { FaTrash } from "react-icons/fa";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { Flex, HStack, Text } from "@chakra-ui/react";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 interface Props {
   roomType: RoomType;
@@ -54,7 +55,7 @@ const RoomTypeDeleteDialog = ({ roomType }: Props) => {
             bg: "var(--hairline-background-faint)",
           }}
         >
-          <FaTrash color="red"/>
+          <RiDeleteBinLine color="red" />
         </Button>
       </DialogTrigger>
       <DialogContent bg="white" color="#473647">

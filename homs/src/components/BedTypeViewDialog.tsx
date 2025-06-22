@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { useState } from "react";
 import { BedType } from "./BedTypeList";
+import RecordViewDialog from "./RecordViewDialog";
 
 interface Props {
   bedType: BedType;
@@ -19,7 +20,7 @@ const BedTypeViewDialog = ({ bedType }: Props) => {
     const [open, setOpen] = useState(false);
   return (
     <>
-      <DialogRoot
+      {/* <DialogRoot
         size="lg"
         placement="center"
         open={open}
@@ -46,7 +47,12 @@ const BedTypeViewDialog = ({ bedType }: Props) => {
             </DataListRoot>
           </DialogBody>
         </DialogContent>
-      </DialogRoot>
+      </DialogRoot> */}
+      <RecordViewDialog>
+        <DataListRoot orientation="horizontal">
+          <DataListItem label={"Name"} value={bedType.name} />
+        </DataListRoot>
+      </RecordViewDialog>
     </>
   );
 };

@@ -12,6 +12,7 @@ import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { Category } from "./RoomCategoriesList";
 import roomService from "../services/room-service";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 interface Props {
   roomCategory: Category;
@@ -23,7 +24,7 @@ const RoomCategoryDeleteDialog = ({ roomCategory }: Props) => {
 
   const { roomCategories, setRoomCategories } =
     useRoomSetup<RoomSetupContextProps>();
-    
+
   const handleDelete = () => {
     const request = roomService.deleteRoomCategory(roomCategory.id);
     request.then((res) => {
@@ -53,18 +54,15 @@ const RoomCategoryDeleteDialog = ({ roomCategory }: Props) => {
         <Button
           size="xs"
           _hover={{
-            transform: "scale(1.2) translateY(-2px)",
-            transition: "transform 0.3s ease-out",
-            bg: "#DDDCDD",
-            border: "1px solid #473647",
+            bg: "var(--hairline-background-faint)",
           }}
         >
-          <FaTrash color="#473647" />
+          <RiDeleteBinLine color="red" />
         </Button>
       </DialogTrigger>
-      <DialogContent bg="white" color="#473647" p="20px 40px">
+      <DialogContent bg="white" color="#473647">
         <CustomDialogHeader heading="Delete Record" />
-        <DialogBody>
+        <DialogBody p={{ base: "0.5rem", md: "1.3rem 1.5rem" }}>
           {error && <Text color="red">{error}</Text>}
           <HStack>
             <Text>Are you sure you want to delete this record</Text>

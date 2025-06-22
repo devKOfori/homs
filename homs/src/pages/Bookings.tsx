@@ -5,6 +5,7 @@ import { Button } from "../components/ui/button";
 import BookingsFilter from "../components/BookingsFilter";
 import BookingsList from "../components/BookingsList";
 import BookingCreateDialog from "../components/BookingCreateDialog";
+import ActionPageHeader from "../components/ActionPageHeader";
 
 const Bookings = () => {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ const Bookings = () => {
   });
   return (
     <DashboardLayout>
-      <Flex justifyContent={"space-between"}>
+      {/* <Flex justifyContent={"space-between"}>
         <Heading fontWeight={300} color="var(--header-bg)">
           Bookings
         </Heading>
@@ -35,7 +36,8 @@ const Bookings = () => {
             </Button>
           }
         />
-      </Flex>
+      </Flex> */}
+      <ActionPageHeader heading="Booking" table="booking" />
       <BookingsFilter
         bookingFilters={bookingFilters}
         setBookingFilters={setBookingFilters}

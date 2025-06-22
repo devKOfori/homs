@@ -9,9 +9,12 @@ import RoomCategoryViewDialog from "./RoomCategoryViewDialog";
 import RoomCategoryDeleteDialog from "./RoomCategoryDeleteDialog";
 
 export interface Category {
-  id: string;
+  id?: string;
   name: string;
-  amenities: string[] | null;
+  room_area?: number;
+  description?: string;
+  created_by?: string;
+  date_created?: string;
 }
 
 interface Props {

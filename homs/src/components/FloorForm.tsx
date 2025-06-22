@@ -8,7 +8,7 @@ import roomService from "../services/room-service";
 
 interface Props {
   hotelFloor: any;
-  setDialogOpened: (value: boolean) => void;
+  setDialogOpened?: (value: boolean) => void;
 }
 
 const FloorForm = ({ hotelFloor, setDialogOpened }: Props) => {

@@ -21,6 +21,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import roomService from "../services/room-service";
+import RecordDeleteDialog from "./RecordDeleteDialog";
+import RecordEditDialog from "./RecordEditDialog";
 
 interface Props {
   roomCategory: Category;
@@ -74,13 +76,13 @@ const RoomCategoryEditDialog = ({ roomCategory }: Props) => {
 
   return (
     <>
-      <DialogRoot
+      {/* <DialogRoot
         size="lg"
         placement="center"
         open={open}
         onOpenChange={(e) => setOpen(e.open)}
-      >
-        <DialogTrigger>
+      > */}
+        {/* <DialogTrigger>
           <Button
             size="xs"
             _hover={{
@@ -95,10 +97,10 @@ const RoomCategoryEditDialog = ({ roomCategory }: Props) => {
         </DialogTrigger>
         <DialogContent bg="white" color="#473647" p="20px 40px">
           <CustomDialogHeader heading={`Update Category: ${roomCategory.id}`} />
-          <DialogBody>
-            <div>
-              {error && <Text color="red">{error}</Text>}
-              <form method="post" onSubmit={handleSubmit(onSubmit)}>
+          <DialogBody> */}
+            {/* <div>
+              {error && <Text color="red">{error}</Text>} */}
+              {/* <form method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Field label="Category" mb="10px">
                   <Input type="text" {...register("name")} />
                   {errors.name && (
@@ -121,11 +123,14 @@ const RoomCategoryEditDialog = ({ roomCategory }: Props) => {
                 >
                   Save
                 </Button>
-              </form>
-            </div>
+              </form> */}
+              <RecordEditDialog>
+                <RoomCategoriesForm roomCategory={roomCategory} />
+              </RecordEditDialog>
+            {/* </div>
           </DialogBody>
         </DialogContent>
-      </DialogRoot>
+      </DialogRoot> */}
     </>
   );
 };

@@ -8,10 +8,7 @@ import { Button } from "./ui/button";
 import { CiUser } from "react-icons/ci";
 import { IconButton } from "@chakra-ui/react";
 import { CiBellOn } from "react-icons/ci";
-import {
-  RiArrowDropDownLine,
-  RiArrowDropUpLine
-} from "react-icons/ri";
+import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 const Navbar = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
@@ -63,7 +60,10 @@ const Navbar = () => {
             <Box>
               <Menu.Root>
                 <Menu.Trigger className="user-info-trigger" asChild>
-                  <IconButton className="user-profile-icon" onClick={() => setIsUserInfoOpen(!isUserInfoOpen)}>
+                  <IconButton
+                    className="user-profile-icon"
+                    onClick={() => setIsUserInfoOpen(!isUserInfoOpen)}
+                  >
                     <Flex>
                       <CiUser />
                     </Flex>
@@ -100,6 +100,7 @@ const Navbar = () => {
                       <Menu.Item
                         value="export"
                         className="user-info-content-item"
+                        onClick={() => logout()}
                       >
                         Logout
                       </Menu.Item>
