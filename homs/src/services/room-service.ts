@@ -1,5 +1,6 @@
 import apiClient from "../api-client";
 import { Category } from "../components/RoomCategoriesList";
+import { RoomRate } from "../components/RoomRateList";
 
 class RoomService {
   getRoomCategories() {
@@ -34,13 +35,17 @@ class RoomService {
     //   room_area: category.room_area || 0, // Optional field
     //   description: category.description || "", // Optional field
     // };
-    const request = apiClient.put(`/room-categories/${category.id}/edit/`, category, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("accessToken") ?? ""
-        )}`,
-      },
-    });
+    const request = apiClient.put(
+      `/room-categories/${category.id}/edit/`,
+      category,
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("accessToken") ?? ""
+          )}`,
+        },
+      }
+    );
     return request;
   }
 
@@ -303,10 +308,11 @@ class RoomService {
     return request;
   }
 
-  getRooms() {
+  getRooms(params?: { room_category?: string; room_type?: string }) {
     const controller = new AbortController();
     const request = apiClient.get("/rooms/", {
       signal: controller.signal,
+      params: params,
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
@@ -340,6 +346,50 @@ class RoomService {
 
   deleteRoom(id: string) {
     const request = apiClient.delete(`/rooms/${id}/edit/`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
+  }
+
+  getRoomRates() {
+    const controller = new AbortController();
+    const request = apiClient.get("/room-rates/", {
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  createRoomRate(data: any) {
+    const request = apiClient.post("/room-rates/add/", data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
+  }
+  updateRoomRate(id: string, data: any) {
+    const request = apiClient.put(`/room-rates/${id}/edit/`, data, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return request;
+  }
+  deleteRoomRate(id: string) {
+    const request = apiClient.delete(`/room-rates/${id}/edit/`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""

@@ -33,7 +33,7 @@ const RoomForm = ({ room, setDialogOpened }: Props) => {
     bedTypes,
     hotelViews,
     updateRooms,
-  } = useRoomSetup<RoomSetupContextProps>();
+  } = useRoomSetup();
 
   console.log("Bed Types", bedTypes);
 

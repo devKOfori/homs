@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { Text } from "@chakra-ui/react";
 import bookingServices from "../services/booking-services";
+import roomService from "../services/room-service";
 import { useBooking } from "../contexts/BookingProvider";
+import { useRoomSetup } from "../contexts/RoomSetupProvider";
 
 const FrontdeskDashboard = () => {
   const { bookings, setBookings } = useBooking();
+  const { setRoomRates } = useRoomSetup();
 
   useEffect(() => {
     const { request, cancel } = bookingServices.getBookings();
@@ -20,6 +23,18 @@ const FrontdeskDashboard = () => {
     return () => cancel();
   }, []);
 
+  useEffect(() => {
+    const {request, cancel} = roomService.getRoomRates();
+    request
+      .then((response) => {
+        setRoomRates(response.data);
+        localStorage.setItem("roomRates", JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.error("Error fetching room rates:", error.message);
+      });
+    return () => cancel();
+  }, []);
   return (
     <div>
       <DashboardLayout>

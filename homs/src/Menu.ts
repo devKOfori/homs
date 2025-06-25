@@ -13,6 +13,8 @@ const menuItems = [
     {item: 'Tasks Updates', url: 'task-updates', departments: ['All']},
     {item: 'Department Rollster', url: 'department-roster', departments: ['All']},
     {item: 'Bookings', url: 'bookings', departments: ['Frontdesk', 'Housekeeping']},
+    {item: 'Check-Ins', url: 'check-ins', departments: ['Frontdesk', 'Housekeeping']},
+    {item: 'Room Rates', url: 'room-rates', departments: ['Frontdesk', 'Housekeeping']},
 ]
 
 export default menuItems;

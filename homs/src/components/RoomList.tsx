@@ -75,6 +75,12 @@ const RoomList = ({ data, heading }: Props) => {
               bg={"var(--hairline-background-faint)"}
               className="table-column-header"
             >
+              Room Category
+            </Table.ColumnHeader>
+            <Table.ColumnHeader
+              bg={"var(--hairline-background-faint)"}
+              className="table-column-header"
+            >
               Floor
             </Table.ColumnHeader>
             <Table.ColumnHeader
@@ -103,6 +109,9 @@ const RoomList = ({ data, heading }: Props) => {
               </Table.Cell>
               <Table.Cell className="table-row-cell">
                 {room.room_type}
+              </Table.Cell>
+              <Table.Cell className="table-row-cell">
+                {room.room_category || "N/A"}
               </Table.Cell>
               <Table.Cell className="table-row-cell">
                 {room.floor}

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Category } from "../components/RoomCategoriesList";
 import { HotelFloor } from "../pages/Floors";
 import { Room } from "../components/RoomList";
+import { RoomRate } from "../components/RoomRateList";
 
 export type Amenity = {
   id: string;
@@ -48,10 +49,12 @@ export interface RoomSetupContextProps {
   amenities: Amenity[];
   hotelViews: View[];
   rooms: Room[];
+  roomRates: RoomRate[];
   createDialogOpened: boolean;
   editDialogOpened: boolean;
   viewDialogOpened: boolean;
   deleteDialogOpened: boolean;
+  setRoomRates: (roomRates: RoomRate[]) => void;
   updateRoomCategories: (category: Category) => void;
   updateRoomTypes: (roomType: RoomType) => void;
   updateFloors: (hotelFloor: HotelFloor) => void;
@@ -59,6 +62,7 @@ export interface RoomSetupContextProps {
   updateAmenities: (amenity: Amenity) => void;
   updateHotelViews: (view: View) => void;
   updateRooms: (room: Room) => void;
+  updateRoomRates: (roomRate: RoomRate, action: string) => void;
   setCreateDialogOpened: (value: boolean) => void;
   setEditDialogOpened: (value: boolean) => void;
   setViewDialogOpened: (value: boolean) => void;
@@ -111,6 +115,28 @@ export function RoomSetupProvider({ children }) {
       ? JSON.parse(localStorage.getItem("rooms"))
       : []
   );
+
+  const [roomRates, setRoomRates] = useState(
+    localStorage.getItem("roomRates")
+      ? JSON.parse(localStorage.getItem("roomRates") ?? "[]")
+      : []
+  );
+
+  const updateRoomRates = (roomRate: RoomRate, action: string) => {
+    const rr: RoomRate[] = JSON.parse(localStorage.getItem("roomRates") ?? "[]");
+    if (action === "edit") {
+      const updatedRoomRate = rr.map((r) =>
+        r.id === roomRate.id ? roomRate : r
+      );
+      setRoomRates(updatedRoomRate);
+      localStorage.setItem("roomRates", JSON.stringify(updatedRoomRate));
+    }
+    if (action === "create") {
+      const updatedRoomRates = [roomRate, ...rr];
+      setRoomRates(updatedRoomRates);
+      localStorage.setItem("roomRates", JSON.stringify(updatedRoomRates));
+    }
+  }
 
   const updateRoomCategories = (category: Category, action: String) => {
     const rc: Category[] = JSON.parse(localStorage.getItem("roomCategories"));
@@ -242,6 +268,7 @@ export function RoomSetupProvider({ children }) {
         amenities,
         hotelViews,
         rooms,
+        roomRates,
         createDialogOpened,
         editDialogOpened,
         viewDialogOpened,
@@ -253,6 +280,7 @@ export function RoomSetupProvider({ children }) {
         setBedTypes,
         setAmenities,
         setRooms,
+        setRoomRates,
         updateRoomCategories,
         updateRoomTypes,
         updateFloors,
@@ -260,6 +288,7 @@ export function RoomSetupProvider({ children }) {
         updateAmenities,
         updateHotelViews,
         updateRooms,
+        updateRoomRates,
         setCreateDialogOpened,
         setEditDialogOpened,
         setViewDialogOpened,

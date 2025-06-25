@@ -73,7 +73,7 @@ const BookingsForm = () => {
 
   return (
     <Box px="15px">
-      <form method="post" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Tabs.Root
           value={value}
           onValueChange={(e) => handleOnValueChange(e.value)}
@@ -108,20 +108,18 @@ const BookingsForm = () => {
           </Tabs.Content>
         </Tabs.Root>
         <HStack>
-          {
-            currentValueIndex > 0 && (
-              <Button
-                p="10px 20px"
-                bg="var(--header-bg)"
-                color="white"
-                onClick={() => {
-                  prevTab();
-                }}
-              >
-                Back
-              </Button>
-            )
-          }
+          {currentValueIndex > 0 && (
+            <Button
+              p="10px 20px"
+              bg="var(--header-bg)"
+              color="white"
+              onClick={() => {
+                prevTab();
+              }}
+            >
+              Back
+            </Button>
+          )}
           {currentValueIndex < 2 && (
             <Button
               p="10px 20px"

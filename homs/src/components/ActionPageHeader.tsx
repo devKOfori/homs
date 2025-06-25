@@ -1,10 +1,4 @@
-import {
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Icon, IconButton } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import "./ActionPageHeader.css";
 import RoomTypeForm from "./RoomTypeForm";
@@ -18,6 +12,10 @@ import AmenityForm from "./AmenityForm";
 import RoomForm from "./RoomForm";
 import { RiAddLine } from "react-icons/ri";
 import BookingsForm2 from "./BookingsForm2";
+import RoomRateForm from "./RoomRateForm";
+import CheckIn from "../pages/CheckIn";
+import CheckinForm from "./CheckinForm";
+import { CheckInProvider } from "../contexts/CheckInContext";
 
 interface Props {
   heading: string;
@@ -31,7 +29,7 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       className="create-record-btn"
       p={"0.5rem  1rem"}
       border={"1px solid var(--logo-color);"}
-      _hover={{bg: "var(--hairline-background)"}}
+      _hover={{ bg: "var(--hairline-background)" }}
     >
       {`Add ${heading}`}
       <RiAddLine />
@@ -60,13 +58,16 @@ const ActionPageHeader = ({ heading, table }: Props) => {
       break;
     case "hotelView":
       dialogContentBody = (
-        <HotelViewForm hotelView={null} setDialogOpened={setCreateDialogOpened} />
-      )
+        <HotelViewForm
+          hotelView={null}
+          setDialogOpened={setCreateDialogOpened}
+        />
+      );
       break;
-    case "bedtype": 
+    case "bedtype":
       dialogContentBody = (
         <BedTypeForm bedType={null} setDialogOpened={setCreateDialogOpened} />
-      )
+      );
       break;
     case "amenities":
       dialogContentBody = (
@@ -81,8 +82,19 @@ const ActionPageHeader = ({ heading, table }: Props) => {
     case "booking":
       dialogContentBody = (
         <BookingsForm2 setDialogOpened={setCreateDialogOpened} />
-      )
+      );
       break;
+    case "roomrate":
+      dialogContentBody = (
+        <RoomRateForm setDialogOpened={setCreateDialogOpened} />
+      );
+      break;
+    case "checkin":
+      dialogContentBody = (
+        <CheckInProvider>
+          <CheckinForm setDialogOpened={setCreateDialogOpened} />
+        </CheckInProvider>
+      );
     default:
       break;
   }

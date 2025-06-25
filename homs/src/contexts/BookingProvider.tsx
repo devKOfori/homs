@@ -78,7 +78,14 @@ export interface BookingContextProps {
   addNewBooking: (booking: Booking) => void;
   bookingsFetchError?: string;
   setBookingsFetchError?: Dispatch<SetStateAction<string>>;
-  
+  genders: Gender[];
+  setGenders: Dispatch<SetStateAction<Gender[]>>;
+  countries: Country[];
+  setCountries: Dispatch<SetStateAction<Country[]>>;
+  identificationTypes?: IdentificationType[];
+  setIdentificationTypes?: Dispatch<SetStateAction<IdentificationType[]>>;
+  titles?: Title[];
+  setTitles?: Dispatch<SetStateAction<Title[]>>;
 }
 
 const BookingContext = createContext<BookingContextProps>({
@@ -87,6 +94,14 @@ const BookingContext = createContext<BookingContextProps>({
   addNewBooking: () => {},
   bookingsFetchError: "",
   setBookingsFetchError: () => {},
+  genders: [],
+  setGenders: () => {},
+  countries: [],
+  setCountries: () => {},
+  identificationTypes: [],
+  setIdentificationTypes: () => {},
+  titles: [],
+  setTitles: () => {},
 });
 
 interface BookingProviderProps {
@@ -95,9 +110,62 @@ interface BookingProviderProps {
 
 export function BookingProvider({ children }: BookingProviderProps) {
   const [bookingsFetchError, setBookingsFetchError] = useState("");
-
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [genders, setGenders] = useState<Gender[]>([]);
+  const [genderFetchError, setGenderFetchError] = useState("");
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [identificationTypes, setIdentificationTypes] = useState<IdentificationType[]>([]);
+  const [titles, setTitles] = useState<Title[]>([]);
 
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getGenders();
+    request.then((response) => {
+      setGenders(response.data);
+      localStorage.setItem("genders", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      setGenderFetchError(error.message);
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getTitles();
+    request.then((response) => {
+      setTitles(response.data);
+      localStorage.setItem("titles", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getIdentificationTypes();
+    request.then((response) => {
+      setIdentificationTypes(response.data);
+      localStorage.setItem("identificationTypes", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
+
+  useEffect(() => {
+    const { request, cancel } = bookingServices.getCountries();
+    request.then((response) => {
+      setCountries(response.data);
+      localStorage.setItem("countries", JSON.stringify(response.data));
+    });
+    request.catch((error) => {
+      console.log(error.message);
+    });
+    return () => cancel();
+  }, []);
 
   useEffect(() => {
     const { request, cancel } = bookingServices.getBookings();
@@ -125,8 +193,16 @@ export function BookingProvider({ children }: BookingProviderProps) {
         bookings,
         setBookings,
         addNewBooking,
+        genders,
+        setGenders,
+        countries,
+        setCountries,
         bookingsFetchError,
         setBookingsFetchError,
+        identificationTypes,
+        setIdentificationTypes,
+        titles,
+        setTitles,
       }}
     >
       {children}
