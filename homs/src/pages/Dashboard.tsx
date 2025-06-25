@@ -9,14 +9,20 @@ import { useRoomSetup } from "../contexts/RoomSetupProvider";
 import authService from "../services/auth-service";
 import hotelService from "../services/hotel-service";
 import bookingServices from "../services/booking-services";
+import { useBooking } from "../contexts/BookingProvider";
 
 const Dashboard = () => {
-  const { setRoomCategories, setBedTypes, setRooms, setFloors, setAmenities } = useRoomSetup();
+  const { setRoomCategories, setBedTypes, setRooms, setFloors, setAmenities } =
+    useRoomSetup();
+  const { setGenders, setCountries, setTitles } = useBooking();
 
   useEffect(() => {
     const { request, cancel } = authService.getMyDepartmentStaffList();
     request.then((response) => {
-      localStorage.setItem("myDepartmentStaffList", JSON.stringify(response.data));
+      localStorage.setItem(
+        "myDepartmentStaffList",
+        JSON.stringify(response.data)
+      );
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;
@@ -118,7 +124,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const {request, cancel} = hotelService.getShifts();
+    const { request, cancel } = hotelService.getShifts();
     request.then((response) => {
       localStorage.setItem("shifts", JSON.stringify(response.data));
     });
@@ -130,7 +136,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const {request, cancel} = hotelService.getShiftStatuses();
+    const { request, cancel } = hotelService.getShiftStatuses();
     request.then((response) => {
       localStorage.setItem("shiftStatuses", JSON.stringify(response.data));
     });
@@ -156,6 +162,7 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = bookingServices.getTitles();
     request.then((res) => {
+      setTitles(res.data);
       localStorage.setItem("titles", JSON.stringify(res.data));
     });
     request.catch((err) => {
@@ -168,6 +175,7 @@ const Dashboard = () => {
   useEffect(() => {
     const { request, cancel } = bookingServices.getGenders();
     request.then((res) => {
+      setGenders(res.data);
       localStorage.setItem("genders", JSON.stringify(res.data));
     });
     request.catch((err) => {
@@ -175,11 +183,12 @@ const Dashboard = () => {
       // console.log(err.message);
     });
     return () => cancel();
-    }, []);
+  }, []);
 
   useEffect(() => {
     const { request, cancel } = bookingServices.getCountries();
     request.then((res) => {
+      setCountries(res.data);
       localStorage.setItem("countries", JSON.stringify(res.data));
     });
     request.catch((err) => {
@@ -201,7 +210,9 @@ const Dashboard = () => {
     return () => cancel();
   }, []);
 
-  const { auth: {department} } = useAuth();
+  const {
+    auth: { department },
+  } = useAuth();
   // console.log(`Department: ${department}`)
   switch (department) {
     case "Frontdesk":

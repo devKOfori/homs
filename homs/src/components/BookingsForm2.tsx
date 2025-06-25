@@ -49,14 +49,14 @@ const BookingsForm2 = ({ setDialogOpened }: Props) => {
     payment_id: z.string().optional(),
   });
 
-  console.log(guestInfoSchema);
+  // console.log(guestInfoSchema);
 
   const fullSchema = guestInfoSchema
     .and(roomInfoSchema)
     .and(paymentDetailsSchema);
 
   type formInputType = z.infer<typeof fullSchema>;
-  console.log(fullSchema);
+  // console.log(fullSchema);
 
   const {
     register,
@@ -75,10 +75,6 @@ const BookingsForm2 = ({ setDialogOpened }: Props) => {
   };
 
   const nextStep = async () => {
-    // const isValid = await trigger();
-    // if (isValid) {
-    //   setStep(step + 1);
-    // }
     const values = getValues();
     let isValid = false;
     console.log(values);

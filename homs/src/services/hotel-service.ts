@@ -320,7 +320,6 @@ class HotelService {
     return { request, cancel: () => controller.abort() };
   }
 
-
 }
 
 export default new HotelService();

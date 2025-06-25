@@ -33,6 +33,8 @@ import MyTasks from "./pages/MyTasks";
 import Bookings from "./pages/Bookings";
 import { BookingProvider } from "./contexts/BookingProvider";
 import Bookings2 from "./pages/Bookings2";
+import CheckIn from "./pages/CheckIn";
+import RoomRates from "./pages/RoomRates";
 
 function App() {
   return (
@@ -174,6 +176,22 @@ function App() {
                     element={
                       <RoleProtectedRoute>
                         <Bookings2 />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/check-ins"
+                    element={
+                      <RoleProtectedRoute>
+                        <CheckIn />
+                      </RoleProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/dashboard/room-rates"
+                    element={
+                      <RoleProtectedRoute>
+                        <RoomRates />
                       </RoleProtectedRoute>
                     }
                   />
