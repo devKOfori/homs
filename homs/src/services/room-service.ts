@@ -303,10 +303,11 @@ class RoomService {
     return request;
   }
 
-  getRooms() {
+  getRooms(params?: { room_type?: string; room_category?: string }) {
     const controller = new AbortController();
     const request = apiClient.get("/rooms/", {
       signal: controller.signal,
+      params: params,
       headers: {
         Authorization: `Bearer ${JSON.parse(
           localStorage.getItem("accessToken") ?? ""
