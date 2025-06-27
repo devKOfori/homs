@@ -6,9 +6,9 @@ import { Outlet } from 'react-router-dom'
 
 const HousekeepingDashboard = () => {
   return (
-    <DashboardLayout>
+    <>
         <Outlet />
-    </DashboardLayout>
+    </>
   )
 }
 

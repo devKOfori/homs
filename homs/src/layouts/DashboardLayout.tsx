@@ -13,12 +13,14 @@ import { Tooltip } from "../components/ui/tooltip";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import SidebarMenuList from "../components/SidebarMenuList";
 import menuItems from "../Menu";
+import { Outlet } from "react-router-dom";
 
-interface DashboardLayoutProps {
-  children: React.ReactNode;
-}
+// interface DashboardLayoutProps {
+//   children: React.ReactNode;
+// }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+// const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const DashboardLayout = () => {
   const [hideSidebar, setHideSidebar] = useState<boolean>(false);
 
   const templateAreas = {
@@ -97,7 +99,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               </Portal>
             </Drawer.Root>
           </Box>
-          <Box p={{base: "1rem 0.5rem", lg:"1rem 2rem"}}>{children}</Box>
+          {/* <Box p={{ base: "1rem 0.5rem", lg: "1rem 2rem" }}>{children}</Box> */}
+          <Box p={{ base: "1rem 0.5rem", lg: "1rem 2rem" }}><Outlet /></Box>
         </GridItem>
       </Grid>
     </div>

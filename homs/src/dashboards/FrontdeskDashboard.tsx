@@ -5,6 +5,7 @@ import bookingServices from "../services/booking-services";
 import roomService from "../services/room-service";
 import { useBooking } from "../contexts/BookingProvider";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
+import { BillingProvider } from "../contexts/BillingProvider";
 
 const FrontdeskDashboard = () => {
   const { bookings, setBookings } = useBooking();
@@ -23,8 +24,10 @@ const FrontdeskDashboard = () => {
     return () => cancel();
   }, []);
 
+  useEffect(() => {});
+
   useEffect(() => {
-    const {request, cancel} = roomService.getRoomRates();
+    const { request, cancel } = roomService.getRoomRates();
     request
       .then((response) => {
         setRoomRates(response.data);
@@ -37,10 +40,8 @@ const FrontdeskDashboard = () => {
   }, []);
   return (
     <div>
-      <DashboardLayout>
-        <Text>Frontdesk Dashboard</Text>
-        <Text>Bookings: {bookings.length}</Text>
-      </DashboardLayout>
+      <Text>Frontdesk Dashboard</Text>
+      <Text>Bookings: {bookings.length}</Text>
     </div>
   );
 };

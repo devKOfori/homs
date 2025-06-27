@@ -29,10 +29,10 @@ const Rooms = () => {
   console.log(rooms);
 
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading="Room" table="room" />
       <RoomList data={rooms} heading="Room" />
-    </DashboardLayout>
+    </>
   );
 };
 

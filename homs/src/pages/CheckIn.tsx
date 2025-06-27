@@ -5,13 +5,13 @@ import CheckInList from '../components/CheckInList'
 
 const CheckIn = () => {
   return (
-    <DashboardLayout>
+    <>
         <ActionPageHeader
           heading="Check In"
           table="checkin"
         />
         <CheckInList />
-    </DashboardLayout>
+    </>
   )
 }
 

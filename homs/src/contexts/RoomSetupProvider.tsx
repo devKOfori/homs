@@ -3,6 +3,8 @@ import { Category } from "../components/RoomCategoriesList";
 import { HotelFloor } from "../pages/Floors";
 import { Room } from "../components/RoomList";
 import { RoomRate } from "../components/RoomRateList";
+import roomService from "../services/room-service";
+import { CanceledError } from "axios";
 
 export type Amenity = {
   id: string;
@@ -82,11 +84,7 @@ export function RoomSetupProvider({ children }) {
       ? JSON.parse(localStorage.getItem("roomCategories"))
       : []
   );
-  const [roomTypes, setRoomTypes] = useState(
-    localStorage.getItem("roomTypes")
-      ? JSON.parse(localStorage.getItem("roomTypes"))
-      : []
-  );
+  const [roomTypes, setRoomTypes] = useState<RoomType[]>([]);
   const [floors, setFloors] = useState(
     localStorage.getItem("floors")
       ? JSON.parse(localStorage.getItem("floors"))
@@ -122,8 +120,30 @@ export function RoomSetupProvider({ children }) {
       : []
   );
 
+  useEffect(() => {
+    if (localStorage.getItem("roomTypes")) {
+      const cachedRoomTypes = JSON.parse(
+        localStorage.getItem("roomTypes") || "[]"
+      );
+      setRoomTypes(cachedRoomTypes);
+    } 
+    const { request, cancel } = roomService.getRoomTypes();
+    request
+      .then((response) => {
+        setRoomTypes(response.data);
+        localStorage.setItem("roomTypes", JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        console.error(error.message);
+      });
+    return () => cancel();
+  }, []);
+
   const updateRoomRates = (roomRate: RoomRate, action: string) => {
-    const rr: RoomRate[] = JSON.parse(localStorage.getItem("roomRates") ?? "[]");
+    const rr: RoomRate[] = JSON.parse(
+      localStorage.getItem("roomRates") ?? "[]"
+    );
     if (action === "edit") {
       const updatedRoomRate = rr.map((r) =>
         r.id === roomRate.id ? roomRate : r
@@ -136,7 +156,7 @@ export function RoomSetupProvider({ children }) {
       setRoomRates(updatedRoomRates);
       localStorage.setItem("roomRates", JSON.stringify(updatedRoomRates));
     }
-  }
+  };
 
   const updateRoomCategories = (category: Category, action: String) => {
     const rc: Category[] = JSON.parse(localStorage.getItem("roomCategories"));

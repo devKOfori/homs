@@ -70,7 +70,7 @@ const ShiftDetails = () => {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <Heading fontWeight={300}>
         <HStack borderBottom={"1px solid #DDDCDD"} pb="15px">
           <Text>Shift</Text>
@@ -131,7 +131,7 @@ const ShiftDetails = () => {
           fetchMyTasksOnly={true}
         />
       </Box>
-    </DashboardLayout>
+    </>
   );
 };
 

@@ -25,7 +25,7 @@ const DepartmentRoster = () => {
     return () => cancel();
   }, []);
   return (
-    <DashboardLayout>
+    <>
       <HStack>
         <Heading fontWeight={300}>Department Rollster</Heading>
         <Heading as="h3" size="md" color="var(--header-bg)">
@@ -83,7 +83,7 @@ const DepartmentRoster = () => {
           ))}
         </Table.Body>
       </Table.Root>
-    </DashboardLayout>
+    </>
   );
 };
 

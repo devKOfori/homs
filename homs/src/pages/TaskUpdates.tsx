@@ -5,10 +5,10 @@ import HouseKeepingTasksList from '../components/HouseKeepingTasksList'
 
 const TaskUpdates = () => {
   return (
-    <DashboardLayout>
+    <>
         <Heading fontWeight={300}>Task Updates</Heading>
         <HouseKeepingTasksList showFilters={true} displayManagerColumns={true}/>
-    </DashboardLayout>
+    </>
   )
 }
 

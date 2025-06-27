@@ -13,7 +13,7 @@ const Bookings2 = () => {
   });
 
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading="Booking" table="booking" />
       <Bookings2FilterForm
         bookingsFilters={bookingsFilters}
@@ -23,7 +23,7 @@ const Bookings2 = () => {
         bookingsFilters={bookingsFilters}
         setBookingsFilters={setBookingsFilters}
       />
-    </DashboardLayout>
+    </>
   );
 };
 

@@ -322,6 +322,33 @@ class RoomService {
     return { request, cancel: () => controller.abort() };
   }
 
+  getActiveRate(params: {
+    roomType?: string;
+    roomCategory?: string;
+    roomview?: string;
+    floor?: string;
+    checkInDate?: string;
+  }) {
+    console.log("params:", params);
+    const controller = new AbortController();
+    const request = apiClient.get("/rooms/get-active-rate/", {
+      signal: controller.signal,
+      params: {
+        room_type: params?.roomType ?? null,
+        room_category: params?.roomCategory ?? null,
+        check_in_date: params?.checkInDate ?? null,
+        floor: params?.floor ?? null,
+        room_view: params?.roomview ?? null,
+      },
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("accessToken") ?? ""
+        )}`,
+      },
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
   createRoom(data: any) {
     const request = apiClient.post("/rooms/add/", data, {
       headers: {

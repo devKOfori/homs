@@ -68,7 +68,7 @@ const MyShifts = () => {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <Heading fontWeight={300}>My Shifts</Heading>
       <Table.Root mt="50px" mb="20px" size="sm" interactive>
         {error && <Text color="red.500">{error}</Text>}
@@ -159,7 +159,7 @@ const MyShifts = () => {
           ))}
         </Table.Body>
       </Table.Root>
-    </DashboardLayout>
+    </>
   );
 };
 

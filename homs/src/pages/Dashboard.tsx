@@ -35,7 +35,7 @@ const Dashboard = () => {
     const { request, cancel } = roomService.getRoomTypes();
     request.then((response) => {
       localStorage.setItem("roomTypes", JSON.stringify(response.data));
-      console.log(response.data);
+      // console.log(response.data);
     });
     request.catch((error) => {
       if (error instanceof CanceledError) return;

@@ -1,17 +1,16 @@
-
-import DashboardLayout from '../layouts/DashboardLayout'
-import ActionPageHeader from '../components/ActionPageHeader'
-import { useRoomSetup } from '../contexts/RoomSetupProvider'
-import AmenityList from '../components/AmenityList'
+import DashboardLayout from "../layouts/DashboardLayout";
+import ActionPageHeader from "../components/ActionPageHeader";
+import { useRoomSetup } from "../contexts/RoomSetupProvider";
+import AmenityList from "../components/AmenityList";
 
 const Amenities = () => {
-    const { amenities } = useRoomSetup();
+  const { amenities } = useRoomSetup();
   return (
-    <DashboardLayout>
-        <ActionPageHeader heading="Amenity" table="amenities" />
-        <AmenityList data={amenities} heading="Amenity"  />
-    </DashboardLayout>
-  )
-}
+    <>
+      <ActionPageHeader heading="Amenity" table="amenities" />
+      <AmenityList data={amenities} heading="Amenity" />
+    </>
+  );
+};
 
-export default Amenities
+export default Amenities;

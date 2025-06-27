@@ -35,174 +35,72 @@ import { BookingProvider } from "./contexts/BookingProvider";
 import Bookings2 from "./pages/Bookings2";
 import CheckIn from "./pages/CheckIn";
 import RoomRates from "./pages/RoomRates";
+import ProtectedAppLayout from "./components/ProtectedAppLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
-  return (
-    <Provider>
-      <AuthProvider>
-        <HotelSetupProvider>
-          <RoomSetupProvider>
-            <BookingProvider>
-              <Router>
-                <Routes>
-                  <Route index element={<Home />} />
-                  <Route path="/report-issue" element={<ReportIssue />} />
-                  <Route path="/request-service" element={<RequestService />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route
-                    path="/dashboard"
-                    element={
-                      <RoleProtectedRoute>
-                        <Dashboard />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/room-categories"
-                    element={
-                      <RoleProtectedRoute>
-                        <RoomCategories />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/my-tasks"
-                    element={
-                      <RoleProtectedRoute>
-                        <MyTasks />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/room-types"
-                    element={
-                      <RoleProtectedRoute>
-                        <RoomTypes />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/my-shifts"
-                    element={
-                      <RoleProtectedRoute>
-                        <MyShifts />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/shift-details/:shiftId"
-                    element={
-                      <RoleProtectedRoute>
-                        <ShiftDetails />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/rooms"
-                    element={
-                      <RoleProtectedRoute>
-                        <Rooms />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/floors"
-                    element={
-                      <RoleProtectedRoute>
-                        <Floors />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/hotel-views"
-                    element={
-                      <RoleProtectedRoute>
-                        <Views />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/assign-shift"
-                    element={
-                      <RoleProtectedRoute>
-                        <AssignShift />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/department-roster"
-                    element={
-                      <RoleProtectedRoute>
-                        <DepartmentRoster />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/manage-shift"
-                    element={
-                      <RoleProtectedRoute>
-                        <ManageShift />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/amenities"
-                    element={
-                      <RoleProtectedRoute>
-                        <Amenities />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/task-updates"
-                    element={
-                      <RoleProtectedRoute>
-                        <TaskUpdates />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/bed-types"
-                    element={
-                      <RoleProtectedRoute>
-                        <BedTypes />
-                      </RoleProtectedRoute>
-                    }
-                  />
+   return (
+     <Provider>
+       <AuthProvider>
+         <Router>
+           <Routes>
+             <Route index element={<Home />} />
+             <Route path="/report-issue" element={<ReportIssue />} />
+             <Route path="/request-service" element={<RequestService />} />
+             <Route path="/login" element={<Login />} />
+             <Route path="/reset-password" element={<ResetPassword />} />
 
-                  <Route
-                    path="/dashboard/bookings"
-                    element={
-                      <RoleProtectedRoute>
-                        <Bookings2 />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/check-ins"
-                    element={
-                      <RoleProtectedRoute>
-                        <CheckIn />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/dashboard/room-rates"
-                    element={
-                      <RoleProtectedRoute>
-                        <RoomRates />
-                      </RoleProtectedRoute>
-                    }
-                  />
-                </Routes>
-              </Router>
-            </BookingProvider>
-          </RoomSetupProvider>
-        </HotelSetupProvider>
-      </AuthProvider>
-    </Provider>
-  );
+             <Route
+               element={
+                 <RoleProtectedRoute>
+                   <ProtectedAppLayout />
+                 </RoleProtectedRoute>
+               }
+             >
+               <Route path="/dashboard" element={<DashboardLayout />}>
+                 <Route index element={<Dashboard />} />
+                 <Route
+                   path="/dashboard/room-categories"
+                   element={<RoomCategories />}
+                 />
+                 <Route path="/dashboard/my-tasks" element={<MyTasks />} />
+                 <Route path="/dashboard/room-types" element={<RoomTypes />} />
+                 <Route path="/dashboard/my-shifts" element={<MyShifts />} />
+                 <Route
+                   path="/dashboard/shift-details/:shiftId"
+                   element={<ShiftDetails />}
+                 />
+                 <Route path="/dashboard/rooms" element={<Rooms />} />
+                 <Route path="/dashboard/floors" element={<Floors />} />
+                 <Route path="/dashboard/hotel-views" element={<Views />} />
+                 <Route
+                   path="/dashboard/assign-shift"
+                   element={<AssignShift />}
+                 />
+                 <Route
+                   path="/dashboard/department-roster"
+                   element={<DepartmentRoster />}
+                 />
+                 <Route
+                   path="/dashboard/manage-shift"
+                   element={<ManageShift />}
+                 />
+                 <Route path="/dashboard/amenities" element={<Amenities />} />
+                 <Route
+                   path="/dashboard/task-updates"
+                   element={<TaskUpdates />}
+                 />
+                 <Route path="/dashboard/bed-types" element={<BedTypes />} />
+                 <Route path="/dashboard/bookings" element={<Bookings2 />} />
+                 <Route path="/dashboard/check-ins" element={<CheckIn />} />
+                 <Route path="/dashboard/room-rates" element={<RoomRates />} />
+               </Route>
+             </Route>
+           </Routes>
+         </Router>
+       </AuthProvider>
+     </Provider>
+   );
 }
 
 export default App;

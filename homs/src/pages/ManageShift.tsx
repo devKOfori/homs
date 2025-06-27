@@ -46,7 +46,7 @@ const ManageShift = () => {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <HStack mb="5">
         <Heading color={"var(--logo-color)"}>Shift Management</Heading>
         <Heading color="var(--logo-color)">
@@ -143,7 +143,7 @@ const ManageShift = () => {
           </Table.Body>
         </Table.Root>
       </Box>
-    </DashboardLayout>
+    </>
   );
 };
 

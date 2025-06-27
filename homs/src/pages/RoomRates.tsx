@@ -5,10 +5,10 @@ import RoomRateList from "../components/RoomRateList";
 
 const RoomRates = () => {
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading="Room Rate" table="roomrate" />
       <RoomRateList />
-    </DashboardLayout>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import roomService from "../services/room-service";
 import { Room } from "./RoomList";
 import { useCheckInContext } from "../contexts/CheckInContext";
+import { useFormContext } from "react-hook-form";
 
 interface DisplayAvailableRoomsProps {
   roomType: string;
@@ -16,13 +17,17 @@ const DisplayAvailableRooms = ({
   const [availableRooms, setAvailableRooms] = useState<Room[]>([]);
   const [error, setError] = useState<string>("");
 
-  const { selectedRoom, setSelectedRoom } = useCheckInContext();
+  const { register, setValue } = useFormContext();
+  const { selectedRoom, setSelectedRoom, activeRate, setActiveRate } =
+    useCheckInContext();
 
   const handleAvailableRoomClick = (roomNumber: string) => {
     if (selectedRoom === roomNumber) {
       setSelectedRoom(""); // Deselect if already selected
     } else {
       setSelectedRoom(roomNumber); // Select the room
+      setValue("room_number", roomNumber); // Update the form context with the selected room
+      register("room_number", { value: selectedRoom }); // Update the form context with the selected room
     }
   };
 
@@ -33,6 +38,7 @@ const DisplayAvailableRooms = ({
     });
     request
       .then((res) => {
+        setError(""); // Clear any previous error
         setAvailableRooms(res.data);
       })
       .catch((err) => {
@@ -40,6 +46,7 @@ const DisplayAvailableRooms = ({
           err.response?.data?.detail ?? "Couldn't load available rooms."
         );
       });
+    return () => cancel();
   }, [roomType, roomCategory]);
   return (
     <>

@@ -33,12 +33,12 @@ const Floors = () => {
     return () => cancel();
   }, []);
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading="Floor" table="floor" />
       <Box>
         <FloorList data={floors} heading="Floor" />
       </Box>
-    </DashboardLayout>
+    </>
   );
 };
 

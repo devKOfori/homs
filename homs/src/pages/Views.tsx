@@ -33,12 +33,12 @@ const Views = () => {
     return () => cancel();
   }, []);
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading="View" table="hotelView" />
       <Box>
         <HotelViewList data={hotelViews} heading="Hotel View" />
       </Box>
-    </DashboardLayout>
+    </>
   );
 };
 

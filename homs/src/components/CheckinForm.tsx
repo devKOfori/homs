@@ -69,11 +69,16 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
     },
   });
 
-  const { getValues, trigger } = methods;
+  const { getValues, trigger, handleSubmit } = methods;
+
+  const onSubmit = async (data: any) => {
+    
+  }
 
   const handleNext = async () => {
     const values = getValues();
     let isValid = false;
+    console.log("formSection", formSection);
     switch (formSection) {
       case 1:
         isValid = checkInGuestInfoSchema.safeParse(values).success;
@@ -83,6 +88,8 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
         break;
       case 2:
         isValid = checkInReservationDetailsSchema.safeParse(values).success;
+        console.log("checkInReservationDetailsSchema", isValid);
+
         if (!isValid) {
           await trigger(Object.keys(checkInReservationDetailsSchema.shape));
         }
@@ -106,7 +113,10 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
   return (
     <>
       <FormProvider {...methods}>
-        <form method="post">
+        <form
+          method="post"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {formSection === 1 ? (
             <CheckinFormGuestDetails />
           ) : formSection === 2 ? (

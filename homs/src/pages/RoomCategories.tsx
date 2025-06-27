@@ -8,7 +8,6 @@ import { CanceledError } from "axios";
 import { useRoomSetup } from "../contexts/RoomSetupProvider";
 
 const RoomCategories = () => {
-  
   // const [roomCategories, setRoomCategories] = useState<Category[]>([]);
 
   const { roomCategories, updateRoomCategories } = useRoomSetup();
@@ -19,10 +18,10 @@ const RoomCategories = () => {
   const heading = "Room Category";
 
   return (
-    <DashboardLayout>
+    <>
       <ActionPageHeader heading={heading} table="roomcategory" />
       <RoomCategoriesList data={roomCategories} heading={heading} />
-    </DashboardLayout>
+    </>
   );
 };
 

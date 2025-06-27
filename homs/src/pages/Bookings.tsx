@@ -16,7 +16,7 @@ const Bookings = () => {
     checkInDate: "",
   });
   return (
-    <DashboardLayout>
+    <>
       {/* <Flex justifyContent={"space-between"}>
         <Heading fontWeight={300} color="var(--header-bg)">
           Bookings
@@ -46,7 +46,7 @@ const Bookings = () => {
         bookingFilters={bookingFilters}
         setBookingFilters={setBookingFilters}
       />
-    </DashboardLayout>
+    </>
   );
 };
 

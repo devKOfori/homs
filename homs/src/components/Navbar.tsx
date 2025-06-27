@@ -20,13 +20,14 @@ const Navbar = () => {
   const logout = () => {
     const request = authService.logout(accessToken ?? "", refreshToken ?? "");
     request.then((_) => {
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("username");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("profileId");
-      localStorage.removeItem("department");
-      localStorage.removeItem("roles");
+      // localStorage.removeItem("refreshToken");
+      // localStorage.removeItem("accessToken");
+      // localStorage.removeItem("username");
+      // localStorage.removeItem("userId");
+      // localStorage.removeItem("profileId");
+      // localStorage.removeItem("department");
+      // localStorage.removeItem("roles");
+      localStorage.clear();
       navigate("/login");
     });
     request.catch((error) => {
