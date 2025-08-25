@@ -21,7 +21,7 @@ const CardDisplayCheckIn = ({ checkIn }: Props) => {
       <Card.Root
         flexDirection={"row"}
         overflow={"hidden"}
-        maxW={"xl"}
+        // maxW={"xl"}
         border={"1px solid #bbbbbbff"}
         shadow={"sm"}
         backgroundColor={"white"}

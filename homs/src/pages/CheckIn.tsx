@@ -5,6 +5,7 @@ import CheckInList from "../components/CheckInList";
 import SearchGuest from "../components/SearchGuest";
 import CardDisplayCheckIn from "../components/CardDisplayCheckIn";
 import { Box } from "@chakra-ui/react";
+import CheckInListCard from "../components/CheckInListCard";
 
 export interface CheckInProps {
   id?: string;
@@ -40,15 +41,17 @@ export interface CheckInProps {
 }
 
 const CheckIn = () => {
+  const [checkIns, setCheckIns] = useState<CheckInProps[]>([]); //retrieve checkIns from context
   return (
     <>
       <ActionPageHeader heading="Check In" table="checkin" />
       <SearchGuest />
       <Box display={{ base: "none", md: "block" }}>
-        <CheckInList />
+        <CheckInList checkIns={checkIns} />
       </Box>
       <Box display={{ base: "block", md: "none" }}>
-        <CardDisplayCheckIn />
+        {/* <CardDisplayCheckIn /> */}
+        <CheckInListCard checkIns={checkIns} />
       </Box>
     </>
   );
