@@ -45,7 +45,7 @@ const CheckIn = () => {
   return (
     <>
       <ActionPageHeader heading="Check In" table="checkin" />
-      <SearchGuest />
+      {/* <SearchGuest /> */}
       <Box display={{ base: "none", md: "block" }}>
         <CheckInList checkIns={checkIns} />
       </Box>
