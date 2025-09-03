@@ -14,6 +14,7 @@ const CheckinFormReservationDetails = () => {
   const {
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useFormContext();
   const { setSelectedRoom, activeRate, setActiveRate } = useCheckInContext();
@@ -32,6 +33,7 @@ const CheckinFormReservationDetails = () => {
     request
       .then((response) => {
         setActiveRate(response.data.rate);
+        setValue("cost_per_night", response.data.rate);
       })
       .catch((error) => {
         console.error("Error fetching room rates:", error);

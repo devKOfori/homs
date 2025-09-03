@@ -1,30 +1,51 @@
-import { HStack, Input } from "@chakra-ui/react";
+import { Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { Field } from "./ui/field";
 import { useBooking } from "../contexts/BookingProvider";
 import { NativeSelectField, NativeSelectRoot } from "./ui/native-select";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormContext } from "react-hook-form";
+import { Button } from "./ui/button";
 
 const CheckinFormGuestDetails = () => {
   const { genders, countries, identificationTypes } = useBooking();
   const {
     register,
+    watch,
+    control,
     formState: { errors },
   } = useFormContext();
+
+  const watchGuestId = watch("guest_id");
+
   return (
     <>
-      <Field label="Booking ID" mb={"10px"}>
-        <Input
-          type="text"
-          placeholder="Booking ID"
-          px="10px"
-          {...register("booking_id")}
-        />
-        {errors.booking_id && (
-          <span style={{ color: "red" }}>{errors.booking_id.message}</span>
-        )}
-      </Field>
+      <HStack>
+        <Field label="Guest ID" mb={"10px"}>
+          <Input
+            type="text"
+            placeholder="Guest ID"
+            px="10px"
+            {...register("guest_id")}
+          />
+          <Text fontSize={"xs"}>Search Guest</Text>
+          {errors.guest_id && (
+            <span style={{ color: "red" }}>{errors.guest_id.message}</span>
+          )}
+        </Field>
+        <Field label="Booking ID" mb={"10px"}>
+          <Input
+            type="text"
+            placeholder="Booking ID"
+            px="10px"
+            {...register("booking_id")}
+          />
+          <Text fontSize={"xs"}>Search Booking</Text>
+          {errors.booking_id && (
+            <span style={{ color: "red" }}>{errors.booking_id.message}</span>
+          )}
+        </Field>
+      </HStack>
       <Field label="Guest Name" mb={"10px"}>
         <Input
           type="text"
@@ -144,6 +165,28 @@ const CheckinFormGuestDetails = () => {
           </span>
         )}
       </Field>
+      {watchGuestId === "Unregistered" && (
+        <Controller
+          control={control}
+          name="register_user"
+          render={({ field }) => (
+            <Checkbox.Root variant={"solid"} colorPalette={"blue"}>
+              <Checkbox.HiddenInput {...field} />
+              <Checkbox.Control>
+                <Checkbox.Indicator />
+              </Checkbox.Control>
+              <Checkbox.Label>Register User</Checkbox.Label>
+            </Checkbox.Root>
+          )}
+        />
+        // <Checkbox.Root variant={"solid"} colorPalette={"blue"}>
+        //   <Checkbox.HiddenInput />
+        //   <Checkbox.Control>
+        //     <Checkbox.Indicator />
+        //   </Checkbox.Control>
+        //   <Checkbox.Label>Register User</Checkbox.Label>
+        // </Checkbox.Root>
+      )}
     </>
   );
 };

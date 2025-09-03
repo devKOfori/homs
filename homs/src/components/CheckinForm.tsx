@@ -10,6 +10,7 @@ import CheckinFormReservationDetails from "./CheckinFormReservationDetails";
 import CheckinFormPaymentDetails from "./CheckinFormPaymentDetails";
 import { Button } from "./ui/button";
 import dayjs from "dayjs";
+import checkInService from "../services/checkIn-service";
 
 interface CheckinFormProps {
   booking?: Booking;
@@ -19,6 +20,7 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
   const [formSection, setFormSection] = useState(1);
 
   const checkInGuestInfoSchema = z.object({
+    guest_id: z.string().nonempty("Guest ID is required"),
     booking_id: z.string().nonempty("Booking ID is required"),
     guest_name: z.string().nonempty("Guest name is required"),
     gender: z.string().nonempty("Gender is required"),
@@ -29,6 +31,7 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
     identification_number: z.string().optional(),
     emergency_contact_name: z.string().optional(),
     emergency_contact_number: z.string().optional(),
+    register_user: z.boolean(),
   });
 
   const checkInReservationDetailsSchema = z.object({
@@ -61,22 +64,32 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
   const methods = useForm({
     resolver: zodResolver(checkInSchema),
     defaultValues: {
+      guest_id: booking?.guest || "Unregistered",
       booking_id: booking?.id || "walk-in",
       check_in_date:
         booking?.check_in_date || dayjs().toISOString().split("T")[0],
       number_of_guests: booking?.number_of_guests || 1,
       number_of_children_guests: booking?.number_of_children_guests || 0,
+      register_user: false,
     },
   });
 
   const { getValues, trigger, handleSubmit } = methods;
 
   const onSubmit = async (data: any) => {
-    
-  }
+    console.log("Final form data:", data);
+    const request = checkInService.createCheckIn(data);
+    request.then((response) => {
+      console.log("Check-in created successfully:", response);
+    });
+    request.catch((error) => {
+      console.error("Error creating check-in:", error);
+    });
+  };
 
   const handleNext = async () => {
     const values = getValues();
+    console.log("values", values);
     let isValid = false;
     console.log("formSection", formSection);
     switch (formSection) {
@@ -113,10 +126,7 @@ const CheckinForm = ({ booking }: CheckinFormProps) => {
   return (
     <>
       <FormProvider {...methods}>
-        <form
-          method="post"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form method="post" onSubmit={handleSubmit(onSubmit)}>
           {formSection === 1 ? (
             <CheckinFormGuestDetails />
           ) : formSection === 2 ? (

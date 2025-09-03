@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 const CheckinFormPaymentDetails = () => {
   const { sponsors, paymentTypes } = useBilling();
-  console.log("Payment Types:", paymentTypes);
+  // console.log("Payment Types:", paymentTypes);
   const { register } = useFormContext();
   return (
     <>
